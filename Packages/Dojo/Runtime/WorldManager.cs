@@ -6,6 +6,7 @@ using dojo_bindings;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using Dojo.Torii;
+using Dojo.Starknet;
 
 namespace Dojo
 {
@@ -34,6 +35,22 @@ namespace Dojo
 
             // listen for entity updates
             synchronizationMaster.RegisterEntityCallbacks();
+
+            var provider = new JsonRpcClient(rpcUrl);
+
+            var signer = new SigningKey("0x1800000000300000180000000000030000000000003006001800006600");
+            string playerAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
+
+            var account = new Starknet.Account(provider, signer, playerAddress);
+            string actionsAddress = "0x152dcff993befafe5001975149d2c50bd9621da7cbaed74f68e7d5e54e65abc";
+            
+            dojo.Call call = new dojo.Call()
+            {
+                to = actionsAddress,
+                selector = "spawn"
+            };
+            
+            account.ExecuteRaw(new[] { call });
         }
 
         // Update is called once per frame

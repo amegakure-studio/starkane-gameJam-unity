@@ -10,6 +10,7 @@ public class Character : MonoBehaviour
     public Tile characterTile;
     [SerializeField]
     LayerMask GroundLayerMask;
+    private Animator animator;
     #endregion
 
     private void Awake()
@@ -18,6 +19,7 @@ public class Character : MonoBehaviour
         {
             FinalizePosition(characterTile);
         }
+        animator = GetComponent<Animator>();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -60,12 +62,14 @@ public class Character : MonoBehaviour
         }
 
         FinalizePosition(path.tilesInPath[pathlength - 1]);
+        animator.SetBool("IsWalking", false);
     }
 
     public void Move(Path _path)
     {
         Moving = true;
         characterTile.Occupied = false;
+        animator.SetBool("IsWalking", true);
         StartCoroutine(MoveThroughPath(_path));
     }
 

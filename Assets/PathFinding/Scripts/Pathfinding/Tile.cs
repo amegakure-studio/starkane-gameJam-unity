@@ -65,10 +65,4 @@ public class Tile : MonoBehaviour
             transform.GetChild(i).gameObject.SetActive(false);
         }
     }
-
-    void OnCollisionEnter(Collision collision)
-    {
-       Debug.Log("Collides");
-       Debug.Log(gameObject.name);
-    }
 }

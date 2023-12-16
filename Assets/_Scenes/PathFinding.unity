@@ -46571,12 +46571,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1382918088}
   m_Mesh: {fileID: 2534964839176971238, guid: 948a519f03ae84f45b675ac716135b39, type: 3}
---- !u!1 &1386245816 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 220303031585184930, guid: 9e62eacb0b934924e996871848be7ecb,
-    type: 3}
-  m_PrefabInstance: {fileID: 220303032095919304}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1391686144
 GameObject:
   m_ObjectHideFlags: 0
@@ -62065,7 +62059,7 @@ Transform:
   m_GameObject: {fileID: 1841479992}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 26, y: 0, z: 0}
+  m_LocalPosition: {x: 26, y: 0.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -73056,11 +73050,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 220303031585184930, guid: 9e62eacb0b934924e996871848be7ecb,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 220303032095919309}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e62eacb0b934924e996871848be7ecb, type: 3}
 --- !u!4 &220303032095919305 stripped
 Transform:
@@ -73068,33 +73058,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 220303032095919304}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &220303032095919309
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1386245816}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!1001 &656790814604489412
 PrefabInstance:
   m_ObjectHideFlags: 0

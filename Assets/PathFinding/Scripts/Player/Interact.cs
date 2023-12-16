@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Interact : MonoBehaviour
 {
@@ -14,11 +15,24 @@ public class Interact : MonoBehaviour
     Tile currentTile;
     Character selectedCharacter;
     Pathfinder pathfinder;
+    private List<Character> characters; 
     #endregion
 
     private void Start()
     {
         mainCam = gameObject.GetComponent<Camera>();
+        characters = new();
+        
+        GameObject[] charactersGo = GameObject.FindGameObjectsWithTag("Player");
+        foreach(GameObject go in charactersGo)
+        {
+            try
+            {
+                Character character = go.GetComponent<Character>();
+                characters.Add(character);
+            }
+            catch {}
+        }
 
         if (pathfinder == null)
             pathfinder = GameObject.Find("Pathfinder").GetComponent<Pathfinder>();
@@ -49,17 +63,20 @@ public class Interact : MonoBehaviour
 
     private void InspectCharacter()
     {
+        foreach(Character character in characters)
+        {
+            if (character.Moving)
+                return;
+        }
+
         Character c = currentTile.occupyingCharacter;
         if( c != null)
         {
-            if (c.Moving)
-            return;
-        }
-        
-        currentTile.SetColor(TileColor.Highlighted);
+            currentTile.SetColor(TileColor.Highlighted);
 
-        if (Input.GetMouseButtonDown(0))
-            SelectCharacter();
+            if (Input.GetMouseButtonDown(0))
+                SelectCharacter();
+        }
     }
 
     private void Clear()

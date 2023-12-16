@@ -60,6 +60,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5135883428725237287, guid: 75d8a2a9f1218c142be237de2a30f667,
         type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5135883428725237287, guid: 75d8a2a9f1218c142be237de2a30f667,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0ebe67fc6cc82e8419bc65ae586031e7, type: 2}
@@ -141,7 +146,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 75d8a2a9f1218c142be237de2a30f667,
         type: 3}
       propertyPath: m_Name
-      value: EnemyModel
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 75d8a2a9f1218c142be237de2a30f667,
         type: 3}

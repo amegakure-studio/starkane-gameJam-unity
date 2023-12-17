@@ -53,6 +53,8 @@ public class TileGenerator : MonoBehaviour
     {
         GameObject newTile = Instantiate(t.gameObject, pos, Quaternion.identity, transform);
         newTile.name = "Tile " + id;
+        
+        newTile.GetComponent<Tile>().coordinate = id;
 
         Debug.Log("Created a tile!");
     }

@@ -16,7 +16,11 @@ public class TileGenerator : MonoBehaviour
 
     Vector2 DetermineTileSize(Bounds tileBounds)
     {
-        return new Vector2((tileBounds.extents.x * 2) * 0.75f, (tileBounds.extents.z * 2));
+        // Works with the hexagonal tiles
+        // return new Vector2((tileBounds.extents.x * 2) * 0.75f, (tileBounds.extents.z * 2));
+        
+        // To use the real size of the mesh
+        return new Vector2((tileBounds.extents.x * 2) * 1f, (tileBounds.extents.z * 2));
     }
 
     public void GenerateGrid(GameObject tile, Vector2Int gridsize)
@@ -32,7 +36,8 @@ public class TileGenerator : MonoBehaviour
                 position.x = transform.position.x + tileSize.x * x;
                 position.z = transform.position.z + tileSize.y * y;
 
-                position.z += OffsetUnevenRow(x, tileSize.y);
+                // Works with the hexagonal tiles
+                //position.z += OffsetUnevenRow(x, tileSize.y);
 
                 CreateTile(tile, position, new Vector2Int(x, y));
             }
@@ -48,6 +53,8 @@ public class TileGenerator : MonoBehaviour
     {
         GameObject newTile = Instantiate(t.gameObject, pos, Quaternion.identity, transform);
         newTile.name = "Tile " + id;
+        
+        newTile.GetComponent<Tile>().coordinate = id;
 
         Debug.Log("Created a tile!");
     }

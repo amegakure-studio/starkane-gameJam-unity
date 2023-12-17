@@ -10,31 +10,31 @@ public class Character : MonoBehaviour
     public Tile characterTile;
     [SerializeField]
     LayerMask GroundLayerMask;
+    private Animator animator;
     #endregion
 
     private void Awake()
     {
-        FindTileAtStart();
-    }
-
-    /// <summary>
-    /// If no starting tile has been manually assigned, we find one beneath us
-    /// </summary>
-    void FindTileAtStart()
-    {
         if (characterTile != null)
         {
             FinalizePosition(characterTile);
-            return;
         }
+        animator = GetComponent<Animator>();
+    }
 
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 50f, GroundLayerMask))
-        {
-            FinalizePosition(hit.transform.GetComponent<Tile>());
-            return;
-        }
-
-        Debug.Log("Unable to find a start position");
+    void OnCollisionEnter(Collision collision)
+    {
+        /// <summary>
+        /// If no starting tile has been manually assigned, we find one beneath us
+        /// </summary>
+       
+       if (characterTile == null)
+       {
+            Tile tile = null;
+            collision.gameObject.TryGetComponent<Tile>(out tile);
+            if(tile != null)
+               FinalizePosition(tile); 
+       }
     }
 
     IEnumerator MoveThroughPath(Path path)
@@ -62,12 +62,14 @@ public class Character : MonoBehaviour
         }
 
         FinalizePosition(path.tilesInPath[pathlength - 1]);
+        animator.SetBool("IsWalking", false);
     }
 
     public void Move(Path _path)
     {
         Moving = true;
         characterTile.Occupied = false;
+        animator.SetBool("IsWalking", true);
         StartCoroutine(MoveThroughPath(_path));
     }
 

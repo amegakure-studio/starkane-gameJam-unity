@@ -26,40 +26,94 @@ public class Pathfinder : MonoBehaviour
     public void FindPaths(Character character)
     {
         ResetPathfinder();
+        Tile currentTile = character.characterTile;
+        currentTile.cost = 0;
 
+        List<Tile> adjacentTiles = new ();
+
+        adjacentTiles =  GetNeighborsInArea(currentTile, 3);
+        foreach (Tile adjacentTile in adjacentTiles)
+            AddTileToFrontier(adjacentTile);
+
+        
+        // adjacentTiles = GetNeighborsWithAngle(currentTile, 3, new Vector2(-1,0));
+        // adjacentTiles = createCrossPath(currentTile, 4);
+        // adjacentTiles = createDiagonalPath(currentTile, 2);
+        // adjacentTiles = create90FStraightPath(currentTile, 2);
+        // adjacentTiles = createSideStraightPath(currentTile, 4);
+        // adjacentTiles = createStepSideStraightPath(currentTile, 2);
+
+        // foreach (Tile adjacentTile in adjacentTiles)
+        //     AddTileToFrontier(adjacentTile);
+
+        illustrator.IllustrateFrontier(currentFrontier);
+    }
+
+
+    public List<Tile> GetNeighborsInArea(Tile tile, int maxDepth)
+    {
+        List<Tile> tiles = new();
         Queue<Tile> openSet = new Queue<Tile>();
-        openSet.Enqueue(character.characterTile);
-        character.characterTile.cost = 0;
-    
+        openSet.Enqueue(tile);
         while (openSet.Count > 0)
         {
             Tile currentTile = openSet.Dequeue();
 
-            foreach (Tile adjacentTile in FindAdjacentTiles(currentTile))
+            foreach (Tile adjacentTile in currentTile.GetNeighbors())
             {
-                if (openSet.Contains(adjacentTile))
+                if (openSet.Contains(adjacentTile) || tiles.Contains(adjacentTile))
                     continue;
 
                 adjacentTile.cost = currentTile.cost + 1;
 
-                if (!IsValidTile(adjacentTile, character.movedata.MaxMove))
+                if (!IsValidTile(adjacentTile, maxDepth))
                     continue;
 
                 adjacentTile.parent = currentTile;
 
                 openSet.Enqueue(adjacentTile);
-                AddTileToFrontier(adjacentTile);
+                tiles.Add(adjacentTile);
+                // AddTileToFrontier(adjacentTile);
             }
         }
+        return tiles;
+    }
 
-        illustrator.IllustrateFrontier(currentFrontier);
+    public List<Tile> GetNeighborsWithAngle(Tile origin, int maxDepth, Vector2 direction)
+    {
+        List<Tile> tiles = new();
+        int actualMove = 0;
+        Tile actualTile = origin;
+        
+        while(actualMove < maxDepth)
+        {
+            List<Tile> neighbors = actualTile.GetNeighbors(new List<Vector2>(){direction});
+            
+            if(neighbors.Count == 0)
+                break;
+            
+            if (!neighbors[0].Occupied)
+            {
+                neighbors[0].parent = null;
+                tiles.Add(neighbors[0]);
+                actualMove += 1;
+            }
+            else
+            {
+                break;
+            }
+
+            actualTile = neighbors[0];  
+        }
+
+        return tiles;
     }
 
     bool IsValidTile(Tile tile, int maxcost)
     {
         bool valid = false;
 
-        if (!currentFrontier.tiles.Contains(tile) && tile.cost <= maxcost)
+        if (tile.cost <= maxcost && !tile.Occupied)
             valid = true;
 
         return valid;
@@ -67,45 +121,15 @@ public class Pathfinder : MonoBehaviour
 
     void AddTileToFrontier(Tile tile)
     {
-        tile.InFrontier = true;
-        currentFrontier.tiles.Add(tile);
-    }
-
-    /// <summary>
-    /// Returns a list of all neighboring hexagonal tiles and ladders
-    /// </summary>
-    /// <param name="origin"></param>
-    /// <returns></returns>
-    private List<Tile> FindAdjacentTiles(Tile origin)
-    {
-        List<Tile> tiles = new List<Tile>();
-        Vector3 direction = Vector3.forward;
-        float rayLength = 50f;
-        float rayHeightOffset = 1f;
-
-        //Rotate a raycast in 60 degree steps and find all adjacent tiles
-        for (int i = 0; i < 6; i++)
+        if(!currentFrontier.tiles.Contains(tile))
         {
-            direction = Quaternion.Euler(0f, 60f, 0f) * direction;
-
-            Vector3 aboveTilePos = (origin.transform.position + direction).With(y: origin.transform.position.y + rayHeightOffset);
-
-            if (Physics.Raycast(aboveTilePos, Vector3.down, out RaycastHit hit, rayLength, tileMask))
-            {
-                Tile hitTile = hit.transform.GetComponent<Tile>();
-                if (hitTile.Occupied == false)
-                    tiles.Add(hitTile);
-            }
+            tile.InFrontier = true;
+            currentFrontier.tiles.Add(tile);
         }
-
-        if (origin.connectedTile != null)
-            tiles.Add(origin.connectedTile);
-
-        return tiles;
     }
 
     /// <summary>
-    /// Called by Interact.cs to create a path between two tiles on the grid 
+    /// Called by Interact.cs to create a path between two tiles on the grid
     /// </summary>
     /// <param name="dest"></param>
     /// <param name="source"></param>
@@ -157,5 +181,125 @@ public class Pathfinder : MonoBehaviour
         }
 
         currentFrontier.tiles.Clear();
+    }
+
+    private List<Tile> createCustomPath(Tile origin, int maxDepth, List<Vector2> directions)
+    {
+        List<Tile> result =  new();
+        List<Tile> adjacentTiles =  new();
+
+        foreach(Vector2 direction in directions)
+        {
+            adjacentTiles = GetNeighborsWithAngle(origin, maxDepth, direction);
+            
+            foreach(Tile tile in adjacentTiles)
+                result.Add(tile);
+        }
+
+        return result;
+    }
+
+
+    // Make this path: (where c is the character)
+    //  -
+    // -C-
+    //  -
+    private List<Tile> createCrossPath(Tile origin, int maxDepth)
+    {
+        List<Vector2> directions = new List<Vector2>
+        {
+            new Vector2(1, 0),
+            new Vector2(0, 1),
+            new Vector2(-1, 0),
+            new Vector2(0, -1)
+        };
+
+        return createCustomPath(origin, maxDepth, directions);
+    }
+
+
+    // Make this path: (where c is the character)
+    // - -
+    //  C
+    // - -
+    private List<Tile> createDiagonalPath(Tile origin, int maxDepth)
+    {
+        List<Vector2> directions = new List<Vector2>
+        {
+            new Vector2(1, 1),
+            new Vector2(-1, 1),
+            new Vector2(-1, -1),
+            new Vector2(1, -1)
+        };
+
+        return createCustomPath(origin, maxDepth, directions);
+    }
+
+
+    // Make this path: (where c is the character)
+    //  
+    // C- (maxDepth time)
+    private List<Tile> create90FStraightPath(Tile origin, int maxDepth)
+    {
+        List<Vector2> directions = new List<Vector2>
+        {
+            new Vector2(1, 0)
+        };
+
+        return createCustomPath(origin, maxDepth, directions);
+    }
+
+    // Make this path: (where c is the character)
+    //  -
+    // C-
+    //  -
+    private List<Tile> createSideStraightPath(Tile origin, int maxDepth)
+    {
+        List<Tile> results = new();
+
+        List<Tile> originNeighborns = origin.GetNeighbors(new List<Vector2>{new Vector2(1,0)});
+        
+        if(originNeighborns.Count > 0)
+        {
+            originNeighborns[0].parent = origin;
+            results.Add(originNeighborns[0]);
+            List<Vector2> directions = new List<Vector2>
+            {
+                new Vector2(0, 1),
+                new Vector2(0, -1)
+            };
+
+            foreach(Tile tile in createCustomPath(originNeighborns[0], maxDepth/2, directions))
+            {
+                tile.parent = originNeighborns[0];
+                results.Add(tile);
+            }
+                
+        }
+        
+        return results;
+    }
+
+    // Make this path: (where c is the character)
+    //   -
+    // C--
+    //   -
+    private List<Tile> createStepSideStraightPath(Tile origin, int maxDepth)
+    {
+        List<Tile> results = new();
+
+        List<Tile> originNeighborns = origin.GetNeighbors(new List<Vector2>{new Vector2(1,0)});
+        
+        if(originNeighborns.Count > 0)
+        {
+            results.Add(originNeighborns[0]);
+            foreach(Tile tile in createSideStraightPath(originNeighborns[0], maxDepth))
+            {
+                // tile.parent = originNeighborns[0];
+                results.Add(tile);
+            }
+        }
+
+        return results;
     }
 }

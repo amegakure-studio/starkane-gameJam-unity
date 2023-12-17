@@ -26,15 +26,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 940c228c9f103c54a84bc890617652eb, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 940c228c9f103c54a84bc890617652eb, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 940c228c9f103c54a84bc890617652eb, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 940c228c9f103c54a84bc890617652eb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -492,6 +492,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Avelyn
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 940c228c9f103c54a84bc890617652eb, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3477820290739764068, guid: 940c228c9f103c54a84bc890617652eb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -2.8302402
@@ -798,6 +802,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 940c228c9f103c54a84bc890617652eb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6607479364340255996}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 940c228c9f103c54a84bc890617652eb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2377523224424456067}
   m_SourcePrefab: {fileID: 100100000, guid: 940c228c9f103c54a84bc890617652eb, type: 3}
 --- !u!1 &3659877405080767468 stripped
 GameObject:
@@ -824,9 +831,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.19606413
-  m_Height: 0.90999997
+  m_Height: 0.9215585
   m_Direction: 1
-  m_Center: {x: 0, y: 0.44, z: -0.08265321}
+  m_Center: {x: 0, y: 0.43422073, z: -0.08265321}
 --- !u!54 &6607479364340255996
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -854,3 +861,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &2377523224424456067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659877405080767468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 453a1124258b2f94e9500310d8a6ec04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movedata: {fileID: 11400000, guid: dd6f1c9025f1ba945b2082ff9cda2f56, type: 2}
+  characterTile: {fileID: 0}
+  GroundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8

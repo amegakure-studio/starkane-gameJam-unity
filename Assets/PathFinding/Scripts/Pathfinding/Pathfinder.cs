@@ -31,18 +31,11 @@ public class Pathfinder : MonoBehaviour
 
         // FindAdjacentTilesArea(currentTile, 4);
     
-        List<float> allowedAngles = new(){90f, 180f, 270f, 360f};
-        List<Tile> adjacentTiles =  new();
-        
-        foreach(float angle in allowedAngles)
-        {
-            adjacentTiles = FindAdjacentTilesWithAngle(character.characterTile, angle, 5);
-        
-            foreach (Tile adjacentTile in adjacentTiles)
-            {       
-                AddTileToFrontier(adjacentTile);
-            }
-        }
+        // List<Tile> adjacentTiles = createCrossPath(currentTile, 3);
+        List<Tile> adjacentTiles = createDobuleSideUpDownStraightPath(currentTile, 2);
+
+        foreach (Tile adjacentTile in adjacentTiles)
+            AddTileToFrontier(adjacentTile);
 
         illustrator.IllustrateFrontier(currentFrontier);
     }
@@ -148,7 +141,10 @@ public class Pathfinder : MonoBehaviour
                 {
                     tile = hitTile;
                     if(!this.currentFrontier.tiles.Contains(hitTile))
+                    {
+                        Debug.Log("aca");
                         tiles.Add(tile);
+                    }
                     
                     tile.parent = null;
 
@@ -165,7 +161,6 @@ public class Pathfinder : MonoBehaviour
                 break;
             
             direction = Vector3.forward;
-            
         }
         
         return tiles;
@@ -225,4 +220,110 @@ public class Pathfinder : MonoBehaviour
 
         currentFrontier.tiles.Clear();
     }
+
+    private List<Tile> createCrossPath(Tile origin, int maxDepth)
+    {
+        List<float> allowedAngles = new(){90f, 180f, 270f, 360f};
+        List<Tile> result =  new();
+        List<Tile> adjacentTiles =  new();
+        
+        foreach(float angle in allowedAngles)
+        {
+            adjacentTiles = FindAdjacentTilesWithAngle(origin, angle, maxDepth);
+            foreach(Tile tile in adjacentTiles)
+                result.Add(tile);
+        }        
+
+        return result;
+    }
+
+
+    private List<Tile> createDiagonalPath(Tile origin, int maxDepth)
+    {
+        List<float> allowedAngles = new(){45f, 135f, 225f, 315f};
+        List<Tile> result =  new();
+        List<Tile> adjacentTiles =  new();
+        
+        foreach(float angle in allowedAngles)
+        {
+            adjacentTiles = FindAdjacentTilesWithAngle(origin, angle, maxDepth);
+            foreach(Tile tile in adjacentTiles)
+                result.Add(tile);
+        }        
+
+        return result;
+    }
+
+    private List<Tile> createStraightPath(Tile origin, float angle, int maxDepth)
+    {
+        List<Tile> adjacentTiles =  new();
+        
+        return FindAdjacentTilesWithAngle(origin, angle, maxDepth);
+    }
+
+    private List<Tile> create90FStraightPath(Tile origin, int maxDepth)
+    {
+        List<Tile> adjacentTiles =  new();
+        
+        return FindAdjacentTilesWithAngle(origin, 90f, maxDepth);
+    }
+
+    private List<Tile> createUpDownStraightPath(Tile origin, int maxDepth)
+    {
+        List<float> allowedAngles = new(){180f, 360f};
+        List<Tile> result =  new();
+        List<Tile> adjacentTiles =  new();
+        foreach(float angle in allowedAngles)
+        {
+            adjacentTiles = FindAdjacentTilesWithAngle(origin, angle, maxDepth/2);
+            foreach(Tile tile in adjacentTiles)
+                result.Add(tile);
+        }        
+        
+        return result;
+    }
+
+    private List<Tile> createSideUpDownStraightPath(Tile origin, int maxDepth)
+    {
+        List<Tile> tiles = create90FStraightPath(origin, 1);
+        Tile tile = null;
+        foreach (Tile _tile in tiles)
+            tile = _tile;
+    
+        if(tile != null)
+        {
+            tile.cost = 0;   
+            tile.parent = origin;
+            List<Tile> adjacentTiles = createUpDownStraightPath(tile, maxDepth);
+            if(adjacentTiles.Count < 0)
+                return tiles;
+            else
+            {
+                adjacentTiles.Add(tile);
+                return adjacentTiles;
+            }
+        }
+        return tiles;
+    }
+
+
+    private List<Tile> createDobuleSideUpDownStraightPath(Tile origin, int maxDepth)
+    {
+        // TODO: Verify parents!
+        List<Tile> tiles = create90FStraightPath(origin, 1);
+        Tile tile = null;
+        foreach (Tile _tile in tiles)
+            tile = _tile;
+        
+        if(tile != null)
+        {
+            List<Tile> adjacentTiles =  createSideUpDownStraightPath(tile, maxDepth);
+            adjacentTiles.Add(tile);
+            return adjacentTiles; 
+        }
+        else
+            return tiles;
+    }
+
+
 }

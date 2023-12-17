@@ -11,6 +11,7 @@ public class Character : MonoBehaviour
     [SerializeField]
     LayerMask GroundLayerMask;
     private Animator animator;
+    private Collider collider;
     #endregion
 
     private void Awake()
@@ -19,15 +20,13 @@ public class Character : MonoBehaviour
         {
             FinalizePosition(characterTile);
         }
+        
         animator = GetComponent<Animator>();
+        collider = GetComponent<Collider>();
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        /// <summary>
-        /// If no starting tile has been manually assigned, we find one beneath us
-        /// </summary>
-       
        if (characterTile == null)
        {
             Tile tile = null;
@@ -35,6 +34,8 @@ public class Character : MonoBehaviour
             if(tile != null)
                FinalizePosition(tile); 
        }
+
+       Physics.IgnoreCollision(collider, collision.collider);
     }
 
     IEnumerator MoveThroughPath(Path path)

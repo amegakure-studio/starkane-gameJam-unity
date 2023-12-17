@@ -26,11 +26,31 @@ public class Pathfinder : MonoBehaviour
     public void FindPaths(Character character)
     {
         ResetPathfinder();
+        Tile currentTile = character.characterTile;
+        currentTile.cost = 0;
 
-        Queue<Tile> openSet = new Queue<Tile>();
-        openSet.Enqueue(character.characterTile);
-        character.characterTile.cost = 0;
+        // FindAdjacentTilesArea(currentTile, 4);
     
+        List<float> allowedAngles = new(){90f, 180f, 270f, 360f};
+        List<Tile> adjacentTiles =  new();
+        
+        foreach(float angle in allowedAngles)
+        {
+            adjacentTiles = FindAdjacentTilesWithAngle(character.characterTile, angle, 5);
+        
+            foreach (Tile adjacentTile in adjacentTiles)
+            {       
+                AddTileToFrontier(adjacentTile);
+            }
+        }
+
+        illustrator.IllustrateFrontier(currentFrontier);
+    }
+
+    public void FindAdjacentTilesArea(Tile tile, int maxDepth)
+    {
+        Queue<Tile> openSet = new Queue<Tile>();
+        openSet.Enqueue(tile);
         while (openSet.Count > 0)
         {
             Tile currentTile = openSet.Dequeue();
@@ -42,17 +62,15 @@ public class Pathfinder : MonoBehaviour
 
                 adjacentTile.cost = currentTile.cost + 1;
 
-                if (!IsValidTile(adjacentTile, character.movedata.MaxMove))
+                if (!IsValidTile(adjacentTile, maxDepth))
                     continue;
-
+    
                 adjacentTile.parent = currentTile;
 
                 openSet.Enqueue(adjacentTile);
                 AddTileToFrontier(adjacentTile);
             }
         }
-
-        illustrator.IllustrateFrontier(currentFrontier);
     }
 
     bool IsValidTile(Tile tile, int maxcost)
@@ -84,16 +102,16 @@ public class Pathfinder : MonoBehaviour
         float rayHeightOffset = 1f;
 
         //Rotate a raycast in 60 degree steps and find all adjacent tiles
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 8; i++)
         {
-            direction = Quaternion.Euler(0f, 60f, 0f) * direction;
+            direction = Quaternion.Euler(0f, 45f, 0f) * direction;
 
             Vector3 aboveTilePos = (origin.transform.position + direction).With(y: origin.transform.position.y + rayHeightOffset);
 
             if (Physics.Raycast(aboveTilePos, Vector3.down, out RaycastHit hit, rayLength, tileMask))
             {
                 Tile hitTile = hit.transform.GetComponent<Tile>();
-                if (hitTile.Occupied == false)
+                if (!hitTile.Occupied)
                     tiles.Add(hitTile);
             }
         }
@@ -101,6 +119,55 @@ public class Pathfinder : MonoBehaviour
         if (origin.connectedTile != null)
             tiles.Add(origin.connectedTile);
 
+        return tiles;
+    }
+
+    private List<Tile> FindAdjacentTilesWithAngle(Tile origin, float initialAngle, int maxMove)
+    {
+        List<Tile> tiles = new();
+        Vector3 direction = Vector3.forward;
+        float rayLength = 50f;
+        float rayHeightOffset = 1f;
+        Tile tile = null;
+        int actualMove = 0;
+
+        while(actualMove < maxMove)
+        {
+            if (origin.connectedTile != null)
+                tiles.Add(origin.connectedTile);
+
+            direction = Quaternion.Euler(0f, initialAngle, 0f) * direction;
+            Vector3 aboveTilePos = (origin.transform.position + direction).With(y: origin.transform.position.y + rayHeightOffset);
+            
+            // Debug.DrawRay(aboveTilePos, Vector3.down, Color.blue, 10);
+
+            if (Physics.Raycast(aboveTilePos, Vector3.down, out RaycastHit hit, rayLength, tileMask))
+            {
+                Tile hitTile = hit.transform.GetComponent<Tile>();
+                if (!hitTile.Occupied)
+                {
+                    tile = hitTile;
+                    if(!this.currentFrontier.tiles.Contains(hitTile))
+                        tiles.Add(tile);
+                    
+                    tile.parent = null;
+
+                    actualMove += 1;
+                }
+                else
+                {
+                    break;
+                }
+
+                origin = hitTile;   
+            }
+            else
+                break;
+            
+            direction = Vector3.forward;
+            
+        }
+        
         return tiles;
     }
 

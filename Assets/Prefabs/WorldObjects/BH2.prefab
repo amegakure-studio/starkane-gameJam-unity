@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 499614266889010600}
   - component: {fileID: 4296228381925438705}
   - component: {fileID: 5181512953197682844}
+  - component: {fileID: 7085410652110058301}
+  - component: {fileID: 1117189316928726036}
+  - component: {fileID: 3138850320566438240}
   m_Layer: 0
   m_Name: BH2
   m_TagString: Untagged
@@ -85,3 +88,66 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7085410652110058301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2425568261988410351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aa51a57143fdce0da45addcbe9ebcf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GroundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!65 &1117189316928726036
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2425568261988410351}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.057703506, y: 0.042538423, z: 0.044685308}
+  m_Center: {x: 0.014648544, y: 0.000011235575, z: 0.02229772}
+--- !u!205 &3138850320566438240
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2425568261988410351}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 1
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.71458817
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 5181512953197682844}
+  - screenRelativeHeight: 0.37151238
+    fadeTransitionWidth: 0.25
+    renderers:
+    - renderer: {fileID: 5181512953197682844}
+  - screenRelativeHeight: 0.11188528
+    fadeTransitionWidth: 0.5
+    renderers:
+    - renderer: {fileID: 5181512953197682844}
+  m_Enabled: 1

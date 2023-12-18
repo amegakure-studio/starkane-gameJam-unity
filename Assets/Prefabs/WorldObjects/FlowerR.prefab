@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1247479292913213166}
   - component: {fileID: 2227656763481829710}
   - component: {fileID: 1013316218739246811}
+  - component: {fileID: 7651552685941457373}
   m_Layer: 0
   m_Name: FlowerR
   m_TagString: Untagged
@@ -83,3 +84,30 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!205 &7651552685941457373
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7779478883865051210}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.00005396086, y: 0.0013415368, z: -0.00006377144}
+  m_Size: 0.002683407
+  m_FadeMode: 1
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.25199097
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1013316218739246811}
+  - screenRelativeHeight: 0.12004308
+    fadeTransitionWidth: 0.25
+    renderers:
+    - renderer: {fileID: 1013316218739246811}
+  - screenRelativeHeight: 0.022739269
+    fadeTransitionWidth: 0.5
+    renderers:
+    - renderer: {fileID: 1013316218739246811}
+  m_Enabled: 1

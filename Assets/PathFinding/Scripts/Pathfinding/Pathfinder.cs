@@ -31,7 +31,7 @@ public class Pathfinder : MonoBehaviour
 
         List<Tile> adjacentTiles = new ();
 
-        adjacentTiles =  GetNeighborsInArea(currentTile, 3);
+        adjacentTiles =  GetNeighborsInArea(currentTile, character.movedata.MaxMove);
         foreach (Tile adjacentTile in adjacentTiles)
             AddTileToFrontier(adjacentTile);
 

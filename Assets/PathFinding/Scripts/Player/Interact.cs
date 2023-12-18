@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Interact : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class Interact : MonoBehaviour
     Character selectedCharacter;
     Pathfinder pathfinder;
     private List<Character> characters; 
+    private bool hasColorChangedStarted = false;
+    private List<Tile> changedColorTiles = new();
     #endregion
 
     private void Start()
@@ -81,6 +84,22 @@ public class Interact : MonoBehaviour
 
     private void Clear()
     {
+        if(!hasColorChangedStarted && currentTile != null && currentTile.CanBeReached)
+        {
+            foreach(Tile tile in changedColorTiles)
+            {
+                if(tile.Occupied)
+                {
+                    tile.ClearColor();
+                }  
+                else
+                {
+                    tile.SetColor(TileColor.Green);
+                }
+            }
+            changedColorTiles.Clear();
+        }
+
         if (currentTile == null  || currentTile.Occupied == false)
             return;
 
@@ -97,6 +116,9 @@ public class Interact : MonoBehaviour
 
     private void NavigateToTile()
     {
+        if(currentTile.CanBeReached && !hasColorChangedStarted && !currentTile.Occupied)
+            StartCoroutine(MouseOnHover());
+
         if (selectedCharacter == null)
             return;
 
@@ -112,5 +134,18 @@ public class Interact : MonoBehaviour
             pathfinder.ResetPathfinder();
             selectedCharacter = null;
         }
+    }
+    
+    private IEnumerator MouseOnHover()
+    {
+            hasColorChangedStarted = true;
+            currentTile.SetColor(TileColor.Highlighted);
+            
+            changedColorTiles.Add(currentTile);
+
+            yield return null;
+            
+            hasColorChangedStarted = false;
+            
     }
 }

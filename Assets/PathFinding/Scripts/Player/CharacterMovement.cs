@@ -66,7 +66,7 @@ public class CharacterMovement : MonoBehaviour
         m_Animator.SetBool("IsWalking", false);       
     }
 
-    public void Move(Tile target)
+    public void GoTo(Tile target)
     {
         if (CanReachTile(target)) 
         { 

@@ -115,7 +115,7 @@ public class Interact : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             GetComponent<AudioSource>().PlayOneShot(click);
-            selectedCharacter.Move(currentTile);          
+            selectedCharacter.GoTo(currentTile);          
             selectedCharacter = null;
         }
     }

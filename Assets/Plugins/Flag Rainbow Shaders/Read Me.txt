@@ -1,0 +1,8 @@
+After importing into your project, You will find Sample Materials for the two shaders Flag & Rainbow inside:
+Plugins\Flag Rainbow Shaders folder
+Notes:
+- Flag texture must have wrap mode set to repeat
+- Checkout the Demo scene for glow effect which will require URP package installed
+
+Watch the video for details:
+https://youtu.be/iWCNP5jvmkI

@@ -22,16 +22,15 @@ public class Pathfinder : MonoBehaviour
     /// Main pathfinding function, marks tiles as being in frontier, while keeping a copy of the frontier
     /// in "currentFrontier" for later clearing
     /// </summary>
-    /// <param name="character"></param>
-    public void FindPaths(Character character)
+    public void FindPaths(Tile target, int maxMove)
     {
         ResetPathfinder();
-        Tile currentTile = character.characterTile;
+        Tile currentTile = target;
         currentTile.cost = 0;
 
         List<Tile> adjacentTiles = new ();
 
-        adjacentTiles =  GetNeighborsInArea(currentTile, character.movedata.MaxMove);
+        adjacentTiles =  GetNeighborsInArea(currentTile, maxMove);
         foreach (Tile adjacentTile in adjacentTiles)
             AddTileToFrontier(adjacentTile);
 

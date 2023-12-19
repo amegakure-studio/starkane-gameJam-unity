@@ -8,7 +8,7 @@ public class Tile : MonoBehaviour
     #region member fields
     public Tile parent;
     public Tile connectedTile;
-    public Character occupyingCharacter;
+    public CharacterMovement occupyingCharacter;
     public float cost;
     public Vector2Int coordinate;
 

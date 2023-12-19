@@ -91,7 +91,7 @@ public class GridEditor : EditorWindow
 
         if (Physics.Raycast(character.transform.position, Vector3.down, out RaycastHit hit, 5f))
         {
-            character.GetComponent<Character>().characterTile = hit.transform.GetComponent<Tile>();
+            character.GetComponent<CharacterMovement>().Location = hit.transform.GetComponent<Tile>();
         }
 
     }

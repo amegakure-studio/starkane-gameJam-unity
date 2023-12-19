@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 
 public class Interact : MonoBehaviour
 {
@@ -14,31 +15,17 @@ public class Interact : MonoBehaviour
 
     Camera mainCam;
     Tile currentTile;
-    Character selectedCharacter;
-    Pathfinder pathfinder;
-    private List<Character> characters; 
+    CharacterMovement selectedCharacter;
+    private List<CharacterMovement> characters; 
     private bool hasColorChangedStarted = false;
     private List<Tile> changedColorTiles = new();
     #endregion
 
     private void Start()
     {
-        mainCam = gameObject.GetComponent<Camera>();
-        characters = new();
-        
-        GameObject[] charactersGo = GameObject.FindGameObjectsWithTag("Player");
-        foreach(GameObject go in charactersGo)
-        {
-            try
-            {
-                Character character = go.GetComponent<Character>();
-                characters.Add(character);
-            }
-            catch {}
-        }
-
-        if (pathfinder == null)
-            pathfinder = GameObject.Find("Pathfinder").GetComponent<Pathfinder>();
+        mainCam = gameObject.GetComponent<Camera>();    
+        characters = GameObject.FindObjectsOfType<CharacterMovement>().ToList();
+        characters ??= new List<CharacterMovement>();
     }
 
     private void Update()
@@ -66,13 +53,13 @@ public class Interact : MonoBehaviour
 
     private void InspectCharacter()
     {
-        foreach(Character character in characters)
+        foreach(CharacterMovement character in characters)
         {
             if (character.Moving)
                 return;
         }
 
-        Character c = currentTile.occupyingCharacter;
+        CharacterMovement c = currentTile.occupyingCharacter;
         if( c != null)
         {
             currentTile.SetColor(TileColor.Highlighted);
@@ -100,7 +87,7 @@ public class Interact : MonoBehaviour
             changedColorTiles.Clear();
         }
 
-        if (currentTile == null  || currentTile.Occupied == false)
+        if (currentTile == null  || !currentTile.Occupied)
             return;
 
         currentTile.ClearColor();
@@ -110,28 +97,25 @@ public class Interact : MonoBehaviour
     private void SelectCharacter()
     {
         selectedCharacter = currentTile.occupyingCharacter;
-        pathfinder.FindPaths(selectedCharacter);
+        selectedCharacter.FindPaths(currentTile);
         GetComponent<AudioSource>().PlayOneShot(pop);
     }
 
     private void NavigateToTile()
     {
-        if(currentTile.CanBeReached && !hasColorChangedStarted && !currentTile.Occupied)
-            StartCoroutine(MouseOnHover());
-
         if (selectedCharacter == null)
             return;
 
-        if (selectedCharacter.Moving == true || currentTile.CanBeReached == false)
+        if (selectedCharacter.Moving || !currentTile.CanBeReached)
             return;
 
-        Path currentPath = pathfinder.PathBetween(currentTile, selectedCharacter.characterTile);
-
+        if (selectedCharacter.CanReachTile(currentTile) && !hasColorChangedStarted)
+            StartCoroutine(MouseOnHover());
+        
         if (Input.GetMouseButtonDown(0))
         {
             GetComponent<AudioSource>().PlayOneShot(click);
-            selectedCharacter.Move(currentPath);
-            pathfinder.ResetPathfinder();
+            selectedCharacter.Move(currentTile);          
             selectedCharacter = null;
         }
     }

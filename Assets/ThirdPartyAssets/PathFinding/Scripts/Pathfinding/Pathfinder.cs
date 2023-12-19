@@ -5,18 +5,16 @@ using UnityEngine;
 public class Pathfinder : MonoBehaviour
 {
     #region member fields
-    PathIllustrator illustrator;
-    [SerializeField]
-    LayerMask tileMask;
+    //[SerializeField] string tileMaskName = "Tile";
 
-    Frontier currentFrontier = new Frontier();
+    Frontier currentFrontier = new();
+    //LayerMask tileMask;
     #endregion
 
-    private void Start()
-    {
-        if (illustrator == null)
-            illustrator = GetComponent<PathIllustrator>();
-    }
+    //private void Awake()
+    //{
+    //    tileMask = LayerMask.NameToLayer(tileMaskName);
+    //}
 
     /// <summary>
     /// Main pathfinding function, marks tiles as being in frontier, while keeping a copy of the frontier
@@ -34,7 +32,7 @@ public class Pathfinder : MonoBehaviour
         foreach (Tile adjacentTile in adjacentTiles)
             AddTileToFrontier(adjacentTile);
 
-        
+
         // adjacentTiles = GetNeighborsWithAngle(currentTile, 3, new Vector2(-1,0));
         // adjacentTiles = createCrossPath(currentTile, 4);
         // adjacentTiles = createDiagonalPath(currentTile, 2);
@@ -45,7 +43,12 @@ public class Pathfinder : MonoBehaviour
         // foreach (Tile adjacentTile in adjacentTiles)
         //     AddTileToFrontier(adjacentTile);
 
-        illustrator.IllustrateFrontier(currentFrontier);
+        Dictionary<string, object> context = new()
+        {
+            { "Frontier", currentFrontier }
+        };
+
+        EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_UPDATED, context);
     }
 
 
@@ -136,7 +139,14 @@ public class Pathfinder : MonoBehaviour
     public Path PathBetween(Tile dest, Tile source)
     {
         Path path = MakePath(dest, source);
-        illustrator.IllustratePath(path);
+
+        Dictionary<string, object> context = new()
+        {
+            { "Path", path }
+        };
+
+        EventManager.Instance.Publish(GameEvent.PATH_UPDATED, context);
+
         return path;
     }
 
@@ -171,7 +181,7 @@ public class Pathfinder : MonoBehaviour
 
     public void ResetPathfinder()
     {
-        illustrator.Clear();
+        EventManager.Instance.Publish(GameEvent.PATH_RESET, new Dictionary<string, object>());
 
         foreach (Tile item in currentFrontier.tiles)
         {

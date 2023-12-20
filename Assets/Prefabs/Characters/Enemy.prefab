@@ -408,7 +408,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 75d8a2a9f1218c142be237de2a30f667,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6916695749051445688}
+      addedObject: {fileID: 4694264621487775475}
   m_SourcePrefab: {fileID: 100100000, guid: 75d8a2a9f1218c142be237de2a30f667, type: 3}
 --- !u!1 &8778194730690118490 stripped
 GameObject:
@@ -466,7 +466,7 @@ CapsuleCollider:
   m_Height: 0.98594743
   m_Direction: 1
   m_Center: {x: 0.0047193477, y: 0.41302457, z: 0.023615105}
---- !u!114 &6916695749051445688
+--- !u!114 &4694264621487775475
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -475,10 +475,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8778194730690118490}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42a09e1a7ba44c48e9618dc265f047e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c7464391ae005745bc12231b5d1a0d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vfxInteractPrefab: {fileID: 3280519133390621005, guid: a71be3e7990efb040a07565c43cbb198,
-    type: 3}
+  vfxInteractPrefab: {fileID: 0}
   sfxInteract: {fileID: 0}
   sfxUninteract: {fileID: 0}
+  interactableBehaviour: {fileID: 0}

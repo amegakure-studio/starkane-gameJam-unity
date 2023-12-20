@@ -1,20 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PathIllustrator))]
-public class Pathfinder : MonoBehaviour
+public class Pathfinder
 {
     #region member fields
-    //[SerializeField] string tileMaskName = "Tile";
 
     Frontier currentFrontier = new();
-    //LayerMask tileMask;
-    #endregion
 
-    //private void Awake()
-    //{
-    //    tileMask = LayerMask.NameToLayer(tileMaskName);
-    //}
+    #endregion
 
     /// <summary>
     /// Main pathfinding function, marks tiles as being in frontier, while keeping a copy of the frontier

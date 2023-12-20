@@ -9,7 +9,7 @@ public class CharacterMovement : MonoBehaviour
 
     [SerializeField] CharacterMoveData moveData;
     private Tile m_Location;
-    private Pathfinder pathfinder;
+    private Pathfinder m_Pathfinder;
     private Animator m_Animator;
     private Collider m_Collider;
     #endregion
@@ -18,11 +18,7 @@ public class CharacterMovement : MonoBehaviour
     {       
         m_Animator = GetComponent<Animator>();
         m_Collider = GetComponent<Collider>();
-    }
-    private void Start()
-    {
-        if (pathfinder == null)
-            pathfinder = GameObject.Find("Pathfinder").GetComponent<Pathfinder>();
+        m_Pathfinder = new();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -70,13 +66,13 @@ public class CharacterMovement : MonoBehaviour
     {
         if (CanReachTile(target)) 
         { 
-            Path path = pathfinder.PathBetween(target, Location);
+            Path path = m_Pathfinder.PathBetween(target, Location);
 
             Moving = true;
             Location.Occupied = false;
             m_Animator.SetBool("IsWalking", true);
             StartCoroutine(MoveThroughPath(path));
-            pathfinder.ResetPathfinder();      
+            m_Pathfinder.ResetPathfinder();      
         }
     }
 
@@ -87,7 +83,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void FindPaths(Tile target)
     {
-        pathfinder.FindPaths(target, moveData.MaxMove);
+        m_Pathfinder.FindPaths(target, moveData.MaxMove);
     }
 
     void FinalizePosition(Tile tile)

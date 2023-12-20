@@ -62,30 +62,30 @@ public class Interact : MonoBehaviour
         CharacterMovement c = currentTile.occupyingCharacter;
         if( c != null)
         {
-            currentTile.SetColor(TileColor.Highlighted);
+            //currentTile.SetColor(TileColor.Highlighted);
 
-            if (Input.GetMouseButtonDown(0))
-                SelectCharacter();
+            //if (Input.GetMouseButtonDown(0))
+            //    SelectCharacter();
         }
     }
 
     private void Clear()
     {
-        if(!hasColorChangedStarted && currentTile != null && currentTile.CanBeReached)
-        {
-            foreach(Tile tile in changedColorTiles)
-            {
-                if(tile.Occupied)
-                {
-                    tile.ClearColor();
-                }  
-                else
-                {
-                    tile.SetColor(TileColor.Green);
-                }
-            }
-            changedColorTiles.Clear();
-        }
+        //if(!hasColorChangedStarted && currentTile != null && currentTile.CanBeReached)
+        //{
+        //    foreach(Tile tile in changedColorTiles)
+        //    {
+        //        if(tile.Occupied)
+        //        {
+        //            tile.ClearColor();
+        //        }  
+        //        else
+        //        {
+        //            tile.SetColor(TileColor.Green);
+        //        }
+        //    }
+        //    changedColorTiles.Clear();
+        //}
 
         if (currentTile == null  || !currentTile.Occupied)
             return;
@@ -109,8 +109,8 @@ public class Interact : MonoBehaviour
         if (selectedCharacter.Moving || !currentTile.CanBeReached)
             return;
 
-        if (selectedCharacter.CanReachTile(currentTile) && !hasColorChangedStarted)
-            StartCoroutine(MouseOnHover());
+        //if (selectedCharacter.CanReachTile(currentTile) && !hasColorChangedStarted)
+        //    StartCoroutine(MouseOnHover());
         
         if (Input.GetMouseButtonDown(0))
         {
@@ -129,7 +129,6 @@ public class Interact : MonoBehaviour
 
             yield return null;
             
-            hasColorChangedStarted = false;
-            
+            hasColorChangedStarted = false;          
     }
 }

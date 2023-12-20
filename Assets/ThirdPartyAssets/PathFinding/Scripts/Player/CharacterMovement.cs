@@ -30,8 +30,6 @@ public class CharacterMovement : MonoBehaviour
             if (tile != null)
                FinalizePosition(tile); 
        }
-
-       Physics.IgnoreCollision(m_Collider, collision.collider);
     }
 
     IEnumerator MoveThroughPath(Path path)
@@ -59,7 +57,8 @@ public class CharacterMovement : MonoBehaviour
         }
 
         FinalizePosition(path.tilesInPath[pathlength - 1]);
-        m_Animator.SetBool("IsWalking", false);       
+        m_Animator.SetBool("IsWalking", false);
+        
     }
 
     public void GoTo(Tile target)
@@ -72,8 +71,13 @@ public class CharacterMovement : MonoBehaviour
             Location.Occupied = false;
             m_Animator.SetBool("IsWalking", true);
             StartCoroutine(MoveThroughPath(path));
-            m_Pathfinder.ResetPathfinder();      
+            ClearFrontier();    
         }
+    }
+
+    public void ClearFrontier()
+    {
+        m_Pathfinder.ResetPathfinder();
     }
 
     public bool CanReachTile(Tile tile)

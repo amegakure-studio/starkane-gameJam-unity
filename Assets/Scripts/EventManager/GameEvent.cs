@@ -3,5 +3,7 @@ public enum GameEvent
 {
     PATH_UPDATED,
     PATH_FRONTIERS_UPDATED,
-    PATH_RESET
+    PATH_RESET,
+    INTERACT,
+    TILE_SELECTED
 }

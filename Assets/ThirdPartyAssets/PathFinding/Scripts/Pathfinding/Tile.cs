@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.FilePathAttribute;
 
 public enum TileColor { Green, Highlighted };
 
@@ -125,5 +126,31 @@ public class Tile : MonoBehaviour
             neighbors.Add(connectedTile);
         
         return neighbors;
+    }
+    private void OnMouseOver()
+    {
+        if (InFrontier)
+            SetColor(TileColor.Highlighted);
+    }
+
+    private void OnMouseExit()
+    {
+        if (InFrontier)
+            SetColor(TileColor.Green);
+        else
+            ClearColor();
+    }
+
+    private void OnMouseDown()
+    {
+        if (InFrontier)
+        {
+            Dictionary<string, object> context = new()
+            {
+                { "Tile", this }
+            };
+
+            EventManager.Instance.Publish(GameEvent.TILE_SELECTED, context);
+        }
     }
 }

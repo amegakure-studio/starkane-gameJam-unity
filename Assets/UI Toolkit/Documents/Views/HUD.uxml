@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Dialog" src="project://database/Assets/UI%20Toolkit/Documents/Components/Dialog.uxml?fileID=9197481963319205126&amp;guid=1266cac30a60c574db44bfc1e470c7fc&amp;type=3#Dialog" />
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/HUD.uss?fileID=7433441132597879392&amp;guid=db0ced92d00180c40b3d44e1db004e0f&amp;type=3#HUD" />
+    <ui:VisualElement name="Container" style="flex-grow: 1;">
+        <ui:VisualElement name="Header" class="header" style="flex-grow: 1;" />
+        <ui:VisualElement name="Content" class="content" style="flex-grow: 1;">
+            <ui:VisualElement name="Left" style="flex-grow: 1;" />
+            <ui:VisualElement name="Middle" style="flex-grow: 1;">
+                <ui:Instance template="Dialog" name="Dialog" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Right" style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Footer" class="footer" style="flex-grow: 1;" />
+    </ui:VisualElement>
+</ui:UXML>

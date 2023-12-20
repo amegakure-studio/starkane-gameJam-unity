@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/Common.uss?fileID=7433441132597879392&amp;guid=7f31884dfb911114485ee9a152b44132&amp;type=3#Common" />
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/Dialog.uss?fileID=7433441132597879392&amp;guid=9a9683d53f935874ebe0ba5ade20a3ce&amp;type=3#Dialog" />
+    <ui:VisualElement name="Dialog" class="dialogContainer">
+        <ui:VisualElement name="DialogHeader" class="dialogHeader">
+            <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Name" class="text" />
+        </ui:VisualElement>
+        <ui:VisualElement name="TextContainer" class="textContainer">
+            <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Text" class="text" />
+        </ui:VisualElement>
+        <ui:VisualElement name="DialogOptions" class="dialogOptions" style="flex-grow: 1;">
+            <ui:Button text="Atacar" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Btn1" class="dialogOptions text" />
+            <ui:Button text="Ignorar" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Btn2" class="dialogOptions text" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

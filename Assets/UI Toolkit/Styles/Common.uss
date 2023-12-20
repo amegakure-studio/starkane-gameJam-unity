@@ -1,0 +1,4 @@
+.text {
+    font-size: 34px;
+    color: rgb(204, 204, 204);
+}

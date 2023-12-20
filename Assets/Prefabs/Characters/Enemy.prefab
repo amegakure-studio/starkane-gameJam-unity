@@ -408,7 +408,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 75d8a2a9f1218c142be237de2a30f667,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4694264621487775475}
+      addedObject: {fileID: 2236730975616183463}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 75d8a2a9f1218c142be237de2a30f667,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8082606453158493749}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 75d8a2a9f1218c142be237de2a30f667,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7771128740700483213}
   m_SourcePrefab: {fileID: 100100000, guid: 75d8a2a9f1218c142be237de2a30f667, type: 3}
 --- !u!1 &8778194730690118490 stripped
 GameObject:
@@ -466,7 +474,7 @@ CapsuleCollider:
   m_Height: 0.98594743
   m_Direction: 1
   m_Center: {x: 0.0047193477, y: 0.41302457, z: 0.023615105}
---- !u!114 &4694264621487775475
+--- !u!114 &2236730975616183463
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -478,7 +486,116 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c7464391ae005745bc12231b5d1a0d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vfxInteractPrefab: {fileID: 0}
-  sfxInteract: {fileID: 0}
-  sfxUninteract: {fileID: 0}
-  interactableBehaviour: {fileID: 0}
+  vfxInteractPrefab: {fileID: 3280519133390621005, guid: a71be3e7990efb040a07565c43cbb198,
+    type: 3}
+  sfxInteract: {fileID: 8300000, guid: 25350a8760f27e34b8c1f9c8021a6939, type: 3}
+  sfxUninteract: {fileID: 8300000, guid: 7f008dd872a9eb846a42844aa3550416, type: 3}
+  interactableBehaviour: {fileID: 7771128740700483213}
+--- !u!82 &8082606453158493749
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8778194730690118490}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &7771128740700483213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8778194730690118490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa8adcd6d9b78a315b80425dbbc28fce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

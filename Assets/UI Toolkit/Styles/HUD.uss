@@ -1,0 +1,39 @@
+.content {
+    height: 70%;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.header {
+    height: 15%;
+}
+
+.footer {
+    height: 15%;
+}
+
+.content #Left {
+    width: 15%;
+}
+
+.content #Right {
+    width: 15%;
+}
+
+.content #Middle {
+    height: auto;
+    width: 70%;
+    justify-content: center;
+}
+
+.content #Dialog {
+    align-self: auto;
+    justify-content: center;
+    align-items: center;
+    -unity-text-align: upper-left;
+    font-size: 14px;
+    height: 80%;
+    position: absolute;
+    width: 100%;
+    bottom: -10%;
+}

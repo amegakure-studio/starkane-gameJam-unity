@@ -107,5 +107,4 @@ public class CharacterMovement : MonoBehaviour
         if (vectorRotation != Vector3.zero)
             transform.rotation = Quaternion.LookRotation(vectorRotation, Vector3.up);
     }
-
 }

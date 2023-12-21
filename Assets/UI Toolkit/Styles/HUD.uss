@@ -35,5 +35,5 @@
     height: 80%;
     position: absolute;
     width: 100%;
-    bottom: -10%;
+    bottom: 0;
 }

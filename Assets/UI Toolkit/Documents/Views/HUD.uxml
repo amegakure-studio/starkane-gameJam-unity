@@ -6,7 +6,7 @@
         <ui:VisualElement name="Content" class="content" style="flex-grow: 1;">
             <ui:VisualElement name="Left" style="flex-grow: 1;" />
             <ui:VisualElement name="Middle" style="flex-grow: 1;">
-                <ui:Instance template="Dialog" name="Dialog" />
+                <ui:Instance template="Dialog" name="Dialog" focusable="true" style="display: none;" />
             </ui:VisualElement>
             <ui:VisualElement name="Right" style="flex-grow: 1;" />
         </ui:VisualElement>

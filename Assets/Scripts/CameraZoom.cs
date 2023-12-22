@@ -8,9 +8,11 @@ public class CameraZoom : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera virtualCamera;
     [SerializeField] float zoomPercentaje = 10f;
-    private float cameraDistance;
+    [SerializeField] float minDistance = 10;
+    [SerializeField] float maxDistance = 50;
 
-    
+    private float cameraDistance;
+  
     // Update is called once per frame
     void Update()
     {
@@ -21,7 +23,7 @@ public class CameraZoom : MonoBehaviour
             cameraDistance = mouseValue * zoomPercentaje;
             float actualZoomValue = virtualCamera.m_Lens.FieldOfView - cameraDistance;
 
-            if(actualZoomValue >= 10 && actualZoomValue <= 100 )
+            if(actualZoomValue >= minDistance && actualZoomValue <= maxDistance )
             {
                 virtualCamera.m_Lens.FieldOfView = actualZoomValue;
             }

@@ -17,7 +17,7 @@ public class Dialog : MonoBehaviour
 
         buttonMap = new Dictionary<Button, ICommand>
         {
-            { root.Q<Button>("Btn1"), new CombatStart() },
+            { root.Q<Button>("Btn1"), new CombatStart(this) },
             { root.Q<Button>("Btn2"), new CombatCancel(this) }
         };
 

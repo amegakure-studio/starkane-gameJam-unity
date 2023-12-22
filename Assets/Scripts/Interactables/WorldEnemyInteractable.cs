@@ -5,10 +5,12 @@ using UnityEngine;
 public class WorldEnemyInteractable : InteractableBehaviour
 {
     Dialog dialog;
+    Interactable interactable;
 
     private void Start()
     {
         dialog = GameObject.FindFirstObjectByType<Dialog>();
+        interactable = GetComponent<Interactable>();
     }
 
     private void OnEnable() { EventManager.Instance.Subscribe(GameEvent.SHOW_DIALOG_ENCOUNTER, HandleShowDialog); }
@@ -27,7 +29,8 @@ public class WorldEnemyInteractable : InteractableBehaviour
 
     public override void Interact()
     {
-        EventManager.Instance.Publish(GameEvent.ENCOUNTER_INTERACTION, null);    
+        EventManager.Instance.Publish(GameEvent.ENCOUNTER_INTERACTION, null);
+        interactable.EndInteraction();    
     }
 
     public override void Uninteract()

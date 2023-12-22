@@ -30,5 +30,6 @@ public class CutSceneManager : MonoBehaviour
     public void EnableUIActions()
     {
         EventManager.Instance.Publish(GameEvent.SHOW_DIALOG_ENCOUNTER, null);
+        m_HasEncounterTrigger = false;
     }
 }

@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WorldEnemyInteractable : InteractableBehaviour
@@ -9,6 +11,15 @@ public class WorldEnemyInteractable : InteractableBehaviour
         dialog = GameObject.FindFirstObjectByType<Dialog>();
     }
 
+    private void OnEnable() { EventManager.Instance.Subscribe(GameEvent.SHOW_DIALOG_ENCOUNTER, HandleShowDialog); }
+
+    private void OnDisable() { EventManager.Instance.Unsubscribe(GameEvent.SHOW_DIALOG_ENCOUNTER, HandleShowDialog); }
+
+    private void HandleShowDialog(Dictionary<string, object> dictionary)
+    {
+        dialog.Show();  
+    }
+
     public override bool CanInteract()
     {
         return true;
@@ -16,11 +27,11 @@ public class WorldEnemyInteractable : InteractableBehaviour
 
     public override void Interact()
     {
-        dialog.Show();      
+        EventManager.Instance.Publish(GameEvent.ENCOUNTER_INTERACTION, null);    
     }
 
     public override void Uninteract()
     {
-        dialog.Hide();
+        //dialog.Hide();
     }
 }

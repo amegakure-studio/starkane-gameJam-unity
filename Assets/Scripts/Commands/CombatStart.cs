@@ -8,7 +8,7 @@ public class CombatStart : ICommand
 
     public void Do()
     {
-        EventManager.Instance.Publish(GameEvent.BATTLE_INTERACTION, null);
+        EventManager.Instance.Publish(GameEvent.CUTSCENE_COMBAT_ACCEPT, null);
         dialog.Hide();
     }
 }

@@ -13,9 +13,9 @@ public class WorldEnemyInteractable : InteractableBehaviour
         interactable = GetComponent<Interactable>();
     }
 
-    private void OnEnable() { EventManager.Instance.Subscribe(GameEvent.SHOW_DIALOG_ENCOUNTER, HandleShowDialog); }
+    private void OnEnable() { EventManager.Instance.Subscribe(GameEvent.CUTSCENE_ENCOUNTER_ENEMY_END, HandleShowDialog); }
 
-    private void OnDisable() { EventManager.Instance.Unsubscribe(GameEvent.SHOW_DIALOG_ENCOUNTER, HandleShowDialog); }
+    private void OnDisable() { EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_ENCOUNTER_ENEMY_END, HandleShowDialog); }
 
     private void HandleShowDialog(Dictionary<string, object> dictionary)
     {
@@ -29,7 +29,7 @@ public class WorldEnemyInteractable : InteractableBehaviour
 
     public override void Interact()
     {
-        EventManager.Instance.Publish(GameEvent.ENCOUNTER_INTERACTION, null);
+        EventManager.Instance.Publish(GameEvent.INTERACT_ENCOUNTER_ENEMY, new Dictionary<string, object>());
         interactable.EndInteraction();    
     }
 

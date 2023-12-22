@@ -15,14 +15,14 @@ public class CutSceneManager : MonoBehaviour
 
     private void OnEnable() 
     {
-        EventManager.Instance.Subscribe(GameEvent.ENCOUNTER_INTERACTION, HandleEncounter);
-        EventManager.Instance.Subscribe(GameEvent.BATTLE_INTERACTION, HandleBattle);
+        EventManager.Instance.Subscribe(GameEvent.INTERACT_ENCOUNTER_ENEMY, HandleEncounter);
+        EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_ACCEPT, HandleBattle);
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.Unsubscribe(GameEvent.ENCOUNTER_INTERACTION, HandleEncounter);
-        EventManager.Instance.Subscribe(GameEvent.BATTLE_INTERACTION, HandleBattle);
+        EventManager.Instance.Unsubscribe(GameEvent.INTERACT_ENCOUNTER_ENEMY, HandleEncounter);
+        EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_ACCEPT, HandleBattle);
     }
 
     private void HandleEncounter(Dictionary<string, object> context)
@@ -46,7 +46,7 @@ public class CutSceneManager : MonoBehaviour
 
     public void EnableUIActions()
     {
-        EventManager.Instance.Publish(GameEvent.SHOW_DIALOG_ENCOUNTER, null);
+        EventManager.Instance.Publish(GameEvent.CUTSCENE_ENCOUNTER_ENEMY_END, null);
         m_HasEncounterTrigger = false;
     }
 

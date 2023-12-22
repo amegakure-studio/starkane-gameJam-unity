@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2d851274674f23615a5cecd3ae27db3e
+guid: ff0264ee206e86cd2a7b9ef39acffd9b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -15,7 +15,7 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
-    motionNodeName: 
+    motionNodeName: <Root Transform>
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 

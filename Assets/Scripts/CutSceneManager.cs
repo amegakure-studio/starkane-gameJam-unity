@@ -17,12 +17,21 @@ public class CutSceneManager : MonoBehaviour
     {
         EventManager.Instance.Subscribe(GameEvent.INTERACT_ENCOUNTER_ENEMY, HandleEncounter);
         EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_ACCEPT, HandleBattle);
+        EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_CANCEL, CancelBattle);
     }
 
     private void OnDisable()
     {
         EventManager.Instance.Unsubscribe(GameEvent.INTERACT_ENCOUNTER_ENEMY, HandleEncounter);
         EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_ACCEPT, HandleBattle);
+        EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_CANCEL, CancelBattle);
+    }
+
+    private void CancelBattle(Dictionary<string, object> dictionary)
+    {
+        dismissDirector.Stop();
+        dismissDirector.time = 0;
+        dismissDirector.Play();
     }
 
     private void HandleEncounter(Dictionary<string, object> context)
@@ -36,7 +45,6 @@ public class CutSceneManager : MonoBehaviour
         }
     }
 
-    
     private void HandleBattle(Dictionary<string, object> dictionary)
     {
         battleDirector.Stop();

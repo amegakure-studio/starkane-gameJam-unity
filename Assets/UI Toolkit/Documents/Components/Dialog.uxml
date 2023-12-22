@@ -6,7 +6,7 @@
             <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Name" class="text" />
         </ui:VisualElement>
         <ui:VisualElement name="TextContainer" class="textContainer">
-            <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Text" class="text" />
+            <ui:Label tabindex="-1" text="AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Text" focusable="false" class="small text" style="flex-wrap: wrap; white-space: normal;" />
         </ui:VisualElement>
         <ui:VisualElement name="DialogOptions" class="dialogOptions" style="flex-grow: 1;">
             <ui:Button text="Atacar" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Btn1" class="dialogOptions text" />

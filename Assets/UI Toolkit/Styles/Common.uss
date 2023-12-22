@@ -1,4 +1,8 @@
 .text {
-    font-size: 34px;
+    font-size: 26px;
     color: rgb(204, 204, 204);
+}
+
+.text.small {
+    font-size: 20px;
 }

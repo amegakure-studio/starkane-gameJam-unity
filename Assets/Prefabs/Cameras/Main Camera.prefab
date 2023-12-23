@@ -204,7 +204,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7444946745008193917}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.19419733, y: 0.6987322, z: -0.20659743, w: 0.6567939}
+  m_LocalRotation: {x: 0.19419637, y: 0.6987315, z: -0.20659567, w: 0.6567955}
   m_LocalPosition: {x: -70.780876, y: 6.48, z: -1.1618164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -213,7 +213,7 @@ Transform:
   - {fileID: 208380654340619230}
   - {fileID: 6064559288942863956}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 21.744, y: 85.497, z: -1.638}
+  m_LocalEulerAnglesHint: {x: 32.943, y: 93.544, z: 0}
 --- !u!20 &860661447344760556
 Camera:
   m_ObjectHideFlags: 0
@@ -361,8 +361,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6064559288942863956}
   - component: {fileID: 1425279583784158600}
-  - component: {fileID: 8648776969520002822}
   - component: {fileID: 1069826235419714332}
+  - component: {fileID: 3703982592404807782}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -425,22 +425,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 6108882893173987367}
---- !u!114 &8648776969520002822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7581912247665314870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f965e65c022f2343ad42f18ecedd21e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  virtualCamera: {fileID: 1425279583784158600}
-  zoomPercentaje: 10
-  minDistance: 30
-  maxDistance: 70
 --- !u!114 &1069826235419714332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,6 +455,22 @@ MonoBehaviour:
   m_Damping: 0
   m_DampingWhenOccluded: 0
   m_OptimalTargetDistance: 0
+--- !u!114 &3703982592404807782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7581912247665314870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f965e65c022f2343ad42f18ecedd21e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  virtualCamera: {fileID: 1425279583784158600}
+  zoomPercentaje: 10
+  minDistance: 30
+  maxDistance: 70
 --- !u!1 &8034815013792920582
 GameObject:
   m_ObjectHideFlags: 0

@@ -50,13 +50,16 @@ public class Tile : MonoBehaviour
 
     void DebugWithArrow()
     {
-        Transform childArrow = GreenChild.transform.GetChild(0);
+        if (GreenChild.transform.childCount > 0)
+        {
+             Transform childArrow = GreenChild.transform.GetChild(0);
+            if (!debug) 
+                childArrow.gameObject.SetActive(false);
 
-        if (!debug) 
-            childArrow.gameObject.SetActive(false);
+            if(childArrow != null && parent != null)
+                childArrow.rotation = Quaternion.LookRotation(parent.transform.position - transform.position, Vector3.up);
 
-        if(childArrow != null && parent != null)
-            childArrow.rotation = Quaternion.LookRotation(parent.transform.position - transform.position, Vector3.up);
+        }
     }
 
     /// <summary>

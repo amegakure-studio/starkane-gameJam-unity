@@ -1,0 +1,17 @@
+{
+  "name": "org.dojoengine.dojo",
+  "version": "1.1.0",
+  "displayName": "Dojo",
+  "unity": "2019.1",
+  "keywords": [
+    "dojo",
+    "dojoengine",
+    "starknet",
+    "torii"
+  ],
+  "author": {
+    "name": "Example",
+    "email": "unity@example.com",
+    "url": "https://www.unity3d.com"
+  }
+}

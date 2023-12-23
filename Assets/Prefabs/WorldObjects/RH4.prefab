@@ -121,9 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aa51a57143fdce0da45addcbe9ebcf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GroundLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!205 &6851627622276544659
 LODGroup:
   m_ObjectHideFlags: 0
@@ -138,15 +135,15 @@ LODGroup:
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.6
+  - screenRelativeHeight: 0.2001786
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 3328520553572552917}
-  - screenRelativeHeight: 0.3
+  - screenRelativeHeight: 0.07844658
     fadeTransitionWidth: 0.25
     renderers:
     - renderer: {fileID: 3328520553572552917}
-  - screenRelativeHeight: 0.1
+  - screenRelativeHeight: 0.015243728
     fadeTransitionWidth: 0.5
     renderers:
     - renderer: {fileID: 3328520553572552917}

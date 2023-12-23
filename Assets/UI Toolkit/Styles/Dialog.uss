@@ -1,0 +1,71 @@
+.textContainer {
+    padding-top: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+    flex-grow: 1;
+    height: 60%;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialogContainer {
+    background-image: url('project://database/Assets/ThirdPartyAssets/GUI_Parts/Gui_parts/barmid_ready.png?fileID=21300000&guid=f7f681cd213d9a7488500ce745f2d4f8&type=3#barmid_ready');
+    -unity-background-scale-mode: stretch-to-fill;
+    flex-grow: 1;
+    height: 15%;
+}
+
+.dialogHeader {
+    background-image: url('project://database/Assets/ThirdPartyAssets/GUI_Parts/Gui_parts/name_bar2.png?fileID=21300000&guid=e4c261293bfe98f4fa9d9591373bc443&type=3#name_bar2');
+    height: 15%;
+    width: 100%;
+    -unity-text-align: middle-left;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialogHeader #Name {
+    padding-top: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+    -unity-text-align: middle-center;
+}
+
+.dialogOptions {
+    flex-grow: 0;
+    height: 15%;
+    padding-top: 2%;
+    padding-right: 5%;
+    padding-bottom: 5%;
+    padding-left: 5%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.dialogOptions Button {
+    background-image: url('project://database/Assets/ThirdPartyAssets/GUI_Parts/Gui_parts/button_ready_off.png?fileID=21300000&guid=a2e2a83536d4eef45ace93d156eab562&type=3#button_ready_off');
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-text-align: middle-center;
+    height: 86px;
+    width: 50%;
+    align-self: auto;
+    justify-content: flex-start;
+    align-items: center;
+    flex-grow: 0;
+    background-color: rgba(0, 0, 0, 0);
+    -unity-text-outline-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    padding-top: 10%;
+    padding-right: 10%;
+    padding-bottom: 10%;
+    padding-left: 10%;
+}

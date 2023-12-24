@@ -1601,19 +1601,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 940c228c9f103c54a84bc890617652eb,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2377523224424456067}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 940c228c9f103c54a84bc890617652eb,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8996315269952929178}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 940c228c9f103c54a84bc890617652eb,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6095542089587518979}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 940c228c9f103c54a84bc890617652eb,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2817647498370948274}
   m_SourcePrefab: {fileID: 100100000, guid: 940c228c9f103c54a84bc890617652eb, type: 3}
 --- !u!4 &2351200411215221420 stripped
 Transform:
@@ -1677,36 +1665,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &2377523224424456067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3659877405080767468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 453a1124258b2f94e9500310d8a6ec04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveData: {fileID: 11400000, guid: dd6f1c9025f1ba945b2082ff9cda2f56, type: 2}
---- !u!114 &8996315269952929178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3659877405080767468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c7464391ae005745bc12231b5d1a0d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vfxInteractPrefab: {fileID: 3280519133390621005, guid: a71be3e7990efb040a07565c43cbb198,
-    type: 3}
-  sfxInteract: {fileID: 8300000, guid: 25350a8760f27e34b8c1f9c8021a6939, type: 3}
-  sfxUninteract: {fileID: 8300000, guid: 7f008dd872a9eb846a42844aa3550416, type: 3}
-  interactableBehaviour: {fileID: 2817647498370948274}
 --- !u!82 &6095542089587518979
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1803,18 +1761,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2817647498370948274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3659877405080767468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76b69d79f61a4244a8c8476268ed654f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4682586112585954075 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9147080809826518438, guid: 940c228c9f103c54a84bc890617652eb,

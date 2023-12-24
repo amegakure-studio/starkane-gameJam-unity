@@ -95,12 +95,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 773721517720850982}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7aa51a57143fdce0da45addcbe9ebcf7, type: 3}
+  m_Script: {fileID: 11500000, guid: 1d037bbc02b52db4daddd8fdc411f3dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GroundLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!205 &6466488764104253670
 LODGroup:
   m_ObjectHideFlags: 0

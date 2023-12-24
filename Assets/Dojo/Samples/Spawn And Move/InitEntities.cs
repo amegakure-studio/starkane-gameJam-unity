@@ -45,7 +45,7 @@ public class InitEntities : MonoBehaviour
         textTag.color = Color.black;
 
         // add text to the position component
-        var position = entity.GetComponent<Position>();
-        position.textTag = textTag;
+        // var position = entity.GetComponent<Position>();
+        // position.textTag = textTag;
     }
 }

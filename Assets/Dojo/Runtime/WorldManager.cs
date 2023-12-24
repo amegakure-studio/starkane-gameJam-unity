@@ -37,47 +37,47 @@ namespace Dojo
         // Update is called once per frame
         void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                var provider = new JsonRpcClient(rpcUrl);
-                var signer = new SigningKey("0x1800000000300000180000000000030000000000003006001800006600");
-                string playerAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
+            // if(Input.GetKeyDown(KeyCode.Space))
+            // {
+            //     var provider = new JsonRpcClient(rpcUrl);
+            //     var signer = new SigningKey("0x1800000000300000180000000000030000000000003006001800006600");
+            //     string playerAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
 
-                var account = new Starknet.Account(provider, signer, playerAddress);
-                string actionsAddress = "0x152dcff993befafe5001975149d2c50bd9621da7cbaed74f68e7d5e54e65abc";
+            //     var account = new Starknet.Account(provider, signer, playerAddress);
+            //     string actionsAddress = "0x152dcff993befafe5001975149d2c50bd9621da7cbaed74f68e7d5e54e65abc";
                             
-                dojo.Call call = new dojo.Call()
-                {
-                to = actionsAddress,
-                selector = "spawn",
-            };
+            //     dojo.Call call = new dojo.Call()
+            //     {
+            //     to = actionsAddress,
+            //     selector = "spawn",
+            // };
 
-            account.ExecuteRaw(new[] { call });
-            }
+            // account.ExecuteRaw(new[] { call });
+            // }
             
-            if(Input.GetKeyDown(KeyCode.M))
-            {
-                var provider = new JsonRpcClient(rpcUrl);
-                var signer = new SigningKey("0x1800000000300000180000000000030000000000003006001800006600");
-                string playerAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
+            // if(Input.GetKeyDown(KeyCode.M))
+            // {
+            //     var provider = new JsonRpcClient(rpcUrl);
+            //     var signer = new SigningKey("0x1800000000300000180000000000030000000000003006001800006600");
+            //     string playerAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
 
-                var account = new Starknet.Account(provider, signer, playerAddress);
-                string actionsAddress = "0x152dcff993befafe5001975149d2c50bd9621da7cbaed74f68e7d5e54e65abc";
+            //     var account = new Starknet.Account(provider, signer, playerAddress);
+            //     string actionsAddress = "0x152dcff993befafe5001975149d2c50bd9621da7cbaed74f68e7d5e54e65abc";
                             
-                dojo.Call call = new dojo.Call()
-                {
-                calldata = new dojo.FieldElement[]
-                {
-                    // go left
-                    // Left is the second field in the enum so its index is 1
-                    dojo.felt_from_hex_be(new CString("0x01")).ok
-                },
-                to = actionsAddress,
-                selector = "move"
-                };
+            //     dojo.Call call = new dojo.Call()
+            //     {
+            //     calldata = new dojo.FieldElement[]
+            //     {
+            //         // go left
+            //         // Left is the second field in the enum so its index is 1
+            //         dojo.felt_from_hex_be(new CString("0x01")).ok
+            //     },
+            //     to = actionsAddress,
+            //     selector = "move"
+            //     };
 
-                account.ExecuteRaw(new[] { call });
-            }
+            //     account.ExecuteRaw(new[] { call });
+            // }
         }
 
 

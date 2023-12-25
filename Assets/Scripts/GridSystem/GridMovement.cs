@@ -2,6 +2,7 @@ using Amegakure.Starkane.PubSub;
 using System.Collections;
 using UnityEngine;
 using Amegakure.Starkane.Entities;
+using Amegakure.Starkane.Id;
 
 namespace Amegakure.Starkane.GridSystem
 {
@@ -15,8 +16,11 @@ namespace Amegakure.Starkane.GridSystem
 
         private Pathfinder m_Pathfinder;
 
-        public bool Moving { get; private set; } = false; 
-        
+        public bool Moving { get; private set; } = false;
+        public PathStyle TileStyle { get => tileStyle; set => tileStyle = value; }
+        public int NumOfTiles { get => numOfTiles; set => numOfTiles = value; }
+        public float Speed { get => speed; set => speed = value; }
+
         #endregion
 
         private void Awake()
@@ -28,12 +32,12 @@ namespace Amegakure.Starkane.GridSystem
         }
 
 
-        IEnumerator MoveThroughPath(Path path, Character character)
+        IEnumerator MoveThroughPath(Path path, CharacterId characterId)
         {
-            EventManager.Instance.Publish(GameEvent.CHARACTER_MOVE_START, new() { { "Character", character } });
+            EventManager.Instance.Publish(GameEvent.CHARACTER_MOVE_START, new() { { "Character", characterId } });
 
             int step = 0;
-            int pathlength = Mathf.Clamp(path.TilesInPath.Length, 0, numOfTiles + 1);
+            int pathlength = Mathf.Clamp(path.TilesInPath.Length, 0, NumOfTiles + 1);
             Tile currentTile = path.TilesInPath[0];
             float animationtime = 0f;
             const float minimumistanceFromNextTile = 0.05f;
@@ -43,7 +47,7 @@ namespace Amegakure.Starkane.GridSystem
                 yield return null;
                 Vector3 nextTilePosition = path.TilesInPath[step].transform.position;
 
-                MoveAndRotate(currentTile.transform.position, nextTilePosition, animationtime / speed);
+                MoveAndRotate(currentTile.transform.position, nextTilePosition, animationtime / Speed);
                 animationtime += Time.deltaTime;
 
                 if (Vector3.Distance(transform.position, nextTilePosition) > minimumistanceFromNextTile)
@@ -54,13 +58,13 @@ namespace Amegakure.Starkane.GridSystem
                 animationtime = 0f;
             }
 
-            FinalizePosition(path.TilesInPath[pathlength - 1], character);
+            FinalizePosition(path.TilesInPath[pathlength - 1], characterId);
 
-            EventManager.Instance.Publish(GameEvent.CHARACTER_MOVE_END, new() { { "Character", character } });
+            EventManager.Instance.Publish(GameEvent.CHARACTER_MOVE_END, new() { { "Character", characterId } });
 
         }
 
-        public bool GoTo(Tile origin, Character character, Tile target)
+        public bool GoTo(Tile origin, CharacterId character, Tile target)
         {
             if (CanReachTile(target))
             {
@@ -91,7 +95,7 @@ namespace Amegakure.Starkane.GridSystem
         {
             if (target != null)
             {
-                Frontier frontier = m_Pathfinder.FindPaths(target, numOfTiles, tileStyle, true);
+                Frontier frontier = m_Pathfinder.FindPaths(target, NumOfTiles, TileStyle, true);
                 return frontier;
             }
 
@@ -99,12 +103,12 @@ namespace Amegakure.Starkane.GridSystem
                 return new Frontier();
         }
 
-        private void FinalizePosition(Tile tile, Character character)
+        private void FinalizePosition(Tile tile, CharacterId characterId)
         {
             transform.position = tile.transform.position;
             //Location = tile;
             Moving = false;
-            tile.OccupyingObject = character.gameObject;
+            tile.OccupyingObject = characterId.CharacterGo;
         }
 
         private void MoveAndRotate(Vector3 origin, Vector3 destination, float duration)

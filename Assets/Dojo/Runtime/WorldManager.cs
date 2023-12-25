@@ -17,7 +17,7 @@ namespace Dojo
         public SynchronizationMaster synchronizationMaster;
         public ToriiClient toriiClient;
 
-        void Awake()
+        void Start()
         {
             // create the torii client and start subscription service
             toriiClient = new ToriiClient(toriiUrl, rpcUrl, worldAddress, new dojo.KeysClause[] { });

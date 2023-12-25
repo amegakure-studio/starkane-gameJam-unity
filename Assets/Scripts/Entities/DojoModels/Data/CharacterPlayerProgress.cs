@@ -41,12 +41,16 @@ public class CharacterPlayerProgress : ModelInstance
                 {
                     if(player.Id == intID)
                     {
+                        CharacterId id = new CharacterId(player.Id, characterType);
                         // TODO: Create a Dictionary that contains: skinID -> prefab name 
                         GameObject characterGo = builder
                                 .AddCharacterPrefab(characterType, "Avelyn")
-                                .AddCharacterController(new CharacterId(player.Id, characterType))
+                                .AddCharacterController(id)
+                                .AddGridMovement(id)
                                 .Build();
 
+                        id.CharacterGo = characterGo;
+                        
                         player.AddCharacter(characterType, characterGo);
                         characterGo.transform.parent = playerGo.transform;
                         gameObject.transform.parent = playerGo.transform;

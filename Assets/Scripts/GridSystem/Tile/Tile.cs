@@ -12,7 +12,7 @@ namespace Amegakure.Starkane.GridSystem
         private Tile connectedTile;
         private GameObject occupyingObject;
         private float cost;
-        private Vector2Int coordinate;
+        public Vector2Int coordinate;
         private List<Vector2> directions;
         private List<Tile> neighbors = null;
         #endregion

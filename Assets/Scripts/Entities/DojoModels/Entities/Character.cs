@@ -38,11 +38,14 @@ namespace Amegakure.Starkane.Entities
             evasion = model.members["evasion"].ty.ty_primitive.u64;
             crit_chance = model.members["crit_chance"].ty.ty_primitive.u64;
             movement_range = model.members["movement_range"].ty.ty_primitive.u64;
+        }
 
-            Debug.Log("Character: " + character_id + "\n"
+        public override string ToString()
+        {
+            return "Character: " + character_id + "\n"
                       + "HP: " + hp + "\n" + "attack: " + attack + "\n" + "defense: " + defense
                       + "\n" + "evasion: " + evasion + "\n" + "crit_chance: " + crit_chance
-                      + "\n" + "movement_range: " + movement_range);
+                      + "\n" + "movement_range: " + movement_range;
         }
 
     }

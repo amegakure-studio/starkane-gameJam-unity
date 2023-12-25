@@ -1,31 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
+using Amegakure.Starkane.Entities;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] int id;
-    private CharacterPlayerProgress characterPlayerProgress = null;
+    private Dictionary<CharacterType, GameObject> m_CharacterDictionary = new();
+
     public int Id { get => id; set => id = value; }
 
-    // Start is called before the first frame update
-    void Start()
+    public void AddCharacter(CharacterType type, GameObject characterPrefab)
     {
-        if(characterPlayerProgress == null)
-        {
-            CharacterPlayerProgress c = this.GetComponentInChildren<CharacterPlayerProgress>();
-            if(c != null)
-            {
-                characterPlayerProgress = c;
-                characterPlayerProgress.print();
-            }            
-        }
-        
+        m_CharacterDictionary.Add(type, characterPrefab);
+        Debug.Log("KEYS COUNT:" + m_CharacterDictionary.Keys.Count);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

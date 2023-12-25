@@ -13,7 +13,6 @@ public class CharacterPlayerProgress : ModelInstance
     UInt32  skin_id;
     bool owned;
     UInt32 level;
-
     private int intID;
 
 
@@ -28,7 +27,10 @@ public class CharacterPlayerProgress : ModelInstance
         var hexString = BitConverter.ToString(owner.data.ToArray()).Replace("-", "").ToLower();
         intID = System.Int32.Parse( hexString, NumberStyles.AllowHexSpecifier );
         
-        GameObject go = CharacterFactory.Create((CharacterType) character_id, "Avelyn");
+        CharacterType characterType = (CharacterType) character_id;
+        
+        // TODO: Create a Dictionaty that contains: skinID -> prefab name 
+        GameObject characterGo = CharacterFactory.Create(characterType, "Avelyn");
         GameObject[] playerGoList = GameObject.FindGameObjectsWithTag("Player");
         
         foreach( GameObject playerGo in playerGoList)
@@ -36,13 +38,17 @@ public class CharacterPlayerProgress : ModelInstance
             try
             {
                 playerGo.TryGetComponent<Player>(out Player player);
-                if(player.Id == intID)
+                if(player != null)
                 {
-                    go.transform.parent = playerGo.transform;
-                    gameObject.transform.parent = playerGo.transform;
-                }                
+                    if(player.Id == intID)
+                    {
+                        player.AddCharacter(characterType, characterGo);
+                        characterGo.transform.parent = playerGo.transform;
+                        gameObject.transform.parent = playerGo.transform;
+                    }   
+                }        
             }
-            catch{}
+            catch(Exception e){Debug.LogError(e);}
         }
     }
 

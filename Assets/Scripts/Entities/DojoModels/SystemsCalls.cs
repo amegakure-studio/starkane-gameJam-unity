@@ -5,13 +5,6 @@ using UnityEngine;
 
 public class SystemsCalls : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A))
@@ -24,20 +17,21 @@ public class SystemsCalls : MonoBehaviour
 
             var account = new Account(provider, signer, playerAddress);
             string actionsAddress = "0x217d22689e0ca2c8f8c57171016704b6e2436a54e26a44367d16da9d87fa75b";
+            
+            var character_id = dojo.felt_from_hex_be(new CString("0x02")).ok;
+            var player_id = dojo.felt_from_hex_be(new CString("0x01")).ok;
 
             dojo.Call call = new dojo.Call()
             {
                 calldata = new dojo.FieldElement[]
                 {
-                        dojo.felt_from_hex_be(new CString("0x01")).ok,
-                        dojo.felt_from_hex_be(new CString("0x06")).ok,
+                        character_id,
+                        player_id,
                         dojo.felt_from_hex_be(new CString("0x01")).ok
                 },
                 to = actionsAddress,
                 selector = "mint"
             };
-
-            Debug.Log(call);
 
             account.ExecuteRaw(new[] { call });
         }

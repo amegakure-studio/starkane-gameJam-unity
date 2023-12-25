@@ -6,6 +6,7 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     private CharacterId id;
+    private bool clicked = false;
 
     public CharacterId Id { get => id; set => id = value; }
 
@@ -16,12 +17,23 @@ public class CharacterController : MonoBehaviour
 
     private void OnMouseExit()
     {
-        CharacterHoverExit();
+        if (!clicked)
+            CharacterHoverExit();
     }
 
     private void OnMouseDown()
     {
-        CharacterSelected();
+        if (!clicked)
+        {
+            CharacterSelected();
+            clicked = true;
+        }
+        
+        else
+        {
+            CharacterHoverExit();
+            clicked = false;
+        }
     }
 
     public void CharacterHoverEnter()

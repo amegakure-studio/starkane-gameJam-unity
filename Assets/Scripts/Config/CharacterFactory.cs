@@ -16,7 +16,8 @@ public class CharacterFactory : MonoBehaviour
                 folderCharacterType = "Archer/";
                 break;
             case CharacterType.Cleric:
-                folderCharacterType = "Cleric/";
+                // folderCharacterType = "Cleric/";
+                folderCharacterType = "Warrior/";
                 break;
             case CharacterType.Warrior:
                 folderCharacterType = "Warrior/";

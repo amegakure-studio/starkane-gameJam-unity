@@ -1,4 +1,6 @@
 using System;
+using System.Globalization;
+using Amegakure.Starkane.Entities;
 using Dojo;
 using Dojo.Torii;
 using dojo_bindings;
@@ -12,6 +14,8 @@ public class CharacterPlayerProgress : ModelInstance
     bool owned;
     UInt32 level;
 
+    private int intID;
+
 
     public override void Initialize(Model model)
     {
@@ -22,21 +26,31 @@ public class CharacterPlayerProgress : ModelInstance
         level = model.members["level"].ty.ty_primitive.u32;
         
         var hexString = BitConverter.ToString(owner.data.ToArray()).Replace("-", "").ToLower();
+        intID = System.Int32.Parse( hexString, NumberStyles.AllowHexSpecifier );
+        
+        GameObject go = CharacterFactory.Create((CharacterType) character_id, "Avelyn");
+        GameObject[] playerGoList = GameObject.FindGameObjectsWithTag("Player");
+        
+        foreach( GameObject playerGo in playerGoList)
+        {
+            try
+            {
+                playerGo.TryGetComponent<Player>(out Player player);
+                if(player.Id == intID)
+                {
+                    go.transform.parent = playerGo.transform;
+                    gameObject.transform.parent = playerGo.transform;
+                }                
+            }
+            catch{}
+        }
+    }
 
-        Debug.Log("owner: " + hexString + "\n"
+    public void print()
+    {
+        Debug.Log("owner: " + intID + "\n"
                   + "character_id: " + character_id + "\n" + "skin_id: " + skin_id + "\n" + "owned: " + owned
                   + "\n" + "level: " + level);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
     }
 }

@@ -17,7 +17,6 @@ namespace Dojo
         public SynchronizationMaster synchronizationMaster;
         public ToriiClient toriiClient;
 
-        // Start is called before the first frame update
         void Awake()
         {
             // create the torii client and start subscription service

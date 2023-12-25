@@ -1,39 +1,63 @@
+using Amegakure.Starkane.Id;
+using Amegakure.Starkane.PubSub;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Amegakure.Starkane.Entities;
 
 namespace Amegakure.Starkane.VfxSystem
 {
     public class CharacterVfxController : MonoBehaviour
     {
-        [SerializeField] GameObject vfxInteractPrefab;
+        [SerializeField] GameObject vfxSelectPrefab;
 
-        private Dictionary<Character, GameObject> vfxCharacterMap;
+        private Dictionary<CharacterId, GameObject> vfxSelectCharacterMap;
 
         private void Awake()
         {
-            vfxCharacterMap = new();
+            vfxSelectCharacterMap = new();
         }
 
-        private void AddVfxInteract(Character character)
+        private void OnEnable()
         {
-            if (!vfxCharacterMap.ContainsKey(character))
+            EventManager.Instance.Subscribe(GameEvent.INPUT_CHARACTER_SELECTED, HandleCharacterSelected);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.Instance.Unsubscribe(GameEvent.INPUT_CHARACTER_SELECTED, HandleCharacterSelected);
+        }
+
+        private void HandleCharacterSelected(Dictionary<string, object> context)
+        {
+            try
             {
-                Vector3 vfxPosition = new(character.transform.position.x, 0, character.transform.position.z);
-                GameObject vfxInteract = Instantiate(vfxInteractPrefab, vfxPosition, Quaternion.identity);
+                CharacterId id = (CharacterId)context["CharacterId"];
+                GameObject characterGo = (GameObject)context["CharacterGo"];
+
+                AddVfxInteract(id, characterGo);
+            }
+            catch { }
+        }
+
+        private void AddVfxInteract(CharacterId id, GameObject characterGo)
+        {
+            if (!vfxSelectCharacterMap.ContainsKey(id))
+            {
+                Vector3 vfxPosition = new(characterGo.transform.position.x, 0, characterGo.transform.position.z);
+                GameObject vfxSelect = Instantiate(vfxSelectPrefab, vfxPosition, Quaternion.identity);              
                 
-                vfxInteract.transform.localScale = new Vector3(.75f, .25f, .75f);
-                vfxCharacterMap.Add(character, vfxInteract);
+                vfxSelect.transform.localScale = new Vector3(.75f, .25f, .75f);
+                vfxSelectCharacterMap.Add(id, vfxSelect);
             }
         }
 
-        private void RemoveVfxInteract(Character character)
+        private void RemoveVfxInteract(CharacterId id)
         {
-            if (vfxCharacterMap.ContainsKey(character))
+            if (vfxSelectCharacterMap.ContainsKey(id))
             {
-                GameObject vfxInteract = vfxCharacterMap[character];
-                Destroy(vfxInteract);
-                vfxCharacterMap.Remove(character);
+                GameObject vfxSelect = vfxSelectCharacterMap[id];
+                Destroy(vfxSelect);
+                vfxSelectCharacterMap.Remove(id);
             }
         }
     }

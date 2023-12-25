@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using Amegakure.Starkane.Entities;
+using Amegakure.Starkane.Id;
 using Dojo;
 using Dojo.Torii;
 using dojo_bindings;
@@ -15,7 +16,6 @@ public class CharacterPlayerProgress : ModelInstance
     UInt32 level;
     private int intID;
 
-
     public override void Initialize(Model model)
     {
         owner = model.members["owner"].ty.ty_primitive.felt252;
@@ -28,9 +28,8 @@ public class CharacterPlayerProgress : ModelInstance
         intID = System.Int32.Parse( hexString, NumberStyles.AllowHexSpecifier );
         
         CharacterType characterType = (CharacterType) character_id;
-        
-        // TODO: Create a Dictionaty that contains: skinID -> prefab name 
-        GameObject characterGo = CharacterFactory.Create(characterType, "Avelyn");
+        GameObject builderGo = Instantiate(new GameObject());
+        CharacterBuilder builder = builderGo.AddComponent<CharacterBuilder>();
         GameObject[] playerGoList = GameObject.FindGameObjectsWithTag("Player");
         
         foreach( GameObject playerGo in playerGoList)
@@ -42,6 +41,12 @@ public class CharacterPlayerProgress : ModelInstance
                 {
                     if(player.Id == intID)
                     {
+                        // TODO: Create a Dictionary that contains: skinID -> prefab name 
+                        GameObject characterGo = builder
+                                .AddCharacterPrefab(characterType, "Avelyn")
+                                .AddCharacterController(new CharacterId(player.Id, characterType))
+                                .Build();
+
                         player.AddCharacter(characterType, characterGo);
                         characterGo.transform.parent = playerGo.transform;
                         gameObject.transform.parent = playerGo.transform;
@@ -50,6 +55,8 @@ public class CharacterPlayerProgress : ModelInstance
             }
             catch(Exception e){Debug.LogError(e);}
         }
+
+        Destroy( builderGo );
     }
 
     public void print()

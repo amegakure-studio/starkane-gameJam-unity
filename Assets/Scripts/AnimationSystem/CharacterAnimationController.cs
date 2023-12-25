@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Amegakure.Starkane.Entities;
 using System.Linq;
+using Amegakure.Starkane.Id;
 
 namespace Amegakure.Starkane.AnimationSystem
 {
     public class CharacterAnimationController : MonoBehaviour
     {
-        private Dictionary<string, Animator> characterAnimatorMap;
+        private Dictionary<CharacterId, Animator> characterAnimatorMap;
 
         private void Awake()
         {
@@ -31,8 +32,9 @@ namespace Amegakure.Starkane.AnimationSystem
             {
                 GameObject character = player.CharacterDictionary[characterType];
                 Animator animator = character.GetComponent<Animator>();
-                string key = player.Id.ToString() + characterType.ToString();
-                characterAnimatorMap[key] = animator;
+                CharacterId id = new(player.Id, characterType);
+
+                characterAnimatorMap[id] = animator;
             }
         }
     }

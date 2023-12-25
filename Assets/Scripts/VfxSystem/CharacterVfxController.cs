@@ -20,11 +20,23 @@ namespace Amegakure.Starkane.VfxSystem
         private void OnEnable()
         {
             EventManager.Instance.Subscribe(GameEvent.INPUT_CHARACTER_SELECTED, HandleCharacterSelected);
+            EventManager.Instance.Subscribe(GameEvent.INPUT_CHARACTER_UNSELECTED, HandleCharacterUnselected);
         }
 
         private void OnDisable()
         {
             EventManager.Instance.Unsubscribe(GameEvent.INPUT_CHARACTER_SELECTED, HandleCharacterSelected);
+            EventManager.Instance.Unsubscribe(GameEvent.INPUT_CHARACTER_UNSELECTED, HandleCharacterUnselected);
+        }
+
+        private void HandleCharacterUnselected(Dictionary<string, object> context)
+        {
+            try
+            {
+                CharacterId id = (CharacterId)context["CharacterId"];
+                RemoveVfxInteract(id);
+            }
+            catch { }
         }
 
         private void HandleCharacterSelected(Dictionary<string, object> context)

@@ -26,12 +26,12 @@ public class CharacterController : MonoBehaviour
 
     public void CharacterHoverEnter()
     {
-        
+        EventManager.Instance.Publish(GameEvent.INPUT_CHARACTER_SELECTED, new() { { "CharacterId", id }, { "CharacterGo", gameObject } });
     }
 
     public void CharacterHoverExit()
     {
-
+        EventManager.Instance.Publish(GameEvent.INPUT_CHARACTER_UNSELECTED, new() { { "CharacterId", id }, { "CharacterGo", gameObject } });
     }
 
     public void CharacterSelected()

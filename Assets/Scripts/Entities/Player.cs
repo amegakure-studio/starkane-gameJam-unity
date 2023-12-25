@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     private Dictionary<CharacterType, GameObject> m_CharacterDictionary = new();
 
     public int Id { get => id; set => id = value; }
+    public Dictionary<CharacterType, GameObject> CharacterDictionary { get => m_CharacterDictionary; private set => m_CharacterDictionary = value; }
 
     public void AddCharacter(CharacterType type, GameObject characterPrefab)
     {

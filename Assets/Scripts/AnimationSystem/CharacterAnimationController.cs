@@ -1,26 +1,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Amegakure.Starkane.Entities;
+using System.Linq;
 
 namespace Amegakure.Starkane.AnimationSystem
 {
     public class CharacterAnimationController : MonoBehaviour
     {
-        private Dictionary<Character, Animator> characterAnimatorMap;
+        private Dictionary<string, Animator> characterAnimatorMap;
 
         private void Awake()
         {
-            characterAnimatorMap = new Dictionary<Character, Animator>();
+            characterAnimatorMap = new();
         }
 
         private void Start()
         {
-            Character[] characters = GameObject.FindObjectsByType<Character>(FindObjectsSortMode.InstanceID);
+            RegisterPlayers();        
+        }
 
-            foreach (Character character in characters)
+        private void RegisterPlayers()
+        {
+            List<Player> players = GameObject.FindObjectsOfType<Player>().ToList();
+            players.ForEach(player => RegisterCharacter(player));
+        }
+
+        private void RegisterCharacter(Player player)
+        {
+            foreach (CharacterType characterType in player.CharacterDictionary.Keys)
             {
+                GameObject character = player.CharacterDictionary[characterType];
                 Animator animator = character.GetComponent<Animator>();
-                characterAnimatorMap[character] = animator;
+                string key = player.Id.ToString() + characterType.ToString();
+                characterAnimatorMap[key] = animator;
             }
         }
     }

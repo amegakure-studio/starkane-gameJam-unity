@@ -22,6 +22,7 @@ public class TileRenderer : MonoBehaviour
     {
         foreach (Tile tile in tiles)
         {
+            tile.InFrontier = false;
             MeshRenderer meshRenderer = tile.gameObject.GetComponent<MeshRenderer>();
             ClearColor(meshRenderer);
         }

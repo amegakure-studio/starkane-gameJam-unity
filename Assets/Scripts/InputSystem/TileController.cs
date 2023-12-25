@@ -13,7 +13,11 @@ namespace Amegakure.Starkane.InputSystem
         private void Awake()
         {
             tile = GetComponent<Tile>();
-            tileRenderer = GetComponent<TileRenderer>();
+        }
+
+        private void Start()
+        {
+            tileRenderer = GameObject.FindObjectOfType<TileRenderer>();
         }
 
         private void OnMouseOver()

@@ -42,11 +42,14 @@ public class PlayerCreator : MonoBehaviour
             {
                 CharacterPlayerProgress characterPlayerProgress = go.GetComponent<CharacterPlayerProgress>();
                 
-                if (characterPlayerProgress != null)
+                if (characterPlayerProgress != null )
                 {
-                    if(characterPlayerProgress.getID() == player.Id)
+                    CharacterType characterType = characterPlayerProgress.GetCharacterType();
+
+                    if(characterPlayerProgress.getID() == player.Id
+                        && characterType == player.DefaultCharacter)
                     {
-                        CharacterType characterType = characterPlayerProgress.GetCharacterType();
+                        
                         GameObject characterGo = builder
                                 .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], characterPlayerProgress)
                                 .AddGridMovement()
@@ -54,7 +57,6 @@ public class PlayerCreator : MonoBehaviour
                                 .Build();
 
                         characterGo.transform.parent = player.gameObject.transform;
-
                     }
                 }
             }

@@ -3509,6 +3509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   playerName: Bregus
+  defaultCharacter: 1
 --- !u!4 &284648045
 Transform:
   m_ObjectHideFlags: 0

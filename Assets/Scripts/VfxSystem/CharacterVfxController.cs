@@ -1,5 +1,4 @@
-using Amegakure.Starkane.GridSystem;
-using Amegakure.Starkane.Id;
+using Amegakure.Starkane.EntitiesWrapper;
 using Amegakure.Starkane.PubSub;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ namespace Amegakure.Starkane.VfxSystem
     {
         [SerializeField] GameObject vfxSelectPrefab;
 
-        private Dictionary<CharacterId, GameObject> vfxSelectCharacterMap;
+        private Dictionary<Character, GameObject> vfxSelectCharacterMap;
 
         private void Awake()
         {
@@ -45,8 +44,8 @@ namespace Amegakure.Starkane.VfxSystem
         {
             try
             {
-                CharacterId id = (CharacterId)context["CharacterId"];
-                RemoveVfxInteract(id);
+                Character character = (Character)context["Character"];
+                RemoveVfxInteract(character);
             }
             catch { }
         }
@@ -55,41 +54,40 @@ namespace Amegakure.Starkane.VfxSystem
         {
             try
             {
-                CharacterId id = (CharacterId)context["CharacterId"];
-                GameObject characterGo = (GameObject)context["CharacterGo"];
+                Character character = (Character)context["Character"];
 
-                AddVfxInteract(id, characterGo);
+                AddVfxInteract(character);
             }
             catch { }
         }
 
-        private void AddVfxInteract(CharacterId id, GameObject characterGo)
+        private void AddVfxInteract(Character character)
         {
-            if (!vfxSelectCharacterMap.ContainsKey(id))
+            if (!vfxSelectCharacterMap.ContainsKey(character))
             {
-                Vector3 vfxPosition = new(characterGo.transform.position.x, 0, characterGo.transform.position.z);
+                Vector3 vfxPosition = new(character.gameObject.transform.position.x, 0, character.gameObject.transform.position.z);
                 GameObject vfxSelect = Instantiate(vfxSelectPrefab, vfxPosition, Quaternion.identity);              
                 
                 vfxSelect.transform.localScale = new Vector3(.75f, .25f, .75f);
-                vfxSelectCharacterMap.Add(id, vfxSelect);
+                vfxSelectCharacterMap.Add(character, vfxSelect);
             }
         }
 
-        private void RemoveVfxInteract(CharacterId id)
+        private void RemoveVfxInteract(Character character)
         {
-            if (vfxSelectCharacterMap.ContainsKey(id))
+            if (vfxSelectCharacterMap.ContainsKey(character))
             {
-                GameObject vfxSelect = vfxSelectCharacterMap[id];
+                GameObject vfxSelect = vfxSelectCharacterMap[character];
                 Destroy(vfxSelect);
-                vfxSelectCharacterMap.Remove(id);
+                vfxSelectCharacterMap.Remove(character);
             }
         }
 
         private void DeselectAll()
         {
-            foreach(CharacterId characterId in vfxSelectCharacterMap.Keys)
+            foreach(Character character in vfxSelectCharacterMap.Keys)
             {
-                GameObject vfxSelect = vfxSelectCharacterMap[characterId];
+                GameObject vfxSelect = vfxSelectCharacterMap[character];
                 Destroy(vfxSelect);
             }
             vfxSelectCharacterMap.Clear();

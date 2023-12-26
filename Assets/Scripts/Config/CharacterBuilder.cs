@@ -1,9 +1,6 @@
-using Amegakure.Starkane.Context;
 using Amegakure.Starkane.Entities;
 using Amegakure.Starkane.GridSystem;
-using Amegakure.Starkane.Id;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterBuilder : MonoBehaviour
@@ -11,14 +8,14 @@ public class CharacterBuilder : MonoBehaviour
     [SerializeField] string charactersFolder = "Characters/";
 
     private GameObject characterGo;
-    private Map map;
+    private Context context;
 
     private void Awake()
     {   
-        map = GameObject.FindObjectOfType<Map>();
+        context = GameObject.FindObjectOfType<Context>();
     }
 
-    public CharacterBuilder AddCharacterPrefab(CharacterType characterType, string skinId)
+    public CharacterBuilder AddCharacterPrefab(CharacterType characterType, string skinId, CharacterPlayerProgress characterPlayerProgress)
     {
         string folderCharacterType = characterType.ToString() + "/";
         string path = charactersFolder + folderCharacterType + skinId;
@@ -27,6 +24,13 @@ public class CharacterBuilder : MonoBehaviour
             {
                 GameObject characterPrefab = Resources.Load<GameObject>(path);
                 characterGo = Instantiate(characterPrefab);
+                
+                Amegakure.Starkane.EntitiesWrapper.Character character
+                                = characterGo.AddComponent<Amegakure.Starkane.EntitiesWrapper.Character>();
+                
+                character.Location = context.GetInitialLocation();
+                character.CharacterPlayerProgress = characterPlayerProgress;
+
                 return this;
             }
             catch (Exception e) { Debug.LogError("Couldn't find characters folder: " + path + ". Details: " + e.Message); }      
@@ -34,33 +38,32 @@ public class CharacterBuilder : MonoBehaviour
         throw new ArgumentException("Couldn't create character");
     }
 
-    public CharacterBuilder AddCharacterController(CharacterId characterId)
+    public CharacterBuilder AddCharacterController()
     {
         if (characterGo)
         {
             CharacterController controller = characterGo.AddComponent<CharacterController>();
-            controller.Id = characterId;
+            Amegakure.Starkane.EntitiesWrapper.Character character
+                                = characterGo.GetComponent<Amegakure.Starkane.EntitiesWrapper.Character>();
+            
+            controller.Character = character;
         }
 
         return this;
     }
 
-    public CharacterBuilder AddGridMovement(CharacterId characterId)
+    public CharacterBuilder AddGridMovement()
     {   
         if(characterGo)
         {
-            WorldCharacterContext context = characterGo.AddComponent<WorldCharacterContext>();
-            context.Id = characterId;
-            
-            Tile location = map.DefaultWorldMapTile;
-            location.OccupyingObject = characterGo;
-            characterGo.transform.position = location.transform.position;
-            context.Location = location;
-
             GridMovement movement = characterGo.AddComponent<GridMovement>();
             movement.TileStyle = PathStyle.SQUARE;
             movement.NumOfTiles = 50;
             movement.Speed = 2;
+
+            Amegakure.Starkane.EntitiesWrapper.Character character
+                                = characterGo.GetComponent<Amegakure.Starkane.EntitiesWrapper.Character>();
+            character.GridMovement = movement;
         }
 
         return this;

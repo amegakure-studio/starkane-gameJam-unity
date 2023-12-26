@@ -27,23 +27,23 @@ public class PlayerStadistics : ModelInstance
         var hexString = BitConverter.ToString(owner.data.ToArray()).Replace("-", "").ToLower();
         m_IntID = System.Int32.Parse( hexString, NumberStyles.AllowHexSpecifier );
 
-        GameObject[] playerGoList = GameObject.FindGameObjectsWithTag("Player");
+        // GameObject[] playerGoList = GameObject.FindGameObjectsWithTag("Player");
         
-        foreach( GameObject playerGo in playerGoList)
-        {
-            try
-            {
-                playerGo.TryGetComponent<Player>(out Player player);
-                if(player != null)
-                {
-                    if(player.Id == m_IntID)
-                    {
-                        gameObject.transform.parent = playerGo.transform;
-                    }   
-                }        
-            }
-            catch(Exception e){Debug.LogError(e);}
-        }
+        // foreach( GameObject playerGo in playerGoList)
+        // {
+        //     try
+        //     {
+        //         playerGo.TryGetComponent<Player>(out Player player);
+        //         if(player != null)
+        //         {
+        //             if(player.Id == m_IntID)
+        //             {
+        //                 gameObject.transform.parent = playerGo.transform;
+        //             }   
+        //         }        
+        //     }
+        //     catch(Exception e){Debug.LogError(e);}
+        // }
        
     }
 

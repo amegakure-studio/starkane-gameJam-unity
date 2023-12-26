@@ -144,12 +144,6 @@ namespace Amegakure.Starkane.GridSystem
         public Path PathBetween(Tile dest, Tile source)
         {
             Path path = MakePath(dest, source);
-
-            Dictionary<string, object> context = new()
-        {
-            { "Path", path }
-        };
-
             return path;
         }
 

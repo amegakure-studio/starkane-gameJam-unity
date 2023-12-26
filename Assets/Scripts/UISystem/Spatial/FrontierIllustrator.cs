@@ -3,8 +3,7 @@ using Amegakure.Starkane.PubSub;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using Amegakure.Starkane.Id;
-using Amegakure.Starkane.Context;
+using Amegakure.Starkane.EntitiesWrapper;
 
 namespace Amegakure.Starkane.UI.Spatial
 {
@@ -37,11 +36,9 @@ namespace Amegakure.Starkane.UI.Spatial
         {
             try
             {
-                CharacterId id = (CharacterId)context["CharacterId"];
-                GameObject characterGo = id.CharacterGo;
-                WorldCharacterContext characterContext = characterGo.GetComponent<WorldCharacterContext>();
-            
-                Frontier frontierToClean = characterContext.Frontier;
+                Character character = (Character)context["Character"];
+
+                Frontier frontierToClean = character.GetMovementFrontier();
                 if(frontierToClean != null)
                     tileRenderer.ClearColor(frontierToClean.Tiles);
             }
@@ -52,13 +49,8 @@ namespace Amegakure.Starkane.UI.Spatial
         {
             try
             {
-                CharacterId id = (CharacterId)context["CharacterId"];
-                GameObject characterGo = id.CharacterGo;
-                WorldCharacterContext characterContext = characterGo.GetComponent<WorldCharacterContext>();
-                GridMovement movement = characterGo.GetComponent<GridMovement>();
-                
-                Frontier frontier  = movement.FindPaths(characterContext.Location);
-                characterContext.Frontier = frontier;
+                Character character = (Character)context["Character"];
+                Frontier frontier  = character.GetMovementFrontier();
 
                 this.IllustrateFrontier(frontier);
             }

@@ -1,9 +1,6 @@
-using Amegakure.Starkane.PubSub;
 using System.Collections;
 using UnityEngine;
-using Amegakure.Starkane.Entities;
-using Amegakure.Starkane.Id;
-using Amegakure.Starkane.Context;
+using System;
 
 namespace Amegakure.Starkane.GridSystem
 {
@@ -14,10 +11,11 @@ namespace Amegakure.Starkane.GridSystem
         [SerializeField] PathStyle tileStyle;
         [SerializeField] int numOfTiles;
         [SerializeField] float speed;
-
         private Pathfinder m_Pathfinder;
+        private bool corroutineStarted = false;
+        public event Action<Tile> OnMovementStart;
+        public event Action<Tile> OnMovementEnd;
 
-        public bool Moving { get; private set; } = false;
         public PathStyle TileStyle { get => tileStyle; set => tileStyle = value; }
         public int NumOfTiles { get => numOfTiles; set => numOfTiles = value; }
         public float Speed { get => speed; set => speed = value; }
@@ -29,11 +27,8 @@ namespace Amegakure.Starkane.GridSystem
             m_Pathfinder = new();
         }
 
-
-        IEnumerator MoveThroughPath(Path path, WorldCharacterContext characterContext)
+        IEnumerator MoveThroughPath(Path path, Tile origin, Tile target)
         {
-            EventManager.Instance.Publish(GameEvent.CHARACTER_MOVE_START, new() { { "Character", characterContext } });
-
             int step = 0;
             int pathlength = Mathf.Clamp(path.TilesInPath.Length, 0, NumOfTiles + 1);
             Tile currentTile = path.TilesInPath[0];
@@ -56,23 +51,27 @@ namespace Amegakure.Starkane.GridSystem
                 animationtime = 0f;
             }
 
-            FinalizePosition(path.TilesInPath[pathlength - 1], characterContext);
-
-            EventManager.Instance.Publish(GameEvent.CHARACTER_MOVE_END, new() { { "Character", characterContext } });
-
+            // FinalizePosition(path.TilesInPath[pathlength - 1]);
+            OnMovementEnd?.Invoke(target);
+            //     transform.position = tile.transform.position;
+            corroutineStarted = false;
         }
 
-        public bool GoTo(Tile origin,  WorldCharacterContext characterContext, Tile target)
+        public bool GoTo(Tile origin, Tile target)
         {
             if (CanReachTile(target))
             {
+                OnMovementStart?.Invoke(origin);
                 Path path = m_Pathfinder.PathBetween(target, origin);
 
-                Moving = true;
-                origin.OccupyingObject = null;               
-                StartCoroutine(MoveThroughPath(path, characterContext));
-                ClearMovementFrontier();
-
+                origin.OccupyingObject = null;
+                if(!corroutineStarted)
+                {
+                    corroutineStarted = true;
+                    StartCoroutine(MoveThroughPath(path, origin, target));
+                    ClearMovementFrontier();
+                }               
+    
                 return true;
             }
 
@@ -101,13 +100,12 @@ namespace Amegakure.Starkane.GridSystem
                 return new Frontier();
         }
 
-        private void FinalizePosition(Tile tile, WorldCharacterContext characterContext)
-        {
-            transform.position = tile.transform.position;
-            characterContext.Location = tile;
-            Moving = false;
-            tile.OccupyingObject = characterContext.Id.CharacterGo;
-        }
+        // private void FinalizePosition(Tile tile)
+        // {
+        //     OnMovementEnd?.Invoke(this, EventArgs.Empty);
+        //     transform.position = tile.transform.position;
+        //     Moving = false;
+        // }
 
         private void MoveAndRotate(Vector3 origin, Vector3 destination, float duration)
         {

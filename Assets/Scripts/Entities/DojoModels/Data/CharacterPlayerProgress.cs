@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Amegakure.Starkane.Entities;
-using Amegakure.Starkane.Id;
 using Dojo;
 using Dojo.Torii;
 using dojo_bindings;
@@ -16,6 +15,11 @@ public class CharacterPlayerProgress : ModelInstance
     bool owned;
     UInt32 level;
     private int intID;
+
+    public CharacterType GetCharacterType()
+    {
+        return (CharacterType) character_id;
+    }
 
     private Dictionary<CharacterType, string> characterPrefabsDict;
 
@@ -37,40 +41,11 @@ public class CharacterPlayerProgress : ModelInstance
         
         var hexString = BitConverter.ToString(owner.data.ToArray()).Replace("-", "").ToLower();
         intID = System.Int32.Parse( hexString, NumberStyles.AllowHexSpecifier );
-        
-        CharacterType characterType = (CharacterType) character_id;
-        GameObject builderGo = Instantiate(new GameObject());
-        CharacterBuilder builder = builderGo.AddComponent<CharacterBuilder>();
-        GameObject[] playerGoList = GameObject.FindGameObjectsWithTag("Player");
-        
-        foreach( GameObject playerGo in playerGoList)
-        {
-            try
-            {
-                playerGo.TryGetComponent<Player>(out Player player);
-                if(player != null)
-                {
-                    if(player.Id == intID)
-                    {
-                        CharacterId id = new CharacterId(player.Id, characterType);
-                        GameObject characterGo = builder
-                                .AddCharacterPrefab(characterType, characterPrefabsDict[characterType])
-                                .AddCharacterController(id)
-                                .AddGridMovement(id)
-                                .Build();
+    }
 
-                        id.CharacterGo = characterGo;
-                        
-                        player.AddCharacter(characterType, characterGo);
-                        characterGo.transform.parent = playerGo.transform;
-                        gameObject.transform.parent = playerGo.transform;
-                    }   
-                }        
-            }
-            catch(Exception e){Debug.LogError(e);}
-        }
-
-        Destroy( builderGo );
+    public int getID()
+    {
+        return intID;
     }
 
     public void print()

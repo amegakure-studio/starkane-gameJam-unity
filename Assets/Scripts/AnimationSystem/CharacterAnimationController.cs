@@ -1,17 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Amegakure.Starkane.Entities;
-using System.Linq;
-using Amegakure.Starkane.Id;
 using Amegakure.Starkane.PubSub;
-using System;
-using Amegakure.Starkane.Context;
+using Amegakure.Starkane.EntitiesWrapper;
 
 namespace Amegakure.Starkane.AnimationSystem
 {
     public class CharacterAnimationController : MonoBehaviour
     {
-        private Dictionary<CharacterId, Animator> characterAnimatorMap;
+        private Dictionary<Character, Animator> characterAnimatorMap;
 
         private void Awake()
         {
@@ -34,13 +30,14 @@ namespace Amegakure.Starkane.AnimationSystem
         {
             try
             {
-                WorldCharacterContext characterContext = (WorldCharacterContext) context["Character"];
+                Character character = (Character) context["Character"];
 
-                if (characterAnimatorMap.ContainsKey(characterContext.Id))
-                {
-                    Animator animator = characterAnimatorMap[characterContext.Id];
-                    animator.SetBool("IsWalking", true);
-                }
+
+                if (!characterAnimatorMap.ContainsKey(character))
+                    characterAnimatorMap[character] = character.GetComponent<Animator>();
+
+                Animator animator = characterAnimatorMap[character];
+                animator?.SetBool("IsWalking", true);
 
             } catch {}
         }
@@ -49,38 +46,15 @@ namespace Amegakure.Starkane.AnimationSystem
         {
             try
             {
-                WorldCharacterContext characterContext = (WorldCharacterContext) context["Character"];
+                Character character = (Character) context["Character"];
 
-                if (characterAnimatorMap.ContainsKey(characterContext.Id))
+                if (characterAnimatorMap.ContainsKey(character))
                 {
-                    Animator animator = characterAnimatorMap[characterContext.Id];
-                    animator.SetBool("IsWalking", false);
+                    Animator animator = characterAnimatorMap[character];
+                    animator?.SetBool("IsWalking", false);
                 }
 
             } catch {}
-        }
-
-        private void Start()
-        {
-            RegisterPlayers();        
-        }
-
-        private void RegisterPlayers()
-        {
-            List<Player> players = GameObject.FindObjectsOfType<Player>().ToList();
-            players.ForEach(player => RegisterCharacter(player));
-        }
-
-        private void RegisterCharacter(Player player)
-        {
-            foreach (CharacterType characterType in player.CharacterDictionary.Keys)
-            {
-                GameObject character = player.CharacterDictionary[characterType];
-                Animator animator = character.GetComponent<Animator>();
-                CharacterId id = new(player.Id, characterType);
-
-                characterAnimatorMap[id] = animator;
-            }
         }
     }
 }

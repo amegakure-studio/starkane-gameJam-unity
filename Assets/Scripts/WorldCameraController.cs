@@ -20,13 +20,9 @@ public class WorldCameraController : MonoBehaviour
                 
                 if(player != null)
                 {
-                    foreach(CharacterType characterType in player.CharacterDictionary.Keys)
-                    {
-                        GameObject characterGo = player.CharacterDictionary[characterType];
-                        virtualCamera.LookAt = characterGo.transform;
-                        virtualCamera.Follow = characterGo.transform;
-                        break;
-                    }
+                    GameObject characterGo = player.CharacterDictionary[player.DefaultCharacter];
+                    virtualCamera.LookAt = characterGo.transform;
+                    virtualCamera.Follow = characterGo.transform;
                 }
             }
             catch{}

@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public int Id { get => id; set => id = value; }
     public Dictionary<CharacterType, GameObject> CharacterDictionary { get => m_CharacterDictionary; private set => m_CharacterDictionary = value; }
     public bool CanBeDisplayed { get => canBeDisplayed; set => canBeDisplayed = value; }
+    public CharacterType DefaultCharacter { get => defaultCharacter; private set => defaultCharacter = value; }
 
     public void AddCharacter(CharacterType type, GameObject characterPrefab)
     {

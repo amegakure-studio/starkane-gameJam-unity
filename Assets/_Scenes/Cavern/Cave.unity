@@ -6926,6 +6926,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 2
+  canBeDisplayed: 1
+  defaultCharacter: 0
 --- !u!4 &703495815
 Transform:
   m_ObjectHideFlags: 0
@@ -15755,6 +15757,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
+  canBeDisplayed: 1
+  defaultCharacter: 3
 --- !u!4 &1940192861
 Transform:
   m_ObjectHideFlags: 0

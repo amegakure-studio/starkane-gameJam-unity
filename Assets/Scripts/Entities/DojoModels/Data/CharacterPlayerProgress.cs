@@ -64,9 +64,6 @@ public class CharacterPlayerProgress : ModelInstance
                         player.AddCharacter(characterType, characterGo);
                         characterGo.transform.parent = playerGo.transform;
                         gameObject.transform.parent = playerGo.transform;
-
-                        characterGo.SetActive(player.CanBeDisplayed);
-                        player.CanBeDisplayed = false;
                     }   
                 }        
             }

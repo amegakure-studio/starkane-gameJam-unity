@@ -676,6 +676,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Avelyn
       objectReference: {fileID: 0}
+    - target: {fileID: 3659877405080767468, guid: dd20d2e901321024292d9d8171e764b1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3673115226095837138, guid: dd20d2e901321024292d9d8171e764b1,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -2172,6 +2177,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778194730690118490, guid: 6e2f526d8f675ce48ad9391286783f6c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

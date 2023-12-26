@@ -3,6 +3,9 @@ using UnityEngine;
 using Amegakure.Starkane.Entities;
 using System.Linq;
 using Amegakure.Starkane.Id;
+using Amegakure.Starkane.PubSub;
+using System;
+using Amegakure.Starkane.Context;
 
 namespace Amegakure.Starkane.AnimationSystem
 {
@@ -13,6 +16,48 @@ namespace Amegakure.Starkane.AnimationSystem
         private void Awake()
         {
             characterAnimatorMap = new();
+        }
+
+        private void OnEnable()
+        {
+            EventManager.Instance.Subscribe(GameEvent.CHARACTER_MOVE_START, HandleCharacterMoveStart);
+            EventManager.Instance.Subscribe(GameEvent.CHARACTER_MOVE_END, HandleCharacterMoveEnd);
+        }
+
+        private void OnDisable()
+        {
+            EventManager.Instance.Unsubscribe(GameEvent.CHARACTER_MOVE_START, HandleCharacterMoveStart);
+            EventManager.Instance.Unsubscribe(GameEvent.CHARACTER_MOVE_END, HandleCharacterMoveEnd);
+        }
+
+        private void HandleCharacterMoveStart(Dictionary<string, object> context)
+        {
+            try
+            {
+                WorldCharacterContext characterContext = (WorldCharacterContext) context["Character"];
+
+                if (characterAnimatorMap.ContainsKey(characterContext.Id))
+                {
+                    Animator animator = characterAnimatorMap[characterContext.Id];
+                    animator.SetBool("IsWalking", true);
+                }
+
+            } catch {}
+        }
+
+        private void HandleCharacterMoveEnd(Dictionary<string, object> context)
+        {
+            try
+            {
+                WorldCharacterContext characterContext = (WorldCharacterContext) context["Character"];
+
+                if (characterAnimatorMap.ContainsKey(characterContext.Id))
+                {
+                    Animator animator = characterAnimatorMap[characterContext.Id];
+                    animator.SetBool("IsWalking", false);
+                }
+
+            } catch {}
         }
 
         private void Start()

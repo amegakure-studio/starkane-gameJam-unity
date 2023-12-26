@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
 using Amegakure.Starkane;
+using Amegakure.Starkane.Context;
+using Amegakure.Starkane.GridSystem;
 using Amegakure.Starkane.Id;
 using Amegakure.Starkane.PubSub;
 using UnityEngine;
@@ -9,6 +13,33 @@ public class CharacterController : MonoBehaviour
     private bool clicked = false;
 
     public CharacterId Id { get => id; set => id = value; }
+
+    private void OnEnable()
+    {
+        EventManager.Instance.Subscribe(GameEvent.TILE_SELECTED, HandleTileSelected);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.Unsubscribe(GameEvent.TILE_SELECTED, HandleTileSelected);
+    }
+
+    private void HandleTileSelected(Dictionary<string, object> context)
+    {
+        try
+        {
+            Tile tile = (Tile) context["Tile"];
+            
+            GameObject characterGo = id.CharacterGo;
+
+            characterGo.TryGetComponent<WorldCharacterContext>(out WorldCharacterContext characterContext);
+
+            GridMovement movement = characterGo.GetComponent<GridMovement>();
+            movement.GoTo(characterContext.Location, characterContext, tile);
+            clicked = false;
+        }
+        catch{}
+    }
 
     private void OnMouseEnter()
     {

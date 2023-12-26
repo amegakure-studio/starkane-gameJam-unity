@@ -7,13 +7,17 @@ public class Player : MonoBehaviour
     [SerializeField] int id;
     private Dictionary<CharacterType, GameObject> m_CharacterDictionary = new();
 
+    private void Start()
+    {
+        
+    }
+
     public int Id { get => id; set => id = value; }
     public Dictionary<CharacterType, GameObject> CharacterDictionary { get => m_CharacterDictionary; private set => m_CharacterDictionary = value; }
 
     public void AddCharacter(CharacterType type, GameObject characterPrefab)
     {
         m_CharacterDictionary.Add(type, characterPrefab);
-        Debug.Log("KEYS COUNT:" + m_CharacterDictionary.Keys.Count);
     }
 
 }

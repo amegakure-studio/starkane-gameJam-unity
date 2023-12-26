@@ -41,7 +41,7 @@ namespace Amegakure.Starkane.InputSystem
         {
             if (tile && tile.InFrontier)
             {
-                Dictionary<string, object> context = new(){ { "Tile", this } };
+                Dictionary<string, object> context = new(){ { "Tile", tile } };
 
                 EventManager.Instance.Publish(GameEvent.TILE_SELECTED, context);
             }

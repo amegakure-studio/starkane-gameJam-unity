@@ -1,3 +1,4 @@
+using Amegakure.Starkane.GridSystem;
 using Amegakure.Starkane.Id;
 using Amegakure.Starkane.PubSub;
 using System;
@@ -21,12 +22,23 @@ namespace Amegakure.Starkane.VfxSystem
         {
             EventManager.Instance.Subscribe(GameEvent.INPUT_CHARACTER_SELECTED, HandleCharacterSelected);
             EventManager.Instance.Subscribe(GameEvent.INPUT_CHARACTER_UNSELECTED, HandleCharacterUnselected);
+            EventManager.Instance.Subscribe(GameEvent.TILE_SELECTED, HandleTileSelected);
         }
 
         private void OnDisable()
         {
             EventManager.Instance.Unsubscribe(GameEvent.INPUT_CHARACTER_SELECTED, HandleCharacterSelected);
             EventManager.Instance.Unsubscribe(GameEvent.INPUT_CHARACTER_UNSELECTED, HandleCharacterUnselected);
+            EventManager.Instance.Unsubscribe(GameEvent.TILE_SELECTED, HandleTileSelected);
+        }
+
+        private void HandleTileSelected(Dictionary<string, object> context)
+        {
+           try
+            {
+                DeselectAll();
+            }
+            catch { }
         }
 
         private void HandleCharacterUnselected(Dictionary<string, object> context)
@@ -72,5 +84,16 @@ namespace Amegakure.Starkane.VfxSystem
                 vfxSelectCharacterMap.Remove(id);
             }
         }
+
+        private void DeselectAll()
+        {
+            foreach(CharacterId characterId in vfxSelectCharacterMap.Keys)
+            {
+                GameObject vfxSelect = vfxSelectCharacterMap[characterId];
+                Destroy(vfxSelect);
+            }
+            vfxSelectCharacterMap.Clear();
+        }
+
     }
 }

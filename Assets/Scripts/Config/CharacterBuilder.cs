@@ -60,7 +60,7 @@ public class CharacterBuilder : MonoBehaviour
             GridMovement movement = characterGo.AddComponent<GridMovement>();
             movement.TileStyle = PathStyle.SQUARE;
             movement.NumOfTiles = 50;
-            movement.Speed = 8;
+            movement.Speed = 2;
         }
 
         return this;

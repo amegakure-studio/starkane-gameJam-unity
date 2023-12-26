@@ -24,6 +24,7 @@ public class CharacterPlayerProgress : ModelInstance
         characterPrefabsDict =  new();
         characterPrefabsDict[CharacterType.Warrior] = "Avelyn";
         characterPrefabsDict[CharacterType.Pig] = "Enemy";
+        characterPrefabsDict[CharacterType.Archer] = "Darkelf";
     }
 
     public override void Initialize(Model model)

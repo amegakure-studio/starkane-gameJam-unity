@@ -6,14 +6,11 @@ public class Player : MonoBehaviour
 {
     [SerializeField] int id;
     private Dictionary<CharacterType, GameObject> m_CharacterDictionary = new();
-
-    private void Start()
-    {
-        
-    }
+    [SerializeField]private bool canBeDisplayed = true;
 
     public int Id { get => id; set => id = value; }
     public Dictionary<CharacterType, GameObject> CharacterDictionary { get => m_CharacterDictionary; private set => m_CharacterDictionary = value; }
+    public bool CanBeDisplayed { get => canBeDisplayed; set => canBeDisplayed = value; }
 
     public void AddCharacter(CharacterType type, GameObject characterPrefab)
     {

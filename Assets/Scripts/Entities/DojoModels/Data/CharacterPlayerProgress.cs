@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Amegakure.Starkane.Entities;
 using Amegakure.Starkane.Id;
@@ -15,6 +16,15 @@ public class CharacterPlayerProgress : ModelInstance
     bool owned;
     UInt32 level;
     private int intID;
+
+    private Dictionary<CharacterType, string> characterPrefabsDict;
+
+    private void Awake()
+    {
+        characterPrefabsDict =  new();
+        characterPrefabsDict[CharacterType.Warrior] = "Avelyn";
+        characterPrefabsDict[CharacterType.Pig] = "Enemy";
+    }
 
     public override void Initialize(Model model)
     {
@@ -42,9 +52,8 @@ public class CharacterPlayerProgress : ModelInstance
                     if(player.Id == intID)
                     {
                         CharacterId id = new CharacterId(player.Id, characterType);
-                        // TODO: Create a Dictionary that contains: skinID -> prefab name 
                         GameObject characterGo = builder
-                                .AddCharacterPrefab(characterType, "Avelyn")
+                                .AddCharacterPrefab(characterType, characterPrefabsDict[characterType])
                                 .AddCharacterController(id)
                                 .AddGridMovement(id)
                                 .Build();
@@ -54,6 +63,9 @@ public class CharacterPlayerProgress : ModelInstance
                         player.AddCharacter(characterType, characterGo);
                         characterGo.transform.parent = playerGo.transform;
                         gameObject.transform.parent = playerGo.transform;
+
+                        characterGo.SetActive(player.CanBeDisplayed);
+                        player.CanBeDisplayed = false;
                     }   
                 }        
             }

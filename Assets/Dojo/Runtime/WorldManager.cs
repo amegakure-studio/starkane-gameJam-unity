@@ -18,7 +18,7 @@ namespace Dojo
         public ToriiClient toriiClient;
         public event Action<WorldManager> OnEntityFeched;
 
-        void Awake()
+        void Start()
         {
             // create the torii client and start subscription service
             toriiClient = new ToriiClient(toriiUrl, rpcUrl, worldAddress, new dojo.KeysClause[] { });

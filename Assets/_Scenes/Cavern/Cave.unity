@@ -14274,6 +14274,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1534657562}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1544720661 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4314210157354397955, guid: a7b92db12c28bdf6697c10b71f991dd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 3266529254852273580}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1555327453
 GameObject:
   m_ObjectHideFlags: 0
@@ -17420,6 +17426,8 @@ MonoBehaviour:
   encounterDirector: {fileID: 2165142930613557512}
   battleDirector: {fileID: 4856583092128169265}
   dismissDirector: {fileID: 5502892099427893010}
+  initPos: {x: -5, y: 0, z: 7}
+  enemyTransform: {fileID: 411262879}
 --- !u!1001 &3266529254852273580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17506,7 +17514,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4314210157354397955, guid: a7b92db12c28bdf6697c10b71f991dd4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5502892099427893011}
   m_SourcePrefab: {fileID: 100100000, guid: a7b92db12c28bdf6697c10b71f991dd4, type: 3}
 --- !u!4 &3674768302931818944 stripped
 Transform:
@@ -17577,6 +17589,37 @@ PlayableDirector:
     type: 3}
   m_PrefabInstance: {fileID: 3266529254852273580}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5502892099427893011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544720661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 98f958c195e3d9244aea8e868ba1aa34, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2853847711088819771}
+          m_TargetAssemblyTypeName: Amegakure.Starkane.CinematicSystem.CutSceneManager,
+            Assembly-CSharp
+          m_MethodName: ResetPlayerPosition
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!4 &8180119179703103588 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3871450028273935852, guid: 2b41c420c5ca11d198a9be55d085afd1,

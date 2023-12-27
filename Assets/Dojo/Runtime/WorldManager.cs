@@ -3,6 +3,7 @@ using dojo_bindings;
 using UnityEngine;
 using Dojo.Torii;
 using System;
+using System.Collections;
 
 namespace Dojo
 {
@@ -28,6 +29,8 @@ namespace Dojo
             // TODO: maybe do in the start function of the SynchronizationMaster?
             // problem is when to start the subscription service
             synchronizationMaster.SynchronizeEntities();
+
+            Debug.Log("Fetch!");
             
             OnEntityFeched.Invoke(this);
 

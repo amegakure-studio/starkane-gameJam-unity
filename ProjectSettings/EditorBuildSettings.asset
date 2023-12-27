@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/_Scenes/Cavern/Cave.unity
     guid: ab92830d1660276b9b6604ae1604adfb
   - enabled: 1
-    path: Assets/_Scenes/Combat.unity
-    guid: 9f882503a3b392d4d886d7a3606812f1
+    path: Assets/_Scenes/Cavern/Cavern-combat.unity
+    guid: 84e99081dc75de2e982b4d2b3f39e210
   m_configObjects: {}

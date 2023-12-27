@@ -18,10 +18,12 @@ public class PlayerCreator : MonoBehaviour
         characterPrefabsDict[CharacterType.Pig] = "Enemy";
         characterPrefabsDict[CharacterType.Archer] = "Darkelf";
     }
+
     void OnEnable()
     {
         worldManager.OnEntityFeched += Create;   
     }
+
     void OnDisable()
     {
         worldManager.OnEntityFeched -= Create;   

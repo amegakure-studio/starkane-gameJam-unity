@@ -23,6 +23,8 @@ public class CharacterPlayerProgress : ModelInstance
 
     private Dictionary<CharacterType, string> characterPrefabsDict;
 
+    public dojo.FieldElement Owner { get => owner; private set => owner = value; }
+
     private void Awake()
     {
         characterPrefabsDict =  new();

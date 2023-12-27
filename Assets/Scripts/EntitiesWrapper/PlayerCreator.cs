@@ -51,6 +51,7 @@ public class PlayerCreator : MonoBehaviour
                     if(characterPlayerProgress.getID() == player.Id
                         && characterType == player.DefaultCharacter)
                     {
+                        player.SetDojoId(characterPlayerProgress.Owner);
                         
                         GameObject characterGo = builder
                                 .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], characterPlayerProgress)

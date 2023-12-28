@@ -13,6 +13,13 @@ struct PlayerCharacter
 
 public class SystemsCalls : MonoBehaviour
 {
+
+    private void Start()
+    {
+        int intValue = 24;
+        string hexValue = intValue.ToString("X");
+        Debug.Log("Int to hexa: " + hexValue);
+    }
     private void mint()
     {
         if (Input.GetKeyDown(KeyCode.A))
@@ -120,14 +127,11 @@ public class SystemsCalls : MonoBehaviour
             var account = new Account(provider, signer, playerAddress);
             string actionsAddress = "0xf95f269a39505092b2d4eea3268e2e8da83cfd12a20b0eceb505044ecaabf2";
             
-
-            List<dojo.FieldElement> calldata = new List<dojo.FieldElement>();
-
             var match_id = dojo.felt_from_hex_be(new CString("0x0")).ok;
-            var player_id = dojo.felt_from_hex_be(new CString("0x1")).ok;
-            var character_id = dojo.felt_from_hex_be(new CString("0x3")).ok;
+            var player_id = dojo.felt_from_hex_be(new CString("0x2")).ok;
+            var character_id = dojo.felt_from_hex_be(new CString("0x4")).ok;
             var x = dojo.felt_from_hex_be(new CString("0x6")).ok;
-            var y = dojo.felt_from_hex_be(new CString("0x6")).ok;
+            var y = dojo.felt_from_hex_be(new CString("0x18")).ok;
 
             dojo.Call call = new dojo.Call()
             {
@@ -160,7 +164,7 @@ public class SystemsCalls : MonoBehaviour
             List<dojo.FieldElement> calldata = new List<dojo.FieldElement>();
 
             var match_id = dojo.felt_from_hex_be(new CString("0x0")).ok;
-            var player_id = dojo.felt_from_hex_be(new CString("0x1")).ok;
+            var player_id = dojo.felt_from_hex_be(new CString("0x01")).ok;
 
             dojo.Call call = new dojo.Call()
             {

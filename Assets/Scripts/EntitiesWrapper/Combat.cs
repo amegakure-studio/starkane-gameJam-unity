@@ -1,6 +1,9 @@
 using Amegakure.Starkane.Entities;
 using Amegakure.Starkane.EntitiesWrapper;
 using Amegakure.Starkane.GridSystem;
+using bottlenoselabs.C2CS.Runtime;
+using Dojo.Starknet;
+using dojo_bindings;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,7 +33,7 @@ public class Combat : MonoBehaviour
         if (!playerMatchCharacters.ContainsKey(player))
             playerMatchCharacters[player] = new();
 
-        List <Character> currentCharacters = playerMatchCharacters[player];
+        List<Character> currentCharacters = playerMatchCharacters[player];
         currentCharacters.Add(character);
 
         if (!actionStates.ContainsKey(player))
@@ -50,16 +53,56 @@ public class Combat : MonoBehaviour
     {
         if (CanMove(character, player))
         {
+            CallMoveTx(character, player, target);
             character.Move(target);
         }
+    }
+
+    private void CallMoveTx(Character character, Player player, Tile target)
+    {
+        string rpcUrl = "http://localhost:5050";
+
+        var provider = new JsonRpcClient(rpcUrl);
+        var signer = new SigningKey("0x1800000000300000180000000000030000000000003006001800006600");
+        string playerAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
+
+        var account = new Account(provider, signer, playerAddress);
+        string actionsAddress = "0xf95f269a39505092b2d4eea3268e2e8da83cfd12a20b0eceb505044ecaabf2";
+        
+        string match_id_string = matchState.Id.ToString("X");
+        var match_id = dojo.felt_from_hex_be(new CString(match_id_string)).ok;
+        
+        string player_id_string = player.Id.ToString("X");
+        var player_id = dojo.felt_from_hex_be(new CString(player_id_string)).ok;
+        
+        string character_id_string = character.GetId().ToString("X");
+        var character_id = dojo.felt_from_hex_be(new CString(character_id_string)).ok;
+        
+        string x_string = target.coordinate.x.ToString("X");
+        var x = dojo.felt_from_hex_be(new CString(x_string)).ok;
+
+        string y_string = target.coordinate.y.ToString("X");
+        var y = dojo.felt_from_hex_be(new CString(y_string)).ok;
+
+        dojo.Call call = new dojo.Call()
+        {
+            calldata = new[]
+            {
+                   match_id, player_id, character_id, x, y
+                },
+            to = actionsAddress,
+            selector = "move"
+        };
+
+        account.ExecuteRaw(new[] { call });
     }
 
     public bool CanMove(Character character, Player player)
     {
         bool playerRegistered = playerMatchCharacters.ContainsKey(player) && playerMatchCharacters[player].Contains(character);
-        
-        if (playerRegistered) 
-        { 
+
+        if (playerRegistered)
+        {
             bool characterMoved = GetActionState(player, character).Movement;
             return matchState.PlayerTurnId == player.Id && !characterMoved;
         }

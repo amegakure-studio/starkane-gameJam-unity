@@ -143,8 +143,42 @@ public class SystemsCalls : MonoBehaviour
         }
     }
 
+     private void end_turn()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            string rpcUrl = "http://localhost:5050";
+
+            var provider = new JsonRpcClient(rpcUrl);
+            var signer = new SigningKey("0x1800000000300000180000000000030000000000003006001800006600");
+            string playerAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
+
+            var account = new Account(provider, signer, playerAddress);
+            string actionsAddress = "0x61231db30a04f42b3c3e57cd13b0dee6053f8ed7c350135735e67c254b60454";
+            
+
+            List<dojo.FieldElement> calldata = new List<dojo.FieldElement>();
+
+            var match_id = dojo.felt_from_hex_be(new CString("0x0")).ok;
+            var player_id = dojo.felt_from_hex_be(new CString("0x1")).ok;
+
+            dojo.Call call = new dojo.Call()
+            {
+                calldata = new[]
+                {
+                   match_id, player_id
+                },
+                to = actionsAddress,
+                selector = "end_turn"
+            };
+    
+            account.ExecuteRaw(new[] { call });
+        }
+    }
+
     void Update()
     {
         move();
+        end_turn();
     }
 }

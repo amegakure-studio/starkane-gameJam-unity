@@ -15,7 +15,13 @@ public class MatchState : ModelInstance
     private UInt32 map_id;
     private dojo.FieldElement winner;
     private int winnerId;
- 
+
+    public uint Id { get => id; set => id = value; }
+    public uint Turn { get => turn; set => turn = value; }
+    public int PlayerTurnId { get => playerTurnId; set => playerTurnId = value; }
+    public uint Map_id { get => map_id; set => map_id = value; }
+    public int WinnerId { get => winnerId; set => winnerId = value; }
+
     public override void Initialize(Model model)
     {
         id = model.members["id"].ty.ty_primitive.u32;

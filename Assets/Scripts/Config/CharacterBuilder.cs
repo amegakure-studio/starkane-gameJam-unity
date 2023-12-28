@@ -38,6 +38,23 @@ public class CharacterBuilder : MonoBehaviour
         throw new ArgumentException("Couldn't create character");
     }
 
+    public CharacterBuilder AddCombatElements( CharacterState characterState, ActionState actionState)
+    {
+        try
+        {
+            Debug.Log(characterGo.name);
+            Amegakure.Starkane.EntitiesWrapper.Character character
+                                = characterGo.GetComponent<Amegakure.Starkane.EntitiesWrapper.Character>();
+        
+            character.ActionState = actionState;
+            character.CharacterState = characterState;
+            return this;
+        }
+        catch(Exception e){ Debug.LogError("Couldn't add elements to character" + e);}
+        
+        throw new ArgumentException("Couldn't add elements to character");
+    }
+
     public CharacterBuilder AddCharacterController()
     {
         if (characterGo)

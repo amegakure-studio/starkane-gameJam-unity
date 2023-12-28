@@ -13,6 +13,12 @@ public class ActionState : ModelInstance
     private bool action;
     private bool movement;
 
+    public uint Match_id { get => match_id; set => match_id = value; }
+    public uint Character_id { get => character_id; set => character_id = value; }
+    public int Player_id { get => playerId; set => playerId = value; }
+    public bool Action { get => action; set => action = value; }
+    public bool Movement { get => movement; set => movement = value; }
+
     public override void Initialize(Model model)
     {
         match_id = model.members["match_id"].ty.ty_primitive.u32;

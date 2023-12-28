@@ -1,0 +1,27 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Dialog" src="project://database/Assets/UI%20Toolkit/Documents/Components/Dialog.uxml?fileID=9197481963319205126&amp;guid=1266cac30a60c574db44bfc1e470c7fc&amp;type=3#Dialog" />
+    <ui:Template name="SkillContainer" src="project://database/Assets/UI%20Toolkit/Documents/Components/SkillContainer.uxml?fileID=9197481963319205126&amp;guid=08e291c2176e16f40a94b433d472a8f3&amp;type=3#SkillContainer" />
+    <ui:Template name="CharacterContainer" src="project://database/Assets/UI%20Toolkit/Documents/Components/CharacterContainer.uxml?fileID=9197481963319205126&amp;guid=fa869ba1954213b4cb2dd01a8957f78d&amp;type=3#CharacterContainer" />
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/HUD.uss?fileID=7433441132597879392&amp;guid=db0ced92d00180c40b3d44e1db004e0f&amp;type=3#HUD" />
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/Common.uss?fileID=7433441132597879392&amp;guid=7f31884dfb911114485ee9a152b44132&amp;type=3#Common" />
+    <ui:VisualElement name="Container" style="flex-grow: 1;">
+        <ui:VisualElement name="Header" class="header" style="flex-grow: 1;" />
+        <ui:VisualElement name="Content" class="content" style="flex-grow: 1;">
+            <ui:VisualElement name="Left" style="flex-grow: 1;" />
+            <ui:VisualElement name="Middle" style="flex-grow: 1;">
+                <ui:Instance template="Dialog" name="Dialog" focusable="true" style="display: none;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Right" style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Footer" class="footer" style="flex-grow: 1; flex-direction: column; justify-content: flex-start; align-items: flex-start; align-self: auto; height: 25%; padding-right: 2%; padding-left: 2%; padding-bottom: 1%;">
+            <ui:VisualElement name="PlayerName" style="flex-grow: 1; height: 50%; width: 30%; align-items: stretch; background-image: url(&apos;project://database/Assets/Art/UI/GUI_parts/name_bar.png?fileID=21300000&amp;guid=7491a4e8767295b409ec7ee0eed9d694&amp;type=3#name_bar&apos;); -unity-text-align: middle-left; padding-left: 2%;">
+                <ui:Label tabindex="-1" text="PLAYER_NAME" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Text" class="small text" style="flex-grow: 1; font-size: 20px; white-space: normal; -unity-text-align: middle-left;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Actions" style="flex-grow: 1; flex-direction: row; justify-content: space-between; height: 100%; width: 100%; align-items: center;">
+                <ui:Instance template="SkillContainer" name="SkillContainer" style="flex-grow: 0; width: 20%; height: 100%;" />
+                <ui:Button text="End turn" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BtnEndTurn" class="text small button disabled" style="height: 50%;" />
+                <ui:Instance template="CharacterContainer" name="CharacterContainer" style="flex-grow: 0; width: 20%; height: 100%;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

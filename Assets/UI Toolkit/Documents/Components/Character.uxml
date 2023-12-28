@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="ProgressBar" src="project://database/Assets/UI%20Toolkit/Documents/Components/ProgressBar.uxml?fileID=9197481963319205126&amp;guid=81dabbec055ba6e4b93303a5603f9258&amp;type=3#ProgressBar" />
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/Characters.uss?fileID=7433441132597879392&amp;guid=acd80aef69660634cb4d3bb63991b795&amp;type=3#Characters" />
+    <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Character" class="character">
+        <ui:VisualElement name="Icon" class="icon disabled" style="flex-grow: 1; background-image: resource(&apos;Characters/Avelyn&apos;); -unity-background-scale-mode: scale-to-fit;" />
+        <ui:VisualElement name="Stats" class="stats" style="flex-grow: 1;">
+            <ui:Instance template="ProgressBar" name="Hp" class="progress_bar" />
+            <ui:Instance template="ProgressBar" name="Mp" class="progress_bar" />
+        </ui:VisualElement>
+    </ui:Button>
+</ui:UXML>

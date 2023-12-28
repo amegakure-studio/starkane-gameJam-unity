@@ -1,0 +1,36 @@
+.progressBar_background {
+    background-image: url('project://database/Assets/Art/UI/GUI_parts/name_bar2.png?fileID=21300000&guid=e4c261293bfe98f4fa9d9591373bc443&type=3#name_bar2');
+    -unity-background-scale-mode: stretch-to-fill;
+    flex-grow: 1;
+    align-self: auto;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    -unity-text-align: upper-left;
+    height: 100%;
+    padding-top: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+    -unity-background-image-tint-color: rgb(128, 128, 128);
+}
+
+.progressBar_overlay {
+    background-color: rgb(47, 140, 44);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    width: 50%;
+    height: 100%;
+    flex-grow: 0;
+    background-image: none;
+    -unity-background-scale-mode: stretch-to-fill;
+    align-items: flex-start;
+    align-self: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-top-left-radius: 3%;
+    border-top-right-radius: 3%;
+    border-bottom-right-radius: 3%;
+    border-bottom-left-radius: 3%;
+}

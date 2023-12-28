@@ -23,6 +23,6 @@ public class MatchPlayer : ModelInstance
         var playerString = BitConverter.ToString(player.data.ToArray()).Replace("-", "").ToLower();
         playerId = System.Int32.Parse(playerString, System.Globalization.NumberStyles.AllowHexSpecifier);
 
-        Debug.Log("MatchPlayer: \n match_id: " + match_id + "\n id: " + id + "\n playerId: " + playerId + "\n");
+        // Debug.Log("MatchPlayer: \n match_id: " + match_id + "\n id: " + id + "\n playerId: " + playerId + "\n");
     }
 }

@@ -43,6 +43,7 @@ public class CharacterPlayerProgress : ModelInstance
         
         var hexString = BitConverter.ToString(owner.data.ToArray()).Replace("-", "").ToLower();
         intID = System.Int32.Parse( hexString, NumberStyles.AllowHexSpecifier );
+        print();
     }
 
     public int getID()
@@ -52,7 +53,7 @@ public class CharacterPlayerProgress : ModelInstance
 
     public void print()
     {
-        Debug.Log("owner: " + intID + "\n"
+        Debug.Log(" CPP: owner: " + intID + "\n"
                   + "character_id: " + character_id + "\n" + "skin_id: " + skin_id + "\n" + "owned: " + owned
                   + "\n" + "level: " + level);
         

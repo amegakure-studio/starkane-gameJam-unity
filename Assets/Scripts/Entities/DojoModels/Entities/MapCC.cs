@@ -28,14 +28,14 @@ public class MapCC : ModelInstance
         width = model.members["width"].ty.ty_primitive.u64;
         height = model.members["height"].ty.ty_primitive.u64;
 
-        Debug.Log("MapCC: \n id: " + id
-                  + "\n token_id: " + token_id
-                  + "\n size: " + size
-                  + "\n obstacles_1: " + obstacles_1
-                  + "\n obstacles_2: " + obstacles_2
-                  + "\n obstacles_3: " + obstacles_3
-                  + "\n owner: " + owner
-                  + "\n width: " + width
-                  + "\n height: " + height + "\n");
+        // Debug.Log("MapCC: \n id: " + id
+        //           + "\n token_id: " + token_id
+        //           + "\n size: " + size
+        //           + "\n obstacles_1: " + obstacles_1
+        //           + "\n obstacles_2: " + obstacles_2
+        //           + "\n obstacles_3: " + obstacles_3
+        //           + "\n owner: " + owner
+        //           + "\n width: " + width
+        //           + "\n height: " + height + "\n");
     }
 }

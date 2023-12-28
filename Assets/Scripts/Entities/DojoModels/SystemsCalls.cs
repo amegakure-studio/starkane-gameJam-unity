@@ -104,12 +104,47 @@ public class SystemsCalls : MonoBehaviour
     
             account.ExecuteRaw(new[] { call });
         }
+    }
 
+
+    private void move()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            string rpcUrl = "http://localhost:5050";
+
+            var provider = new JsonRpcClient(rpcUrl);
+            var signer = new SigningKey("0x1800000000300000180000000000030000000000003006001800006600");
+            string playerAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
+
+            var account = new Account(provider, signer, playerAddress);
+            string actionsAddress = "0xf95f269a39505092b2d4eea3268e2e8da83cfd12a20b0eceb505044ecaabf2";
+            
+
+            List<dojo.FieldElement> calldata = new List<dojo.FieldElement>();
+
+            var match_id = dojo.felt_from_hex_be(new CString("0x0")).ok;
+            var player_id = dojo.felt_from_hex_be(new CString("0x1")).ok;
+            var character_id = dojo.felt_from_hex_be(new CString("0x3")).ok;
+            var x = dojo.felt_from_hex_be(new CString("0x6")).ok;
+            var y = dojo.felt_from_hex_be(new CString("0x6")).ok;
+
+            dojo.Call call = new dojo.Call()
+            {
+                calldata = new[]
+                {
+                   match_id, player_id, character_id, x, y
+                },
+                to = actionsAddress,
+                selector = "move"
+            };
+    
+            account.ExecuteRaw(new[] { call });
+        }
     }
 
     void Update()
     {
-        mint();
-        combat();
+        move();
     }
 }

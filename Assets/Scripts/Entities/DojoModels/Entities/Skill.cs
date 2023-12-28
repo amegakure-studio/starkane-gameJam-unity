@@ -36,7 +36,7 @@ public class Skill : ModelInstance
         mp_cost = model.members["mp_cost"].ty.ty_primitive.u64;
         range = model.members["range"].ty.ty_primitive.u64;   
 
-        Debug.Log(ToString());
+        // Debug.Log(ToString());
     }
 
     public override string ToString()

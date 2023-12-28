@@ -22,9 +22,9 @@ public class MatchPlayerCharacter : ModelInstance
         var playerString = BitConverter.ToString(player.data.ToArray()).Replace("-", "").ToLower();
         playerId = System.Int32.Parse(playerString, System.Globalization.NumberStyles.AllowHexSpecifier);
 
-        Debug.Log("MatchPlayerCharacter: \n match_id: " + match_id
-                  + "\n playerId: " + playerId
-                  + "\n id: " + id
-                  + "\n character_id: " + character_id + "\n");
+        // Debug.Log("MatchPlayerCharacter: \n match_id: " + match_id
+        //           + "\n playerId: " + playerId
+        //           + "\n id: " + id
+        //           + "\n character_id: " + character_id + "\n");
     }
 }

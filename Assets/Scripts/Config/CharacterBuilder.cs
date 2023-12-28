@@ -1,5 +1,7 @@
 using Amegakure.Starkane.Entities;
+using Amegakure.Starkane.EntitiesWrapper;
 using Amegakure.Starkane.GridSystem;
+using Amegakure.Starkane.InputSystem;
 using System;
 using UnityEngine;
 
@@ -66,6 +68,22 @@ namespace Amegakure.Starkane.Config
                                     = characterGo.GetComponent<Amegakure.Starkane.EntitiesWrapper.Character>();
             
                 controller.Character = character;
+            }
+
+            return this;
+        }
+
+        public CharacterBuilder AddCombatCharacterController(Player player, Combat combat)
+        {
+            if (characterGo)
+            {
+                CombatCharacterController controller = characterGo.AddComponent<CombatCharacterController>();
+                Amegakure.Starkane.EntitiesWrapper.Character character
+                                    = characterGo.GetComponent<Amegakure.Starkane.EntitiesWrapper.Character>();
+
+                controller.Character = character;
+                controller.Player = player;
+                controller.Combat = combat;
             }
 
             return this;

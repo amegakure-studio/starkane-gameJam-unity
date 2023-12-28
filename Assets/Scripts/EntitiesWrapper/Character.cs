@@ -103,6 +103,10 @@ namespace Amegakure.Starkane.EntitiesWrapper
             return gridMovement.FindPaths(location);
         }
 
+        public int GetId()
+        {
+            return (int) characterPlayerProgress.GetCharacterType();
+        }
     }
 }
 

@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Amegakure.Starkane.Entities;
 using Amegakure.Starkane.EntitiesWrapper;
 using Dojo;
 using UnityEngine;
+using Character = Amegakure.Starkane.EntitiesWrapper.Character;
+
 
 namespace Amegakure.Starkane.Config
 {
@@ -32,8 +35,17 @@ namespace Amegakure.Starkane.Config
 
         private void Create(WorldManager worldManager)
         {
+            GameObject combatGo = Instantiate(new GameObject());
+            combatGo.name = "Combat";
+
+            Combat combat = combatGo.AddComponent<Combat>();
+
             Player player  = GameObject.FindObjectOfType<Session>().Player;
-            int match_id = GetMatchID();
+            
+            MatchState matchState = this.GetMatchState();
+            int match_id = checked((int)matchState.Id);
+
+            combat.MatchState = matchState;
 
             List<int> matchPlayers = FindMatchPlayers(match_id);
             GameObject builderGo = Instantiate(new GameObject());
@@ -62,8 +74,11 @@ namespace Amegakure.Starkane.Config
                                     .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], characterPlayerProgress)
                                     .AddCombatElements(characterState, actionState)
                                     .AddGridMovement()
-                                    .AddCharacterController()
+                                    .AddCombatCharacterController(player, combat)
                                     .Build();
+                            
+                            Character character = characterGo.GetComponent<Character>();
+                            combat.AddCharacter(player, character, actionState, characterState);
 
                             characterGo.transform.parent = player.gameObject.transform;
                         }
@@ -82,11 +97,16 @@ namespace Amegakure.Starkane.Config
                                         .AddGridMovement()
                                         .Build();
 
+                                
+
                                 GameObject adversaryGo = Instantiate(new GameObject());
                                 Player adversary = adversaryGo.AddComponent<Player>();
                                 adversary.Id = adversaryID;
                                 adversary.name = "Enemy";
                                 adversary.PlayerName = "Enemy";
+
+                                Character character = characterGo.GetComponent<Character>();
+                                combat.AddCharacter(adversary, character, actionState, characterState);
 
                                 characterGo.transform.parent = adversaryGo.transform;
                             }                       
@@ -122,7 +142,7 @@ namespace Amegakure.Starkane.Config
             return matchPlayers;
         }
 
-        private int GetMatchID()
+        private MatchState GetMatchState()
         {
             GameObject[] entities = worldManager.Entities();
 
@@ -133,16 +153,16 @@ namespace Amegakure.Starkane.Config
                     MatchState matchState = go.GetComponent<MatchState>();
                     if(matchState != null)
                     {
-                        if(matchState.WinnerId != 0)
+                        if (matchState.WinnerId == 0)
                         {
-                            return checked((int)matchState.Id);
+                            return matchState;
                         }
                     }
                 }
                 catch{}
             }
 
-            return 0;
+            return null;
         }
 
         private CharacterState GetCharacterState(int playerID, int matchID, int characterID)
@@ -160,17 +180,17 @@ namespace Amegakure.Starkane.Config
                         int character_id = checked((int)characterState.Character_id);
                         int player_id = characterState.Player_id;
 
-                        // Debug.Log("Component data: \n match_id"+ match_id
-                        //         + "\n character_id" + character_id
-                        //         + "\n player_id" + player_id);
+                        Debug.Log("Component data: \n match_id" + match_id
+                                + "\n character_id" + character_id
+                                + "\n player_id" + player_id);
 
-                        // Debug.Log("Unity data: \n match_id"+ matchID
-                        //         + "\n character_id" + characterID
-                        //         + "\n player_id" + playerID);
+                        Debug.Log("Unity data: \n match_id" + matchID
+                                + "\n character_id" + characterID
+                                + "\n player_id" + playerID);
 
 
-                        if(match_id == matchID && player_id == playerID
-                        && character_id == characterID - 1)
+                        if (match_id == matchID && player_id == playerID
+                        && character_id == characterID )
                             return characterState;
                     }
                 }
@@ -206,7 +226,7 @@ namespace Amegakure.Starkane.Config
                     
                         bool matchRes = match_id == matchID;
                         bool playerRes = player_id == playerID;
-                        bool characterRes = character_id == (characterID - 1);
+                        bool characterRes = character_id == characterID;
 
                         Debug.Log("matchRes" + matchRes
                                 + "\n playerRes" + playerRes

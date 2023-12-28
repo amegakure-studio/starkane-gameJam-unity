@@ -12,10 +12,17 @@ namespace Amegakure.Starkane.EntitiesWrapper
         [SerializeField] CharacterType defaultCharacter;
         
         private dojo.FieldElement owner;
+        private List<Character> characters;
 
         public int Id { get => id; set => id = value; }
         public string PlayerName { get => playerName; set => playerName = value; }
         public CharacterType DefaultCharacter { get => defaultCharacter; private set => defaultCharacter = value; }
+        public List<Character> Characters { get => characters; set => characters = value; }
+
+        private void Awake()
+        {
+            characters = new();
+        }
 
         public void SetDojoId(dojo.FieldElement id)
         {

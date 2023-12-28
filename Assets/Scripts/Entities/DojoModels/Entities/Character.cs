@@ -28,6 +28,16 @@ namespace Amegakure.Starkane.Entities
         private UInt64 crit_rate;
         private UInt64 movement_range;
 
+        public int Hp { get => (int)hp; }
+        public int Mp { get => (int)mp; }
+        public int Attack { get => (int)attack;  }
+        public int Defense { get => (int)defense; }
+        public int Evasion { get => (int)evasion; }
+        public int Crit_chance { get => (int)crit_chance; }
+        public int Crit_rate { get => (int)crit_rate; }
+        public int Movement_range { get => (int)movement_range; }
+        public int Character_id { get => (int) character_id; }
+
         public override void Initialize(Model model)
         {
             character_id = (CharacterType)model.members["character_id"].ty.ty_primitive.u32;

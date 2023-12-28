@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using Amegakure.Starkane.Entities;
 using Amegakure.Starkane.EntitiesWrapper;
+using Amegakure.Starkane.GridSystem;
 using Dojo;
 using UnityEngine;
 
 namespace Amegakure.Starkane.Config
 {
-    public class PlayerCreator : MonoBehaviour
+    public class WorldPlayerCreator : MonoBehaviour
     {
         [SerializeField] WorldManager worldManager;
         private Dictionary<CharacterType, string> characterPrefabsDict;
@@ -56,7 +57,7 @@ namespace Amegakure.Starkane.Config
                         
                             GameObject characterGo = builder
                                     .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], characterPlayerProgress)
-                                    .AddGridMovement()
+                                    .AddGridMovement(PathStyle.SQUARE, 50)
                                     .AddCharacterController()
                                     .Build();
 

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Amegakure.Starkane.Entities;
 using Amegakure.Starkane.EntitiesWrapper;
+using Amegakure.Starkane.GridSystem;
 using Dojo;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using Character = Amegakure.Starkane.EntitiesWrapper.Character;
 
 
@@ -69,11 +71,12 @@ namespace Amegakure.Starkane.Config
 
                             CharacterState characterState = GetCharacterState(player.Id, match_id, (int)characterType );
                             ActionState actionState = GetCharacterActionState(player.Id, match_id, (int)characterType );
+                            Amegakure.Starkane.Entities.Character characterEntity = GetCharacter((int)characterType);
 
                             GameObject characterGo = builder
                                     .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], characterPlayerProgress)
                                     .AddCombatElements(characterState, actionState)
-                                    .AddGridMovement()
+                                    .AddGridMovement(PathStyle.SQUARE, characterEntity.Movement_range)
                                     .AddCombatCharacterController(player, combat)
                                     .Build();
                             
@@ -90,14 +93,13 @@ namespace Amegakure.Starkane.Config
                             {
                                 CharacterState characterState = GetCharacterState(adversaryID, match_id, (int)characterType);
                                 ActionState actionState = GetCharacterActionState(adversaryID, match_id, (int)characterType);
+                                Amegakure.Starkane.Entities.Character characterEntity = GetCharacter((int)characterType);
 
                                 GameObject characterGo = builder
                                         .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], characterPlayerProgress)
                                         .AddCombatElements(characterState, actionState)
-                                        .AddGridMovement()
+                                        .AddGridMovement(PathStyle.SQUARE, characterEntity.Movement_range)
                                         .Build();
-
-                                
 
                                 GameObject adversaryGo = Instantiate(new GameObject());
                                 Player adversary = adversaryGo.AddComponent<Player>();
@@ -117,6 +119,30 @@ namespace Amegakure.Starkane.Config
             }
 
             Destroy(builderGo);
+        }
+
+        private Entities.Character GetCharacter(int _characterId)
+        {
+            GameObject[] entities = worldManager.Entities();
+
+            foreach (GameObject go in entities)
+            {
+                try
+                {
+                    Entities.Character characterEntity = go.GetComponent<Entities.Character>();
+
+                    if (characterEntity != null)
+                    {                    
+                        int characterId = checked((int)characterEntity.Character_id);
+
+                        if (characterId == (_characterId))
+                            return characterEntity;
+                    }
+                }
+                catch { }
+            }
+
+            throw new ArgumentException("Couldn't get character entity");
         }
 
         private List<int> FindMatchPlayers(int match_id)

@@ -89,13 +89,13 @@ namespace Amegakure.Starkane.Config
             return this;
         }
 
-        public CharacterBuilder AddGridMovement()
+        public CharacterBuilder AddGridMovement(PathStyle pathStyle, int numOfTiles)
         {   
             if(characterGo)
             {
                 GridMovement movement = characterGo.AddComponent<GridMovement>();
-                movement.TileStyle = PathStyle.SQUARE;
-                movement.NumOfTiles = 50;
+                movement.TileStyle = pathStyle;
+                movement.NumOfTiles = numOfTiles;
                 movement.Speed = 2;
 
                 Amegakure.Starkane.EntitiesWrapper.Character character

@@ -74,7 +74,7 @@ namespace Amegakure.Starkane.Config
                             Amegakure.Starkane.Entities.Character characterEntity = GetCharacter((int)characterType);
 
                             GameObject characterGo = builder
-                                    .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], characterPlayerProgress)
+                                    .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], characterPlayerProgress, characterEntity)
                                     .AddCombatElements(characterState, actionState)
                                     .AddGridMovement(PathStyle.SQUARE, characterEntity.Movement_range)
                                     .AddCombatCharacterController(player, combat)
@@ -93,10 +93,10 @@ namespace Amegakure.Starkane.Config
                             {
                                 CharacterState characterState = GetCharacterState(adversaryID, match_id, (int)characterType);
                                 ActionState actionState = GetCharacterActionState(adversaryID, match_id, (int)characterType);
-                                Amegakure.Starkane.Entities.Character characterEntity = GetCharacter((int)characterType);
+                                Entities.Character characterEntity = GetCharacter((int)characterType);
 
                                 GameObject characterGo = builder
-                                        .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], characterPlayerProgress)
+                                        .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], characterPlayerProgress, characterEntity)
                                         .AddCombatElements(characterState, actionState)
                                         .AddGridMovement(PathStyle.SQUARE, characterEntity.Movement_range)
                                         .Build();
@@ -105,7 +105,7 @@ namespace Amegakure.Starkane.Config
                                 Player adversary = adversaryGo.AddComponent<Player>();
                                 adversary.Id = adversaryID;
                                 adversary.name = "Enemy";
-                                adversary.PlayerName = "Enemy";
+                                adversary.PlayerName = adversary.name;
 
                                 Character character = characterGo.GetComponent<Character>();
                                 combat.AddCharacter(adversary, character, actionState, characterState);

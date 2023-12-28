@@ -11,6 +11,7 @@ namespace Amegakure.Starkane.EntitiesWrapper
         private CharacterPlayerProgress characterPlayerProgress;
         private GridMovement gridMovement;
         private Tile location;
+        private Entities.Character characterEntity;
         private CharacterState characterState;
         private ActionState actionState;
 
@@ -18,6 +19,7 @@ namespace Amegakure.Starkane.EntitiesWrapper
         private GridManager gridManager;
 
         public CharacterPlayerProgress CharacterPlayerProgress { get => characterPlayerProgress; set => characterPlayerProgress = value; }
+        public Entities.Character CharacterEntity { get => characterEntity; set => characterEntity = value; }
         public GridMovement GridMovement 
         {
             get => gridMovement; 
@@ -25,13 +27,13 @@ namespace Amegakure.Starkane.EntitiesWrapper
             {
                 if(gridMovement != null)
                 {
-                    gridMovement.OnMovementStart -= onMovementStart;
-                    gridMovement.OnMovementEnd -= onMovementEnd;
+                    gridMovement.OnMovementStart -= OnMovementStart;
+                    gridMovement.OnMovementEnd -= OnMovementEnd;
                 }
                 gridMovement = value;
                 
-                gridMovement.OnMovementStart += onMovementStart;
-                gridMovement.OnMovementEnd += onMovementEnd;
+                gridMovement.OnMovementStart += OnMovementStart;
+                gridMovement.OnMovementEnd += OnMovementEnd;
 
                 // if(characterState)
                 // {    
@@ -74,17 +76,17 @@ namespace Amegakure.Starkane.EntitiesWrapper
 
         private void OnDisable()
         {
-            gridMovement.OnMovementStart -= onMovementStart;
-            gridMovement.OnMovementEnd -= onMovementEnd;
+            gridMovement.OnMovementStart -= OnMovementStart;
+            gridMovement.OnMovementEnd -= OnMovementEnd;
         }
 
-        private void onMovementStart(Tile tile)
+        private void OnMovementStart(Tile tile)
         {
             isMoving = true;
             EventManager.Instance.Publish(GameEvent.CHARACTER_MOVE_START, new() { { "Character", this } });
         }
 
-        private void onMovementEnd(Tile tile)
+        private void OnMovementEnd(Tile tile)
         {
             Location = tile;
             isMoving = false;
@@ -106,6 +108,21 @@ namespace Amegakure.Starkane.EntitiesWrapper
         public int GetId()
         {
             return (int) characterPlayerProgress.GetCharacterType();
+        }
+
+        public int GetHp()
+        {
+            return characterEntity.Hp;
+        }
+
+        public int GetMp()
+        {
+            return characterEntity.Mp;
+        }
+
+        public int GetMovementRange()
+        {
+            return characterEntity.Movement_range;
         }
     }
 }

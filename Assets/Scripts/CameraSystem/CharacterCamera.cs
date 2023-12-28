@@ -11,16 +11,24 @@ namespace Amegakure.Starkane.CameraSystem
     public class CharacterCamera : MonoBehaviour
     {
         private CinemachineVirtualCamera virtualCamera;
-
-        private void Awake()
-        {
-            virtualCamera = GameObject.FindObjectOfType<CinemachineVirtualCamera>();
-        }
+        private Character character;
 
         private void Start()
         {
-            Character character = GameObject.FindAnyObjectByType<Character>();
-            FocusCharacter(character);         
+            LoadCharacter();
+            virtualCamera = GameObject.FindObjectOfType<CinemachineVirtualCamera>();     
+        }
+
+        private void Update()
+        {
+            if (character == null)
+                LoadCharacter();
+        }
+
+        private void LoadCharacter()
+        { 
+            Character character = GameObject.FindFirstObjectByType<Character>();
+            FocusCharacter(character);
         }
 
         private void OnEnable()

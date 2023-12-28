@@ -19,7 +19,7 @@ namespace Amegakure.Starkane.Config
             context = GameObject.FindObjectOfType<Context>();
         }
 
-        public CharacterBuilder AddCharacterPrefab(CharacterType characterType, string skinId, CharacterPlayerProgress characterPlayerProgress)
+        public CharacterBuilder AddCharacterPrefab(CharacterType characterType, string skinId, CharacterPlayerProgress characterPlayerProgress, Entities.Character characterEntity)
         {
             string folderCharacterType = characterType.ToString() + "/";
             string path = charactersFolder + folderCharacterType + skinId;
@@ -29,11 +29,11 @@ namespace Amegakure.Starkane.Config
                     GameObject characterPrefab = Resources.Load<GameObject>(path);
                     characterGo = Instantiate(characterPrefab);
                 
-                    Amegakure.Starkane.EntitiesWrapper.Character character
-                                    = characterGo.AddComponent<Amegakure.Starkane.EntitiesWrapper.Character>();
+                    EntitiesWrapper.Character character = characterGo.AddComponent<EntitiesWrapper.Character>();
                 
                     character.Location = context.GetInitialLocation();
                     character.CharacterPlayerProgress = characterPlayerProgress;
+                    character.CharacterEntity = characterEntity;
 
                     return this;
                 }

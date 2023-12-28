@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using Amegakure.Starkane.Entities;
 using Amegakure.Starkane.EntitiesWrapper;
@@ -54,9 +55,11 @@ namespace Amegakure.Starkane.Config
                             && characterType == player.DefaultCharacter)
                         {
                             player.SetDojoId(characterPlayerProgress.Owner);
-                        
+
+                            Entities.Character characterEntity = GetCharacter((int)characterType);
+
                             GameObject characterGo = builder
-                                    .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], characterPlayerProgress)
+                                    .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], characterPlayerProgress, characterEntity)
                                     .AddGridMovement(PathStyle.SQUARE, 50)
                                     .AddCharacterController()
                                     .Build();
@@ -67,9 +70,30 @@ namespace Amegakure.Starkane.Config
                 }
 
             }
+        }
 
+        private Entities.Character GetCharacter(int _characterId)
+        {
+            GameObject[] entities = worldManager.Entities();
 
-        
+            foreach (GameObject go in entities)
+            {
+                try
+                {
+                    Entities.Character characterEntity = go.GetComponent<Entities.Character>();
+
+                    if (characterEntity != null)
+                    {
+                        int characterId = checked((int)characterEntity.Character_id);
+
+                        if (characterId == (_characterId))
+                            return characterEntity;
+                    }
+                }
+                catch { }
+            }
+
+            throw new ArgumentException("Couldn't get character entity");
         }
     }
 }

@@ -48,8 +48,7 @@ public class CombatPlayerCreator : MonoBehaviour
                 {
                     CharacterType characterType = characterPlayerProgress.GetCharacterType();
 
-                    if(characterPlayerProgress.getID() == player.Id
-                        && characterType == player.DefaultCharacter)
+                    if(characterPlayerProgress.getID() == player.Id)
                     {
                         player.SetDojoId(characterPlayerProgress.Owner);
 
@@ -82,7 +81,12 @@ public class CombatPlayerCreator : MonoBehaviour
             {
                 MatchState matchState = go.GetComponent<MatchState>();
                 if(matchState != null)
-                    return checked((int)matchState.Id);
+                {
+                    if(matchState.WinnerId != 0)
+                    {
+                        return checked((int)matchState.Id);
+                    }
+                }
             }
             catch{}
         }

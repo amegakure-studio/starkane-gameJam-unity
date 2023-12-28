@@ -15,12 +15,30 @@ public class MatchState : ModelInstance
     private UInt32 map_id;
     private dojo.FieldElement winner;
     private int winnerId;
+    public event Action<int> playerTurnIdChanged;
+    public event Action<int> winnerChanged;
 
     public uint Id { get => id; set => id = value; }
     public uint Turn { get => turn; set => turn = value; }
-    public int PlayerTurnId { get => playerTurnId; set => playerTurnId = value; }
+    public int PlayerTurnId
+    {
+        get => playerTurnId;
+        set 
+        {
+            playerTurnId = value;
+            playerTurnIdChanged?.Invoke(playerTurnId);
+        } 
+    }
     public uint Map_id { get => map_id; set => map_id = value; }
-    public int WinnerId { get => winnerId; set => winnerId = value; }
+    public int WinnerId
+    { 
+        get => winnerId;
+        set
+        {
+            winnerId = value; 
+            winnerChanged.Invoke(winnerId);
+        }
+    }
 
     public override void Initialize(Model model)
     {

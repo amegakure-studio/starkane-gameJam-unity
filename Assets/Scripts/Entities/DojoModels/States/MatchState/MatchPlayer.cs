@@ -11,6 +11,9 @@ public class MatchPlayer : ModelInstance
     private dojo.FieldElement player;
     private int playerId;
 
+    public uint Match_id { get => match_id; private set => match_id = value; }
+    public int PlayerId { get => playerId; private set => playerId = value; }
+
     public override void Initialize(Model model)
     {
         match_id = model.members["match_id"].ty.ty_primitive.u32;

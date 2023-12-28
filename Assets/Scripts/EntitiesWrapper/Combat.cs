@@ -69,6 +69,6 @@ public class Combat : MonoBehaviour
 
     private ActionState GetActionState(Player player, Character character)
     {
-        return actionStates[player].Find(action => (int)action.Character_id == character.GetId());
+        return actionStates[player].Find(action => (int)action.Character_id == character.GetId()-1);
     }
 }

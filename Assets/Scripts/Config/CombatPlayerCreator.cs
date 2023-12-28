@@ -190,7 +190,7 @@ namespace Amegakure.Starkane.Config
 
 
                         if (match_id == matchID && player_id == playerID
-                        && character_id == characterID )
+                        && character_id == (characterID - 1))
                             return characterState;
                     }
                 }
@@ -226,7 +226,7 @@ namespace Amegakure.Starkane.Config
                     
                         bool matchRes = match_id == matchID;
                         bool playerRes = player_id == playerID;
-                        bool characterRes = character_id == characterID;
+                        bool characterRes = character_id == (characterID - 1);
 
                         Debug.Log("matchRes" + matchRes
                                 + "\n playerRes" + playerRes

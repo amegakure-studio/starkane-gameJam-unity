@@ -80,6 +80,7 @@ public class SkillsViewController : MonoBehaviour
             combat = GetCombat();
 
             Character character = combat.GetCharacters(player)[0];
+            characterSelected = character;
             ShowSkills(character.Skills, character);
 
             skillContainer.style.visibility = playerTurn == player ? Visibility.Visible : Visibility.Hidden;

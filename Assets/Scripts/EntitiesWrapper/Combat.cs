@@ -182,4 +182,18 @@ public class Combat : MonoBehaviour
     {
         return playerMatchCharacters[player];
     }
+
+    public Player GetActualTurnPlayer()
+    {
+        int playerID = matchState.PlayerTurnId;
+        foreach(Player player in playerMatchCharacters.Keys)
+        {
+            if(player.Id == playerID)
+            {
+                return player;
+            }
+        }
+        
+        return null;
+    }
 }

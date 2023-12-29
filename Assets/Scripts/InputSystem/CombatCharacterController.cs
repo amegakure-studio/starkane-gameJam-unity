@@ -71,13 +71,13 @@ namespace Amegakure.Starkane.InputSystem
 
         private void OnMouseEnter()
         {
-            if (!clicked && canInteract)
+            if (!clicked && canInteract && combat.CanMove(character, player))
                 CharacterHoverEnter();
         }
 
         private void OnMouseExit()
         {
-            if (!clicked)
+            if (!clicked && combat.CanMove(character, player))
                 CharacterHoverExit();
         }
 

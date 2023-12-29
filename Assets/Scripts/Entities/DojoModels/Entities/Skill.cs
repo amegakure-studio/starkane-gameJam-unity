@@ -5,10 +5,12 @@ using Dojo;
 using Dojo.Torii;
 using dojo_bindings;
 using System;
+using Amegakure.Starkane.GridSystem;
 
 public enum SkillType
 {
-    MeeleAttack,
+    None,
+    MeleeAttack,
     RangeAttack,
     Fireball,
     Heal,
@@ -29,10 +31,18 @@ public class Skill : ModelInstance
     public uint Character_id { get => character_id; set => character_id = value; }
     public byte Level { get => level; set => level = value; }
     public byte Character_level_required { get => character_level_required; set => character_level_required = value; }
-    public byte Skill_type { get => skill_type; set => skill_type = value; }
+    public SkillType Skill_type { get => (SkillType)skill_type; }
     public ulong Power { get => power; set => power = value; }
     public ulong Mp_cost { get => mp_cost; set => mp_cost = value; }
     public ulong Range { get => range; set => range = value; }
+
+    private Pathfinder m_Pathfinder;
+
+    private void Awake()
+    {
+        m_Pathfinder = new();
+    }
+
 
     public override void Initialize(Model model)
     {
@@ -58,6 +68,18 @@ public class Skill : ModelInstance
                   + "\n" + "power: " + power
                   + "\n" + "mp_cost: " + mp_cost
                   + "\n" + "range: " + range;
+    }
+
+    public Frontier GetFrontier(Tile origin)
+    {
+        if (origin != null)
+        {
+            Frontier frontier = m_Pathfinder.FindPaths(origin, (int)range, PathStyle.SQUARE, false);
+            return frontier;
+        }
+
+        else
+            return new Frontier();
     }
 }
 

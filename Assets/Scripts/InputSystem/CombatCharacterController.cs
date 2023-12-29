@@ -102,12 +102,12 @@ namespace Amegakure.Starkane.InputSystem
 
         public void CharacterHoverEnter()
         {
-            EventManager.Instance.Publish(GameEvent.INPUT_CHARACTER_SELECTED, new() { { "Character", character } });
+            EventManager.Instance.Publish(GameEvent.INPUT_CHARACTER_HOVER, new() { { "Character", character } });
         }
 
         public void CharacterHoverExit()
         {
-            EventManager.Instance.Publish(GameEvent.INPUT_CHARACTER_UNSELECTED, new() { { "Character", character } });
+            EventManager.Instance.Publish(GameEvent.INPUT_CHARACTER_UNHOVER, new() { { "Character", character } });
         }
 
         public void CharacterSelected()

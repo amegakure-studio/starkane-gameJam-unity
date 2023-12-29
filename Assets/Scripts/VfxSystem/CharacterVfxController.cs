@@ -21,6 +21,8 @@ namespace Amegakure.Starkane.VfxSystem
         {
             EventManager.Instance.Subscribe(GameEvent.INPUT_CHARACTER_SELECTED, HandleCharacterSelected);
             EventManager.Instance.Subscribe(GameEvent.INPUT_CHARACTER_UNSELECTED, HandleCharacterUnselected);
+            EventManager.Instance.Subscribe(GameEvent.INPUT_CHARACTER_HOVER, HandleCharacterSelected);
+            EventManager.Instance.Subscribe(GameEvent.INPUT_CHARACTER_UNHOVER, HandleCharacterUnselected);
             EventManager.Instance.Subscribe(GameEvent.TILE_SELECTED, HandleTileSelected);
         }
 
@@ -28,6 +30,8 @@ namespace Amegakure.Starkane.VfxSystem
         {
             EventManager.Instance.Unsubscribe(GameEvent.INPUT_CHARACTER_SELECTED, HandleCharacterSelected);
             EventManager.Instance.Unsubscribe(GameEvent.INPUT_CHARACTER_UNSELECTED, HandleCharacterUnselected);
+            EventManager.Instance.Unsubscribe(GameEvent.INPUT_CHARACTER_HOVER, HandleCharacterSelected);
+            EventManager.Instance.Unsubscribe(GameEvent.INPUT_CHARACTER_UNHOVER, HandleCharacterUnselected);
             EventManager.Instance.Unsubscribe(GameEvent.TILE_SELECTED, HandleTileSelected);
         }
 

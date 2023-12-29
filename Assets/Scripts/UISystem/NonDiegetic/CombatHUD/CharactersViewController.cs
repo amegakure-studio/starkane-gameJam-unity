@@ -65,7 +65,6 @@ public class CharactersViewController : MonoBehaviour
     {
         try
         {
-            Debug.Log("!!!!!!!!!!!!!!!CVC Updated!!!!!!!!!!!!1");
             Player playerTurn = (Player)context["Player"];
             
             if(combat == null)
@@ -75,8 +74,6 @@ public class CharactersViewController : MonoBehaviour
 
             ShowCharacters(charactersTurn, playerTurn);
             SelectCharacter(charactersTurn[0]);
-
-            charactersContainer.style.visibility = Visibility.Visible;
         }
         catch (Exception e) { Debug.LogException(e); }
     }

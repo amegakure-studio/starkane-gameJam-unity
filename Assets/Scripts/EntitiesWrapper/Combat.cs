@@ -5,6 +5,7 @@ using Amegakure.Starkane.PubSub;
 using bottlenoselabs.C2CS.Runtime;
 using Dojo.Starknet;
 using dojo_bindings;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -195,5 +196,42 @@ public class Combat : MonoBehaviour
         }
         
         return null;
+    }
+
+    public Player GetPlayerByID(int id) 
+    {
+        int playerID = matchState.PlayerTurnId;
+        foreach (Player player in playerMatchCharacters.Keys)
+        {
+            if (player.Id == id)
+            {
+                return player;
+            }
+        }
+
+        return null;
+    }
+
+    public bool CanDoSkill(Player player, Character character, Skill skillSelected)
+    {
+        bool playerRegistered = playerMatchCharacters.ContainsKey(player) && playerMatchCharacters[player].Contains(character);
+
+        if (playerRegistered)
+        {
+            ActionState playerActionState = GetActionState(player, character);
+            CharacterState playerCharacterState = GetCharacterState(player, character);
+
+            bool skillPerformed = playerActionState.Action;
+            bool enoughMana = playerCharacterState.Remain_mp >= skillSelected.Mp_cost;
+
+            return !skillPerformed && enoughMana;
+        }
+
+        return false;
+    }
+
+    private CharacterState GetCharacterState(Player player, Character character)
+    {
+        return characterStates[player].Find(characterState => (int)characterState.Character_id == character.GetId());
     }
 }

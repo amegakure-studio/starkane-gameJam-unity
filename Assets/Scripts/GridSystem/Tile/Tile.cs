@@ -15,6 +15,7 @@ namespace Amegakure.Starkane.GridSystem
         public Vector2Int coordinate;
         private List<Vector2> directions;
         private List<Tile> neighbors = null;
+        private bool isMovementTile = true;
         #endregion
 
         private void Awake()
@@ -52,6 +53,7 @@ namespace Amegakure.Starkane.GridSystem
         public float Cost { get => cost; set => cost = value; }
         public Tile Parent { get => parent; set => parent = value; }
         public Tile ConnectedTile { get => connectedTile; set => connectedTile = value; }
+        public bool IsMovementTile { get => isMovementTile; set => isMovementTile = value; }
 
         public List<Tile> GetNeighbors()
         {

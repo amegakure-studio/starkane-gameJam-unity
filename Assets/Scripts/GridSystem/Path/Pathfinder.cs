@@ -43,6 +43,8 @@ namespace Amegakure.Starkane.GridSystem
                 {                    
                     if (isMovementTile)
                     {
+                        adjacentTile.IsMovementTile = isMovementTile;
+
                         if (!adjacentTile.Occupied())
                             AddTileToFrontier(adjacentTile);
                     }
@@ -51,9 +53,7 @@ namespace Amegakure.Starkane.GridSystem
                         AddTileToFrontier(adjacentTile);
                     }
                 }
-            }
-
-            currentFrontier.IsMovementFrontier = isMovementTile;
+            }   
 
             return currentFrontier;
         }

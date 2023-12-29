@@ -141,6 +141,7 @@ namespace Amegakure.Starkane.EntitiesWrapper
             return (float) GetMp() / (float)characterEntity.Mp;
         }
 
+
     }
 }
 

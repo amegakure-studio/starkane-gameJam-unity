@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="Skill" src="project://database/Assets/UI%20Toolkit/Documents/Components/Skill.uxml?fileID=9197481963319205126&amp;guid=abafb970865d4c84baed3cc7d9d579c4&amp;type=3#Skill" />
-    <Style src="project://database/Assets/UI%20Toolkit/Styles/Skills.uss?fileID=7433441132597879392&amp;guid=136a5773494cde74ca36c83c93bee20b&amp;type=3#Skills" />
-    <ui:VisualElement name="SkillGroup" style="flex-grow: 1; flex-direction: row; background-image: url(&apos;project://database/Assets/Art/UI/GUI_parts/mid_background.png?fileID=21300000&amp;guid=f203f165ae401fe46ada0ed50d07149c&amp;type=3#mid_background&apos;); -unity-background-scale-mode: stretch-to-fill; padding-top: 2%; padding-right: 2%; padding-bottom: 2%; padding-left: 2%;">
-        <ui:Instance template="Skill" name="Skill" class="skillContainer skill" />
-        <ui:Instance template="Skill" name="Skill" class="skillContainer skill" />
+    <ui:Template name="Skill" src="project://database/Assets/UI%20Toolkit/Documents/Components/Skill.uxml?fileID=9197481963319205126&amp;guid=64631dbd8a6455c459d42c8c76b23515&amp;type=3#Skill" />
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/Skills.uss?fileID=7433441132597879392&amp;guid=b021b48c433414649bb6b2d0894b0add&amp;type=3#Skills" />
+    <ui:VisualElement name="SkillGroup" style="flex-grow: 1; flex-direction: row; background-image: url(&apos;project://database/Assets/ThirdPartyAssets/GUI_Parts/Gui_parts/mid_background.png?fileID=21300000&amp;guid=f203f165ae401fe46ada0ed50d07149c&amp;type=3#mid_background&apos;); -unity-background-scale-mode: stretch-to-fill; padding-top: 2%; padding-right: 2%; padding-bottom: 2%; padding-left: 2%;">
+        <ui:Instance template="Skill" name="Skill" class="skillContainer skill invisible" />
+        <ui:Instance template="Skill" name="Skill" class="skillContainer skill invisible" />
     </ui:VisualElement>
 </ui:UXML>

@@ -13,6 +13,9 @@ namespace Amegakure.Starkane.PubSub
         CUTSCENE_COMBAT_CANCEL,
         CUTSCENE_COMBAT_ACCEPT,
         COMBAT_TURN_CHANGED,
-        COMBAT_SKILL_DONE
+        COMBAT_SKILL_DONE,
+        FRONTIER_UPDATED,
+        INPUT_CHARACTER_HOVER,
+        INPUT_CHARACTER_UNHOVER
     }
 }

@@ -23,13 +23,28 @@ namespace Amegakure.Starkane.UI.Spatial
 
             EventManager.Instance.Subscribe(GameEvent.INPUT_CHARACTER_SELECTED, HandleCharacterSelected);
             EventManager.Instance.Subscribe(GameEvent.INPUT_CHARACTER_UNSELECTED, HandleCharacterUnselected);
+            
+            EventManager.Instance.Subscribe(GameEvent.FRONTIER_UPDATED, HandleFrontierUpdated);
         }
 
         private void OnDisable()
         {
             EventManager.Instance.Unsubscribe(GameEvent.PATH_FRONTIERS_RESET, HandlePathFrontiersReset);
+
             EventManager.Instance.Unsubscribe(GameEvent.INPUT_CHARACTER_SELECTED, HandleCharacterSelected);
             EventManager.Instance.Unsubscribe(GameEvent.INPUT_CHARACTER_UNSELECTED, HandleCharacterUnselected);
+
+            EventManager.Instance.Unsubscribe(GameEvent.FRONTIER_UPDATED, HandleFrontierUpdated);
+        }
+
+        private void HandleFrontierUpdated(Dictionary<string, object> context)
+        {
+            try
+            {
+                Frontier frontier = (Frontier)context["Frontier"];
+                this.IllustrateFrontier(frontier);
+            }
+            catch { }
         }
 
         private void HandleCharacterUnselected(Dictionary<string, object> context)

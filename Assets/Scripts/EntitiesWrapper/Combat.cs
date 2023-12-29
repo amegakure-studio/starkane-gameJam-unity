@@ -212,6 +212,16 @@ public class Combat : MonoBehaviour
         return null;
     }
 
+    public void DoSkill()
+    {
+
+    }
+
+    private void DoSkillTX()
+    {
+
+    }
+
     public bool CanDoSkill(Player player, Character character, Skill skillSelected)
     {
         bool playerRegistered = playerMatchCharacters.ContainsKey(player) && playerMatchCharacters[player].Contains(character);

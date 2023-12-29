@@ -206,13 +206,13 @@ namespace Amegakure.Starkane.Config
                         int character_id = checked((int)characterState.Character_id);
                         int player_id = characterState.Player_id;
 
-                        Debug.Log("Component data: \n match_id" + match_id
-                                + "\n character_id" + character_id
-                                + "\n player_id" + player_id);
+                        // Debug.Log("Component data: \n match_id" + match_id
+                        //         + "\n character_id" + character_id
+                        //         + "\n player_id" + player_id);
 
-                        Debug.Log("Unity data: \n match_id" + matchID
-                                + "\n character_id" + characterID
-                                + "\n player_id" + playerID);
+                        // Debug.Log("Unity data: \n match_id" + matchID
+                        //         + "\n character_id" + characterID
+                        //         + "\n player_id" + playerID);
 
 
                         if (match_id == matchID && player_id == playerID
@@ -242,21 +242,21 @@ namespace Amegakure.Starkane.Config
                         int character_id = checked((int)actionState.Character_id);
                         int player_id = actionState.Player_id;
 
-                                Debug.Log("Component data: \n match_id"+ match_id
-                                + "\n character_id" + character_id
-                                + "\n player_id" + player_id);
+                        //         Debug.Log("Component data: \n match_id"+ match_id
+                        //         + "\n character_id" + character_id
+                        //         + "\n player_id" + player_id);
 
-                        Debug.Log("Unity data: \n match_id"+ matchID
-                                + "\n character_id" + characterID
-                                + "\n player_id" + playerID);
+                        // Debug.Log("Unity data: \n match_id"+ matchID
+                        //         + "\n character_id" + characterID
+                        //         + "\n player_id" + playerID);
                     
                         bool matchRes = match_id == matchID;
                         bool playerRes = player_id == playerID;
                         bool characterRes = character_id == (characterID);
 
-                        Debug.Log("matchRes" + matchRes
-                                + "\n playerRes" + playerRes
-                                + "\n characterRes" + characterRes );
+                        // Debug.Log("matchRes" + matchRes
+                        //         + "\n playerRes" + playerRes
+                        //         + "\n characterRes" + characterRes );
 
                         if( matchRes && playerRes   && characterRes)
                             return actionState;

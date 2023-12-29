@@ -46,7 +46,6 @@ namespace Amegakure.Starkane.Config
         {
             try
             {
-                Debug.Log(characterGo.name);
                 Amegakure.Starkane.EntitiesWrapper.Character character
                                     = characterGo.GetComponent<Amegakure.Starkane.EntitiesWrapper.Character>();
         

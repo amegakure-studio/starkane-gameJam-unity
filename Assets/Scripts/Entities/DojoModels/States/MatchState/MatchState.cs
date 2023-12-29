@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class MatchState : ModelInstance
 {
- 
     private UInt32 id;
     private UInt32 turn;
     private dojo.FieldElement player_turn;
@@ -49,7 +48,7 @@ public class MatchState : ModelInstance
         winner = model.members["winner"].ty.ty_primitive.felt252;
 
         var player_turn_string = BitConverter.ToString(player_turn.data.ToArray()).Replace("-", "").ToLower();
-        playerTurnId = System.Int32.Parse( player_turn_string, NumberStyles.AllowHexSpecifier );
+        PlayerTurnId = System.Int32.Parse( player_turn_string, NumberStyles.AllowHexSpecifier );
 
         var winner_id_string = BitConverter.ToString(winner.data.ToArray()).Replace("-", "").ToLower();
         winnerId = System.Int32.Parse( winner_id_string, NumberStyles.AllowHexSpecifier );

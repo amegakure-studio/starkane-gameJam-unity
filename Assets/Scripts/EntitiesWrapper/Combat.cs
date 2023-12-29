@@ -38,6 +38,14 @@ public class Combat : MonoBehaviour
         characterStates = new();
     }
 
+    private void Start()
+    {
+        int playerId = matchState.PlayerTurnId;
+        Player playerTurn = playerMatchCharacters.Keys.First(p => p.Id == playerId);
+
+        EventManager.Instance.Publish(GameEvent.COMBAT_TURN_CHANGED, new() { { "Player", playerTurn } });
+    }
+
 
     private void OnDisable()
     {

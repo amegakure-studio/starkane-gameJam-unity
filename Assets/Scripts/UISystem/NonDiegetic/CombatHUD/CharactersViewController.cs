@@ -21,7 +21,7 @@ public class CharactersViewController : MonoBehaviour
     private Dictionary<Character, VisualElement> characterVeDict;
     private Player player;
 
-    void Start()
+    void Awake()
     {
         root = GameObject.FindAnyObjectByType<UIDocument>().rootVisualElement;
         charactersContainer = root.Q<VisualElement>("CharactersGroup");
@@ -30,7 +30,6 @@ public class CharactersViewController : MonoBehaviour
         characterVeDict = new();
         charactersTurn = new();
         player = GameObject.FindAnyObjectByType<Session>().Player;
-        combat = GameObject.FindAnyObjectByType<Combat>();
     }
 
     private void OnDestroy()
@@ -66,7 +65,12 @@ public class CharactersViewController : MonoBehaviour
     {
         try
         {
+            Debug.Log("!!!!!!!!!!!!!!!CVC Updated!!!!!!!!!!!!1");
             Player playerTurn = (Player)context["Player"];
+            
+            if(combat == null)
+                    combat = GameObject.FindAnyObjectByType<Combat>();
+
             charactersTurn = combat.GetCharacters(player);
 
             ShowCharacters(charactersTurn, playerTurn);

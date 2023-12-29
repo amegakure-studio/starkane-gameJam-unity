@@ -21,7 +21,7 @@ namespace Amegakure.Starkane.Config
         {
             characterPrefabsDict =  new();
             characterPrefabsDict[CharacterType.Warrior] = "Avelyn";
-            characterPrefabsDict[CharacterType.Pig] = "Enemy";
+            characterPrefabsDict[CharacterType.Pig] = "Goblin";
             characterPrefabsDict[CharacterType.Archer] = "Darkelf";
         }
 

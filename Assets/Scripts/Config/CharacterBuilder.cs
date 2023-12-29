@@ -3,6 +3,7 @@ using Amegakure.Starkane.EntitiesWrapper;
 using Amegakure.Starkane.GridSystem;
 using Amegakure.Starkane.InputSystem;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Amegakure.Starkane.Config
@@ -19,7 +20,9 @@ namespace Amegakure.Starkane.Config
             context = GameObject.FindObjectOfType<Context>();
         }
 
-        public CharacterBuilder AddCharacterPrefab(CharacterType characterType, string skinId, CharacterPlayerProgress characterPlayerProgress, Entities.Character characterEntity)
+        public CharacterBuilder AddCharacterPrefab(CharacterType characterType, string skinId, 
+                                                    CharacterPlayerProgress characterPlayerProgress, 
+                                                    Entities.Character characterEntity)
         {
             string folderCharacterType = characterType.ToString() + "/";
             string path = charactersFolder + folderCharacterType + skinId;
@@ -43,7 +46,7 @@ namespace Amegakure.Starkane.Config
             throw new ArgumentException("Couldn't create character");
         }
 
-        public CharacterBuilder AddCombatElements( CharacterState characterState, ActionState actionState)
+        public CharacterBuilder AddCombatElements( CharacterState characterState, ActionState actionState, List<Skill> skills)
         {
             try
             {
@@ -52,6 +55,7 @@ namespace Amegakure.Starkane.Config
         
                 character.ActionState = actionState;
                 character.CharacterState = characterState;
+                character.Skills = skills;
                 return this;
             }
             catch(Exception e){ Debug.LogError("Couldn't add elements to character" + e);}

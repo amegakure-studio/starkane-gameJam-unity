@@ -71,11 +71,13 @@ namespace Amegakure.Starkane.Config
 
                             CharacterState characterState = GetCharacterState(player.Id, match_id, (int)characterType );
                             ActionState actionState = GetCharacterActionState(player.Id, match_id, (int)characterType );
+                            List<Skill> characterSkills = GetSkills((int)characterType);
                             Amegakure.Starkane.Entities.Character characterEntity = GetCharacter((int)characterType);
 
                             GameObject characterGo = builder
-                                    .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], characterPlayerProgress, characterEntity)
-                                    .AddCombatElements(characterState, actionState)
+                                    .AddCharacterPrefab(characterType, characterPrefabsDict[characterType],
+                                                        characterPlayerProgress, characterEntity)
+                                    .AddCombatElements(characterState, actionState, characterSkills)
                                     .AddGridMovement(PathStyle.SQUARE, characterEntity.Movement_range)
                                     .AddCombatCharacterController(player, combat)
                                     .Build();
@@ -93,11 +95,13 @@ namespace Amegakure.Starkane.Config
                             {
                                 CharacterState characterState = GetCharacterState(adversaryID, match_id, (int)characterType);
                                 ActionState actionState = GetCharacterActionState(adversaryID, match_id, (int)characterType);
+                                List<Skill> characterSkills = GetSkills((int)characterType);
                                 Entities.Character characterEntity = GetCharacter((int)characterType);
 
                                 GameObject characterGo = builder
-                                        .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], characterPlayerProgress, characterEntity)
-                                        .AddCombatElements(characterState, actionState)
+                                        .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], 
+                                                            characterPlayerProgress, characterEntity)
+                                        .AddCombatElements(characterState, actionState, characterSkills)
                                         .AddGridMovement(PathStyle.SQUARE, characterEntity.Movement_range)
                                         .Build();
 
@@ -166,6 +170,29 @@ namespace Amegakure.Starkane.Config
             }
 
             return matchPlayers;
+        }
+
+        private List<Skill> GetSkills(int characterID)
+        {
+            List<Skill> skills = new();
+            
+            GameObject[] entities = worldManager.Entities();
+            foreach(GameObject go in entities)
+            { 
+                try
+                {
+                    Skill skill = go.GetComponent<Skill>();
+                    if(skill.Character_id == characterID)
+                    {
+                        Debug.Log("Skill: " + skill.Id +
+                        " belongs to the character: " + characterID );
+                        skills.Add(skill);
+                    }
+                }
+                catch{}
+            }
+
+            return skills;
         }
 
         private MatchState GetMatchState()

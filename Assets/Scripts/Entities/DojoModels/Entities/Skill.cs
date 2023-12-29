@@ -25,6 +25,15 @@ public class Skill : ModelInstance
     private UInt64 mp_cost;
     private UInt64 range;
 
+    public uint Id { get => id; set => id = value; }
+    public uint Character_id { get => character_id; set => character_id = value; }
+    public byte Level { get => level; set => level = value; }
+    public byte Character_level_required { get => character_level_required; set => character_level_required = value; }
+    public byte Skill_type { get => skill_type; set => skill_type = value; }
+    public ulong Power { get => power; set => power = value; }
+    public ulong Mp_cost { get => mp_cost; set => mp_cost = value; }
+    public ulong Range { get => range; set => range = value; }
+
     public override void Initialize(Model model)
     {
         id = model.members["id"].ty.ty_primitive.u32;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Amegakure.Starkane.Entities;
 using Amegakure.Starkane.GridSystem;
 using Amegakure.Starkane.PubSub;
@@ -18,11 +19,13 @@ namespace Amegakure.Starkane.EntitiesWrapper
         private bool isMoving = false;
         private GridManager gridManager;
         private string characterName;
+        private List<Skill> skills;
 
         public CharacterPlayerProgress CharacterPlayerProgress { get => characterPlayerProgress; set => characterPlayerProgress = value; }
         public Entities.Character CharacterEntity { get => characterEntity; set => characterEntity = value; }
         public ActionState ActionState { get => actionState; set => actionState = value; }
         public string CharacterName { get => characterName; set => characterName = value; }
+        public List<Skill> Skills{get => skills; set => skills = value;}
 
         public GridMovement GridMovement 
         {

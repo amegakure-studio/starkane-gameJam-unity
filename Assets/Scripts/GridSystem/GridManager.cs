@@ -8,16 +8,20 @@ namespace Amegakure.Starkane.GridSystem
     public class GridManager : MonoBehaviour
     {
         private Dictionary<Vector2, Tile> worldMap;
+        private List<Tile> tilesInMap;
         public Dictionary<Vector2, Tile> WorldMap { get => worldMap; private set => worldMap = value; }
+        public List<Tile> TilesInMap { get => tilesInMap; private set => tilesInMap = value; }
 
         void Awake()
         {
             Tile[] tiles = GetComponentsInChildren<Tile>();
+            tilesInMap = new();
             worldMap = new();
             
             foreach (Tile tile in tiles )
             {
                 WorldMap[tile.Coordinate] = tile;
+                tilesInMap.Add(tile);
             }
         }
 

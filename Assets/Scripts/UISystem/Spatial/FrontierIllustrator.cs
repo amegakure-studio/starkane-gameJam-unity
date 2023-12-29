@@ -11,10 +11,12 @@ namespace Amegakure.Starkane.UI.Spatial
     public class FrontierIllustrator : MonoBehaviour
     {
         private TileRenderer tileRenderer;
+        private GridManager gridManager;
 
         private void Awake()
         {
             tileRenderer = GetComponent<TileRenderer>();
+            gridManager = FindAnyObjectByType<GridManager>();
         }
 
         private void OnEnable()
@@ -74,12 +76,20 @@ namespace Amegakure.Starkane.UI.Spatial
 
         private void HandlePathFrontiersReset(Dictionary<string, object> context)
         {
-            try
+            if(context == null)
             {
-                List<Tile> tiles = (List<Tile>)context["Tiles"];
-                tileRenderer.ClearColor(tiles);
+                tileRenderer.ClearColor(gridManager.TilesInMap);
             }
-            catch (Exception e) { Debug.LogError(e); }
+            else
+            {
+                try
+                {
+                    List<Tile> tiles = (List<Tile>)context["Tiles"];
+                    tileRenderer.ClearColor(tiles);
+                }
+                catch (Exception e) { Debug.LogError(e); }    
+            }
+            
         } 
 
         public void IllustrateFrontier(Frontier frontier)

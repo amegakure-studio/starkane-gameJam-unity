@@ -44,6 +44,8 @@ public class HUDCombatController : MonoBehaviour
             combat = GameObject.FindAnyObjectByType<Combat>();
         
         combat.CallEndTurnTX(combat.GetActualTurnPlayer());
+        
+        EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
     }
 
     private void HandleCombatTurnChanged(Dictionary<string, object> context)

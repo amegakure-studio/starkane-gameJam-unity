@@ -102,7 +102,8 @@ public class CharactersViewController : MonoBehaviour
             {
                 Button characterBtn = characterVe.Q<Button>();
                 characterBtn.SetEnabled(true);
-                characterBtn.clicked += () => SelectCharacter(characters[i]);
+                Character selected = characters[i];
+                characterBtn.clicked += () =>  SelectCharacter(selected);
                 characterBtns.Add(characterBtn);
             }
 
@@ -153,8 +154,10 @@ public class CharactersViewController : MonoBehaviour
 
     private void SelectCharacter(Character character)
     {
+        
         if (combat.CanMove(character, player))
         {
+            Debug.Log("character selected: " + character.CharacterName);
             EventManager.Instance.Publish(GameEvent.INPUT_CHARACTER_SELECTED,
                     new Dictionary<string, object>() { { "Character", character } });
 

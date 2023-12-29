@@ -65,7 +65,7 @@ namespace Amegakure.Starkane.Config
                     {
                         CharacterType characterType = characterPlayerProgress.GetCharacterType();
 
-                        if(characterPlayerProgress.getID() == player.Id)
+                        if(characterPlayerProgress.getPlayerID() == player.Id)
                         {
                             player.SetDojoId(characterPlayerProgress.Owner);
 
@@ -89,7 +89,7 @@ namespace Amegakure.Starkane.Config
                         }
                         else 
                         {
-                            int adversaryID = characterPlayerProgress.getID();
+                            int adversaryID = characterPlayerProgress.getPlayerID();
 
                             if (matchPlayers.Contains(adversaryID))
                             {

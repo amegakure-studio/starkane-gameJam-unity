@@ -51,7 +51,7 @@ namespace Amegakure.Starkane.Config
                     {
                         CharacterType characterType = characterPlayerProgress.GetCharacterType();
 
-                        if(characterPlayerProgress.getID() == player.Id
+                        if(characterPlayerProgress.getPlayerID() == player.Id
                             && characterType == player.DefaultCharacter)
                         {
                             player.SetDojoId(characterPlayerProgress.Owner);

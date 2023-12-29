@@ -212,14 +212,61 @@ public class Combat : MonoBehaviour
         return null;
     }
 
-    public void DoSkill()
+    public void DoSkill(Player playerFrom, Character characterFrom,
+                            Skill skill, Player playerReceiver, Character characterReceiver)
     {
-
+        if(CanDoSkill(playerFrom, characterFrom, skill))
+            CallSkillTX(playerFrom, characterFrom, skill, playerReceiver, characterReceiver);
     }
 
-    private void DoSkillTX()
+    private void CallSkillTX(Player playerFrom, Character characterFrom,
+                            Skill skill, Player playerReceiver, Character characterReceiver)
     {
+        string rpcUrl = "http://localhost:5050";
 
+            var provider = new JsonRpcClient(rpcUrl);
+            var signer = new SigningKey("0x1800000000300000180000000000030000000000003006001800006600");
+            string playerAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
+
+            var account = new Account(provider, signer, playerAddress);
+            string actionsAddress = "0x68705e426f391541eb50797796e5e71ee3033789d82a8c801830bb191aa3bf1";
+            
+
+            List<dojo.FieldElement> calldata = new List<dojo.FieldElement>();
+
+            string match_id_string = matchState.Id.ToString("X");
+            var match_id = dojo.felt_from_hex_be(new CString(match_id_string)).ok;
+            
+            string player_id_string = playerFrom.Id.ToString("X");
+            var player_id_from = dojo.felt_from_hex_be(new CString(player_id_string)).ok;
+
+            string character_id_from_string = characterFrom.GetId().ToString("X");
+            var character_id_from = dojo.felt_from_hex_be(new CString(character_id_from_string)).ok;
+
+            string skill_id_string = skill.Id.ToString("X");
+            var skill_id = dojo.felt_from_hex_be(new CString(skill_id_string)).ok;
+
+            string level_string = skill.Level.ToString("X");
+            var level = dojo.felt_from_hex_be(new CString(level_string)).ok;
+
+            string player_id_receiver_string = playerReceiver.Id.ToString("X");
+            var player_id_receiver = dojo.felt_from_hex_be(new CString(player_id_receiver_string)).ok;
+
+            string character_id_receiver_string = characterReceiver.GetId().ToString("X");
+            var character_id_receiver = dojo.felt_from_hex_be(new CString(character_id_receiver_string)).ok;
+
+            dojo.Call call = new dojo.Call()
+            {
+                calldata = new[]
+                {
+                   match_id, player_id_from, character_id_from, skill_id, level,
+                   player_id_receiver, character_id_receiver
+                },
+                to = actionsAddress,
+                selector = "action"
+            };
+    
+            account.ExecuteRaw(new[] { call });
     }
 
     public bool CanDoSkill(Player player, Character character, Skill skillSelected)

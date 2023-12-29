@@ -46,7 +46,7 @@ public class CharacterPlayerProgress : ModelInstance
         print();
     }
 
-    public int getID()
+    public int getPlayerID()
     {
         return intID;
     }

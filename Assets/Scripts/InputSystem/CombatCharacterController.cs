@@ -58,11 +58,14 @@ namespace Amegakure.Starkane.InputSystem
         private void HandleTileSelected(Dictionary<string, object> context)
         {
             try
-            {
+            { 
                 if (canInteract && combat.CanMove(character, player))
                 {
                     Tile tile = (Tile)context["Tile"];
-                    combat.Move(character, player, tile);
+                    Debug.Log("!!!!Is movement tile?" + tile.IsMovementTile);
+                    
+                    if(tile.IsMovementTile)        
+                        combat.Move(character, player, tile);
                 }
 
             }

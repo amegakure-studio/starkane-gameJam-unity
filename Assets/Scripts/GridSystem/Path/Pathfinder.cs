@@ -40,11 +40,11 @@ namespace Amegakure.Starkane.GridSystem
                 }
 
                 foreach (Tile adjacentTile in adjacentTiles)
-                {                    
+                {
+                    adjacentTile.IsMovementTile = isMovementTile;                    
+                    
                     if (isMovementTile)
-                    {
-                        adjacentTile.IsMovementTile = isMovementTile;
-
+                    {                    
                         if (!adjacentTile.Occupied())
                             AddTileToFrontier(adjacentTile);
                     }

@@ -74,7 +74,7 @@ public class Skill : ModelInstance
     {
         if (origin != null)
         {
-            Frontier frontier = m_Pathfinder.FindPaths(origin, (int)range, PathStyle.SQUARE, false);
+            Frontier frontier = m_Pathfinder.FindPaths(origin, (int)range, PathStyle.CROSS, false);
             return frontier;
         }
 

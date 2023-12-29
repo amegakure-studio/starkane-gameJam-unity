@@ -12,6 +12,10 @@ public class MatchPlayerCharacter : ModelInstance
     private UInt32 id;
     private UInt32 character_id;
 
+    public uint Match_id { get => match_id; set => match_id = value; }
+    public int PlayerId { get => playerId; set => playerId = value; }
+    public uint Character_id { get => character_id; set => character_id = value; }
+
     public override void Initialize(Model model)
     {
         match_id = model.members["match_id"].ty.ty_primitive.u32;

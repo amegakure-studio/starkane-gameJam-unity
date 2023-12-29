@@ -21,6 +21,7 @@ namespace Amegakure.Starkane.Config
         {
             characterPrefabsDict =  new();
             characterPrefabsDict[CharacterType.Warrior] = "Avelyn";
+            characterPrefabsDict[CharacterType.Cleric] = "Darkelf";
             characterPrefabsDict[CharacterType.Pig] = "Goblin";
             characterPrefabsDict[CharacterType.Archer] = "Darkelf";
         }
@@ -60,12 +61,14 @@ namespace Amegakure.Starkane.Config
                 foreach(GameObject go in entities)
                 {
                     CharacterPlayerProgress characterPlayerProgress = go.GetComponent<CharacterPlayerProgress>();
-
+                   
                     if (characterPlayerProgress != null )
                     {
+                        List<int> matchPlayerCharacterID =  FindPlayerCharactersInAMatch(match_id, player.Id);
                         CharacterType characterType = characterPlayerProgress.GetCharacterType();
 
-                        if(characterPlayerProgress.getPlayerID() == player.Id)
+                        if(characterPlayerProgress.getPlayerID() == player.Id
+                        && matchPlayerCharacterID.Contains((int)characterType))
                         {
                             player.SetDojoId(characterPlayerProgress.Owner);
 
@@ -90,8 +93,10 @@ namespace Amegakure.Starkane.Config
                         else 
                         {
                             int adversaryID = characterPlayerProgress.getPlayerID();
+                            List<int> matchAdversaryCharacterID =  FindPlayerCharactersInAMatch(match_id, adversaryID);
 
-                            if (matchPlayers.Contains(adversaryID))
+                            if (matchPlayers.Contains(adversaryID) && 
+                                matchAdversaryCharacterID.Contains((int)characterType))
                             {
                                 CharacterState characterState = GetCharacterState(adversaryID, match_id, (int)characterType);
                                 ActionState actionState = GetCharacterActionState(adversaryID, match_id, (int)characterType);
@@ -172,6 +177,29 @@ namespace Amegakure.Starkane.Config
             return matchPlayers;
         }
 
+        private List<int> FindPlayerCharactersInAMatch(int match_id, int player_id)
+        {
+            List<int> playerCharactersInMatch = new();
+
+            GameObject[] entities = worldManager.Entities();
+
+            foreach (GameObject go in entities)
+            {
+                try
+                {
+                    MatchPlayerCharacter matchPlayerCharacter = go.GetComponent<MatchPlayerCharacter>();
+                    if (matchPlayerCharacter != null)
+                    {
+                        if ((int) matchPlayerCharacter.Match_id == match_id && matchPlayerCharacter.PlayerId == player_id)
+                            playerCharactersInMatch.Add((int)matchPlayerCharacter.Character_id);
+                    }
+                }
+                catch { }
+            }
+
+            return playerCharactersInMatch;
+        }
+
         private List<Skill> GetSkills(int characterID)
         {
             List<Skill> skills = new();
@@ -204,9 +232,13 @@ namespace Amegakure.Starkane.Config
                 try
                 {
                     MatchState matchState = go.GetComponent<MatchState>();
-                    if(matchState != null)
+                    Player player  = GameObject.FindObjectOfType<Session>().Player;
+                    
+                    if(matchState != null && player != null)
                     {
-                        if (matchState.WinnerId == 0)
+                        List<int> playerIdInMatch = FindMatchPlayers((int)matchState.Id);
+
+                        if (matchState.WinnerId == 0 && playerIdInMatch.Contains(player.Id))
                         {
                             return matchState;
                         }
@@ -220,6 +252,7 @@ namespace Amegakure.Starkane.Config
 
         private CharacterState GetCharacterState(int playerID, int matchID, int characterID)
         {
+            Debug.Log("!!!PID: " + playerID + " \n matchID" + matchID + "\n characterID" + characterID );
             GameObject[] entities = worldManager.Entities();
 
             foreach(GameObject go in entities)

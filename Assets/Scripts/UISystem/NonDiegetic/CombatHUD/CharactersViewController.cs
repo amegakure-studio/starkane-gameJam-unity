@@ -71,7 +71,7 @@ public class CharactersViewController : MonoBehaviour
             if(combat == null)
                     combat = GameObject.FindAnyObjectByType<Combat>();
 
-            charactersTurn = combat.GetCharacters(player);
+            charactersTurn = combat.GetCharacters(playerTurn);
 
             ShowCharacters(charactersTurn, playerTurn);
             SelectCharacter(charactersTurn[0]);
@@ -98,7 +98,7 @@ public class CharactersViewController : MonoBehaviour
             characterVe.Q<VisualElement>("Mp").Q<VisualElement>("Overlay").style.width = Length.Percent(characters[i].GetMpNormalized() * 100);
             characterVe.RemoveFromClassList("invisible");
 
-            if (player != playerTurn)
+            if (player == playerTurn)
             {
                 Button characterBtn = characterVe.Q<Button>();
                 characterBtn.SetEnabled(true);

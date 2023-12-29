@@ -84,10 +84,11 @@ public class CharactersViewController : MonoBehaviour
     private void ShowCharacters(List<Character> characters, Player playerTurn)
     {
         //charactersContainer?.Clear();
-        //characterVeDict.Clear();
+        characterVeDict.Clear();
         UnregisterBtns(characterBtns);
 
         List<VisualElement> characterVeContainers = charactersContainer.Children().ToList();
+        ClearCharacterContainers(characterVeContainers);
 
         for (int i = 0; i < Math.Min(characters.Count, characterVeContainers.Count); i++)
         {
@@ -126,6 +127,11 @@ public class CharactersViewController : MonoBehaviour
         //    characterVeDict.Add(character, characterVe);
         //    charactersContainer.Add(characterVe);
         //}
+    }
+
+    private void ClearCharacterContainers(List<VisualElement> characterVeContainers)
+    {
+        characterVeContainers.ForEach(characterVe => characterVe.AddToClassList("invisible"));
     }
 
     private StyleBackground FindCharacterIcon(Character character) 

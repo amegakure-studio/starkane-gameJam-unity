@@ -112,17 +112,32 @@ namespace Amegakure.Starkane.EntitiesWrapper
 
         public int GetHp()
         {
-            return characterEntity.Hp;
+            return (int) characterState.Remain_hp;
         }
 
         public int GetMp()
         {
-            return characterEntity.Mp;
+            return (int)characterState.Remain_mp;
         }
 
         public int GetMovementRange()
         {
             return characterEntity.Movement_range;
+        }
+
+        public float GetHpNormalized()
+        {
+            return (float) GetHp() / (float) characterEntity.Hp;
+        }
+
+        public float GetMpNormalized()
+        {
+            return (float) GetMp() / (float)characterEntity.Hp;
+        }
+
+        public string GetCharacterName()
+        {
+            return gameObject.name;
         }
     }
 }

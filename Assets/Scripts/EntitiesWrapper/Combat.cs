@@ -1,11 +1,13 @@
 using Amegakure.Starkane.Entities;
 using Amegakure.Starkane.EntitiesWrapper;
 using Amegakure.Starkane.GridSystem;
+using Amegakure.Starkane.PubSub;
 using bottlenoselabs.C2CS.Runtime;
 using Dojo.Starknet;
 using dojo_bindings;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Character = Amegakure.Starkane.EntitiesWrapper.Character;
 
@@ -16,7 +18,15 @@ public class Combat : MonoBehaviour
     private Dictionary<Player, List<ActionState>> actionStates = new();
     private Dictionary<Player, List<CharacterState>> characterStates = new();
 
-    public MatchState MatchState { get => matchState; set => matchState = value; }
+    public MatchState MatchState 
+    { 
+        get => matchState;
+        set
+        {
+            matchState = value;
+            matchState.playerTurnIdChanged += MatchState_playerTurnIdChanged;
+        } 
+    }
     public Dictionary<Player, List<Character>> PlayerMatchCharacter { get => playerMatchCharacters; private set => playerMatchCharacters = value; }
     public Dictionary<Player, List<ActionState>> ActionStates { get => actionStates; private set => actionStates = value; }
     public Dictionary<Player, List<CharacterState>> CharacterStates { get => characterStates; private set => characterStates = value; }
@@ -26,6 +36,19 @@ public class Combat : MonoBehaviour
         playerMatchCharacters = new();
         actionStates = new();
         characterStates = new();
+    }
+
+
+    private void OnDisable()
+    {
+        matchState.playerTurnIdChanged -= MatchState_playerTurnIdChanged;
+    }
+
+    private void MatchState_playerTurnIdChanged(int playerId)
+    {
+        Player playerTurn = playerMatchCharacters.Keys.First(p => p.Id == playerId);
+
+        EventManager.Instance.Publish(GameEvent.COMBAT_TURN_CHANGED, new() { { "Player", playerTurn } });
     }
 
     public void AddCharacter(Player player, Character character, ActionState actionState, CharacterState characterState)
@@ -113,5 +136,10 @@ public class Combat : MonoBehaviour
     private ActionState GetActionState(Player player, Character character)
     {
         return actionStates[player].Find(action => (int)action.Character_id == character.GetId());
+    }
+
+    public List<Character> GetCharacters(Player player)
+    {
+        return playerMatchCharacters[player];
     }
 }

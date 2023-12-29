@@ -101,6 +101,7 @@ public class CharactersViewController : MonoBehaviour
             if (player != playerTurn)
             {
                 Button characterBtn = characterVe.Q<Button>();
+                characterBtn.SetEnabled(true);
                 characterBtn.clicked += () => SelectCharacter(characters[i]);
                 characterBtns.Add(characterBtn);
             }
@@ -132,6 +133,7 @@ public class CharactersViewController : MonoBehaviour
     private void ClearCharacterContainers(List<VisualElement> characterVeContainers)
     {
         characterVeContainers.ForEach(characterVe => characterVe.AddToClassList("invisible"));
+        characterVeContainers.ForEach(characterVe => characterVe.Q<Button>().SetEnabled(false));
     }
 
     private StyleBackground FindCharacterIcon(Character character) 

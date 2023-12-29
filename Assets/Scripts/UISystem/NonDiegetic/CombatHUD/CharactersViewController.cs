@@ -83,43 +83,64 @@ public class CharactersViewController : MonoBehaviour
 
     private void ShowCharacters(List<Character> characters, Player playerTurn)
     {
-        charactersContainer?.Clear();
-        characterVeDict.Clear();
+        //charactersContainer?.Clear();
+        //characterVeDict.Clear();
         UnregisterBtns(characterBtns);
 
-        foreach (Character character in characters)
+        List<VisualElement> characterVeContainers = charactersContainer.Children().ToList();
+
+        for (int i = 0; i < Math.Min(characters.Count, characterVeContainers.Count); i++)
         {
-            VisualElement characterVe = characterUIAsset.Instantiate();
-            characterVe.AddToClassList("character");         
-            characterVe.Q<VisualElement>("Icon").style.backgroundImage = FindCharacterIcon(character);
-            characterVe.Q<VisualElement>("Hp").Q<VisualElement>("Overlay").style.width = Length.Percent(character.GetHpNormalized() * 100);
-            characterVe.Q<VisualElement>("Mp").Q<VisualElement>("Overlay").style.width = Length.Percent(character.GetMpNormalized() * 100);
-            
-            if (player != playerTurn) 
+            VisualElement characterVe = charactersContainer[i];
+            characterVe.Q<VisualElement>("Icon").style.backgroundImage = FindCharacterIcon(characters[i]);
+            characterVe.Q<VisualElement>("Hp").Q<VisualElement>("Overlay").style.width = Length.Percent(characters[i].GetHpNormalized() * 100);
+            characterVe.Q<VisualElement>("Mp").Q<VisualElement>("Overlay").style.width = Length.Percent(characters[i].GetMpNormalized() * 100);
+            characterVe.RemoveFromClassList("invisible");
+
+            if (player != playerTurn)
             {
                 Button characterBtn = characterVe.Q<Button>();
-                characterBtn.clicked += () => SelectCharacter(character);
+                characterBtn.clicked += () => SelectCharacter(characters[i]);
                 characterBtns.Add(characterBtn);
             }
-            
-            characterVeDict.Add(character, characterVe);
+
+            characterVeDict.Add(characters[i], characterVe);
             charactersContainer.Add(characterVe);
         }
+
+        //foreach (Character character in characters)
+        //{
+        //    VisualElement characterVe = characterUIAsset.Instantiate();
+        //    characterVe.AddToClassList("character");         
+        //    characterVe.Q<VisualElement>("Icon").style.backgroundImage = FindCharacterIcon(character);
+        //    characterVe.Q<VisualElement>("Hp").Q<VisualElement>("Overlay").style.width = Length.Percent(character.GetHpNormalized() * 100);
+        //    characterVe.Q<VisualElement>("Mp").Q<VisualElement>("Overlay").style.width = Length.Percent(character.GetMpNormalized() * 100);
+            
+        //    if (player != playerTurn) 
+        //    {
+        //        Button characterBtn = characterVe.Q<Button>();
+        //        characterBtn.clicked += () => SelectCharacter(character);
+        //        characterBtns.Add(characterBtn);
+        //    }
+            
+        //    characterVeDict.Add(character, characterVe);
+        //    charactersContainer.Add(characterVe);
+        //}
     }
 
     private StyleBackground FindCharacterIcon(Character character) 
     {
-        if (!characterIconDict.ContainsKey(character.GetCharacterName()))
+        if (!characterIconDict.ContainsKey(character.CharacterName))
         {         
-            Sprite sprite = Resources.Load<Sprite>(characterIconsFolder + character.GetCharacterName());
+            Sprite sprite = Resources.Load<Sprite>(characterIconsFolder + character.CharacterName);
            
             StyleBackground styleBackground = new (sprite);
-            characterIconDict.Add(character.GetCharacterName(), styleBackground);
+            characterIconDict.Add(character.CharacterName, styleBackground);
 
             return styleBackground;
         }
         
-        else return characterIconDict[character.GetCharacterName()];        
+        else return characterIconDict[character.CharacterName];        
     }
 
     private void SelectCharacter(Character character)

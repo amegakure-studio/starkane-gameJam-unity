@@ -1,4 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/Styles/Characters.uss?fileID=7433441132597879392&amp;guid=784156db2c050f447b2b1337043a982c&amp;type=3#Characters" />
-    <ui:VisualElement name="CharactersGroup" style="flex-grow: 1; flex-direction: row; background-image: url(&apos;project://database/Assets/Art/UI/GUI_parts/mid_background.png?fileID=21300000&amp;guid=f203f165ae401fe46ada0ed50d07149c&amp;type=3#mid_background&apos;); -unity-background-scale-mode: stretch-to-fill; padding-top: 2%; padding-right: 2%; padding-bottom: 2%; padding-left: 2%;" />
+    <ui:Template name="Character" src="project://database/Assets/UI%20Toolkit/Documents/Components/Character.uxml?fileID=9197481963319205126&amp;guid=36cf5247ec8855c439fe638d09e68c7c&amp;type=3#Character" />
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/Characters.uss?fileID=7433441132597879392&amp;guid=acd80aef69660634cb4d3bb63991b795&amp;type=3#Characters" />
+    <ui:VisualElement name="CharactersGroup" style="flex-grow: 1; flex-direction: row; background-image: url(&apos;project://database/Assets/ThirdPartyAssets/GUI_Parts/Gui_parts/mid_background.png?fileID=21300000&amp;guid=f203f165ae401fe46ada0ed50d07149c&amp;type=3#mid_background&apos;); -unity-background-scale-mode: stretch-to-fill; padding-top: 2%; padding-right: 2%; padding-bottom: 2%; padding-left: 2%;">
+        <ui:Instance template="Character" name="Character" class="character invisible" />
+        <ui:Instance template="Character" name="Character" class="character invisible" />
+    </ui:VisualElement>
 </ui:UXML>

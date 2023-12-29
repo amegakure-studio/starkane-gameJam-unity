@@ -34,6 +34,7 @@ namespace Amegakure.Starkane.Config
                     character.Location = context.GetInitialLocation();
                     character.CharacterPlayerProgress = characterPlayerProgress;
                     character.CharacterEntity = characterEntity;
+                    character.CharacterName = skinId;
 
                     return this;
                 }

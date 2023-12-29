@@ -17,9 +17,13 @@ namespace Amegakure.Starkane.EntitiesWrapper
 
         private bool isMoving = false;
         private GridManager gridManager;
+        private string characterName;
 
         public CharacterPlayerProgress CharacterPlayerProgress { get => characterPlayerProgress; set => characterPlayerProgress = value; }
         public Entities.Character CharacterEntity { get => characterEntity; set => characterEntity = value; }
+        public ActionState ActionState { get => actionState; set => actionState = value; }
+        public string CharacterName { get => characterName; set => characterName = value; }
+
         public GridMovement GridMovement 
         {
             get => gridMovement; 
@@ -72,7 +76,6 @@ namespace Amegakure.Starkane.EntitiesWrapper
                 this.Location = gridManager.WorldMap[characterPos];
             } 
         }
-        public ActionState ActionState { get => actionState; set => actionState = value; }
 
         private void OnDisable()
         {
@@ -132,13 +135,9 @@ namespace Amegakure.Starkane.EntitiesWrapper
 
         public float GetMpNormalized()
         {
-            return (float) GetMp() / (float)characterEntity.Hp;
+            return (float) GetMp() / (float)characterEntity.Mp;
         }
 
-        public string GetCharacterName()
-        {
-            return gameObject.name;
-        }
     }
 }
 

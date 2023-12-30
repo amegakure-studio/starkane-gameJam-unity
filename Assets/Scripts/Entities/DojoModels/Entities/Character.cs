@@ -48,7 +48,7 @@ namespace Amegakure.Starkane.Entities
             evasion = model.members["evasion"].ty.ty_primitive.u64;
             crit_chance = model.members["crit_chance"].ty.ty_primitive.u64;
             movement_range = model.members["movement_range"].ty.ty_primitive.u64;
-            Debug.Log(ToString());
+            // Debug.Log(ToString());
         }
 
         public override string ToString()

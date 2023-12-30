@@ -54,7 +54,7 @@ public class MapCC : ModelInstance
         //           + "\n width: " + width
         //           + "\n height: " + height + "\n");
         
-        PrintWalkableStatus();
+        // PrintWalkableStatus();
     }
 
     void PrintWalkableStatus()

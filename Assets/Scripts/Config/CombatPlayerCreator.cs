@@ -265,7 +265,7 @@ namespace Amegakure.Starkane.Config
 
         private CharacterState GetCharacterState(int playerID, int matchID, int characterID)
         {
-            Debug.Log("!!!PID: " + playerID + " \n matchID" + matchID + "\n characterID" + characterID );
+            // Debug.Log("!!!PID: " + playerID + " \n matchID" + matchID + "\n characterID" + characterID );
             GameObject[] entities = worldManager.Entities();
 
             foreach(GameObject go in entities)

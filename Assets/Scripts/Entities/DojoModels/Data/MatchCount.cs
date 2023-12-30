@@ -18,7 +18,7 @@ public class MatchCount : ModelInstance
         // Assuming the 'id' field is a hexadecimal representation of felt252 data
         // Convert it to an integer or process it as needed
 
-        Debug.Log("MatchCount: \n id: " + idString
-                  + "\n index: " + index + "\n");
+        // Debug.Log("MatchCount: \n id: " + idString
+        //           + "\n index: " + index + "\n");
     }
 }

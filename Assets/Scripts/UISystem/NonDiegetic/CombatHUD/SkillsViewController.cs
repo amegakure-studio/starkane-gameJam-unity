@@ -259,7 +259,7 @@ public class SkillsViewController : MonoBehaviour
         //    skillSelected.CleanFrontier();
 
         characterSelected = (Character)context["Character"];
-        Debug.Log("!!! Skill Character selected!!");
+        // Debug.Log("!!! Skill Character selected!!");
 
         ShowSkills(characterSelected.Skills, characterSelected);
     }

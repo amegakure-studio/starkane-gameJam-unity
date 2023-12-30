@@ -43,7 +43,7 @@ public class CharacterPlayerProgress : ModelInstance
         
         var hexString = BitConverter.ToString(owner.data.ToArray()).Replace("-", "").ToLower();
         intID = System.Int32.Parse( hexString, NumberStyles.AllowHexSpecifier );
-        print();
+        // print();
     }
 
     public int getPlayerID()

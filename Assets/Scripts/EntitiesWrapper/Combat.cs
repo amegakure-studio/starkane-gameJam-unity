@@ -131,6 +131,7 @@ public class Combat : MonoBehaviour
 
     public void CallEndTurnTX(Player player)
     {
+        //TODO: check if player == playerTurn
          string rpcUrl = "http://localhost:5050";
 
             var provider = new JsonRpcClient(rpcUrl);
@@ -290,5 +291,15 @@ public class Combat : MonoBehaviour
     private CharacterState GetCharacterState(Player player, Character character)
     {
         return characterStates[player].Find(characterState => (int)characterState.Character_id == character.GetId());
+    }
+
+    internal List<Character> GetRivalCharacters(Player player)
+    {
+        List<Player> rivals = playerMatchCharacters.Keys.Where(p => p != player).ToList();
+        List<Character> rivalCharacters = new();
+
+        rivals.ForEach(r => rivalCharacters.AddRange(GetCharacters(r)));
+
+        return rivalCharacters;
     }
 }

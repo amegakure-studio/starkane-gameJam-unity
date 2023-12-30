@@ -27,6 +27,8 @@ namespace Amegakure.Starkane.EntitiesWrapper
         public string CharacterName { get => characterName; set => characterName = value; }
         public List<Skill> Skills{get => skills; set => skills = value;}
 
+        public bool IsMoving { get => isMoving; private set => isMoving = value; }
+
         public GridMovement GridMovement 
         {
             get => gridMovement; 

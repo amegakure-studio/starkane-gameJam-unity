@@ -44,7 +44,8 @@ namespace Amegakure.Starkane.Config
             Combat combat = combatGo.AddComponent<Combat>();
 
             Player player  = GameObject.FindObjectOfType<Session>().Player;
-            
+            Player adversary = null;
+
             MatchState matchState = this.GetMatchState();
             int match_id = checked((int)matchState.Id);
 
@@ -110,16 +111,14 @@ namespace Amegakure.Starkane.Config
                                         .AddGridMovement(PathStyle.SQUARE, characterEntity.Movement_range)
                                         .Build();
 
-                                GameObject adversaryGo = Instantiate(new GameObject());
-                                Player adversary = adversaryGo.AddComponent<Player>();
-                                adversary.Id = adversaryID;
-                                adversary.name = "Enemy";
-                                adversary.PlayerName = adversary.name;
+                                if (adversary == null)
+                                    adversary = CreateAdversary(adversaryID);
+                            
 
                                 Character character = characterGo.GetComponent<Character>();
                                 combat.AddCharacter(adversary, character, actionState, characterState);
 
-                                characterGo.transform.parent = adversaryGo.transform;
+                                characterGo.transform.parent = adversary.transform;
                             }                       
                         }
                     }
@@ -128,6 +127,20 @@ namespace Amegakure.Starkane.Config
             }
 
             Destroy(builderGo);
+        }
+
+        private Player CreateAdversary(int adversaryId)
+        {
+            GameObject adversaryGo = Instantiate(new GameObject());
+            Player adversary = adversaryGo.AddComponent<Player>();
+            adversary.Id = adversaryId;
+            adversary.name = "Enemy";
+            adversary.PlayerName = adversary.name;
+            
+            PlayerAIController aiController = adversaryGo.AddComponent<PlayerAIController>();
+            aiController.Player = adversary;
+
+            return adversary;
         }
 
         private Entities.Character GetCharacter(int _characterId)

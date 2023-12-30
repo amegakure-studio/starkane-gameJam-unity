@@ -61,13 +61,16 @@ public class PlayerAIController : MonoBehaviour
         {
             TryDoSkill(character);
             yield return new WaitForSeconds(1f);
+            EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
             //Move
             TryMove(character);
 
             while (character.IsMoving) yield return null;
+            EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
 
             TryDoSkill(character);
             yield return new WaitForSeconds(1f);
+            EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
 
         }
 

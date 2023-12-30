@@ -19,6 +19,8 @@ public class CombatCutsceneManager : MonoBehaviour
 
     private Vector3 attackerPreviousPosition;
     private Vector3 receiverPreviousPosition;
+    private Quaternion attackerPreviousRotation;
+    private Quaternion receiverPreviousRotation;
 
     private void OnEnable()
     {
@@ -48,12 +50,12 @@ public class CombatCutsceneManager : MonoBehaviour
                     var trackBinding = attackDirector.GetGenericBinding(output.sourceObject) as GameObject;
 
                     // Check if the GameObject has the name "CutSceneCamera"
-                    if (trackBinding != null)
-                    {
-                        CinemachineVirtualCamera virtualCamera = trackBinding.GetComponent<CinemachineVirtualCamera>();
-                        virtualCamera.LookAt = characterFrom.transform;
-                        virtualCamera.Follow = characterFrom.transform;
-                    }
+                    // if (trackBinding != null)
+                    // {
+                    //     CinemachineVirtualCamera virtualCamera = trackBinding.GetComponent<CinemachineVirtualCamera>();
+                    //     virtualCamera.LookAt = characterFrom.transform;
+                    //     virtualCamera.Follow = characterFrom.transform;
+                    // }
                 }
 
                 if (output.streamName == "AttackerGo")
@@ -61,6 +63,7 @@ public class CombatCutsceneManager : MonoBehaviour
                     attackDirector.SetGenericBinding(output.sourceObject, characterFrom.gameObject);
                     attackerGo = characterFrom.gameObject;
                     attackerPreviousPosition = attackerGo.transform.position;
+                    attackerPreviousRotation = attackerGo.transform.rotation;
                 }
 
                 if (output.streamName == "AttackerSignal")
@@ -74,6 +77,7 @@ public class CombatCutsceneManager : MonoBehaviour
                     attackDirector.SetGenericBinding(output.sourceObject, characterReceiver.gameObject);
                     receiverGo = characterReceiver.gameObject;
                     receiverPreviousPosition = receiverGo.transform.position;
+                    receiverPreviousRotation = receiverGo.transform.rotation;
                 }
 
                 if (output.streamName == "ReceiverSignal")
@@ -92,7 +96,10 @@ public class CombatCutsceneManager : MonoBehaviour
     private void ExecuteCutscene(PlayableDirector director)
     {
         attackerGo.transform.position = attackerCutsceneTransform.position;
-        receiverGo.transform.position = receiverCutsceneTransform.position;
+        attackerGo.transform.rotation = attackerCutsceneTransform.rotation;
+
+        receiverGo.transform.position = receiverCutsceneTransform.position;     
+        receiverGo.transform.rotation = receiverCutsceneTransform.rotation;
 
         director.Stop();
         director.time = 0;
@@ -102,6 +109,9 @@ public class CombatCutsceneManager : MonoBehaviour
     public void ResetPlayersPositions()
     {
         attackerGo.transform.position = attackerPreviousPosition;
+        attackerGo.transform.rotation = attackerPreviousRotation;
+
         receiverGo.transform.position = receiverPreviousPosition;
+        receiverGo.transform.rotation = receiverPreviousRotation;        
     }
 }

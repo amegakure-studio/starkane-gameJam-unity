@@ -56,17 +56,18 @@ namespace Amegakure.Starkane.GridSystem
                         {
                             if (!mapCC.IsWalkable(tile.coordinate))
                             {
-                                GameObject obstacle = Instantiate(obstaclePrefab, tile.transform.position, Quaternion.identity);
+                                GameObject obstacle = Instantiate(obstaclePrefab);
                                 obstacle.transform.parent = tile.transform;
+                                
                                 obstacle.transform.localPosition = Vector3.zero;
+                                obstacle.transform.localRotation = Quaternion.identity;
+                                obstacle.transform.localScale = new Vector3(1,1,1);
                             }
                         }
                     }
                 }
-                catch { }
+                catch(Exception e) { Debug.LogError(e); }
             }
-
-            throw new ArgumentException("Couldn't get character entity");
         }
 
         public List<Tile> GetFreeTiles()

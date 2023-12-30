@@ -15,6 +15,6 @@ public class CombatCancel : ICommand
     {
         dialog.Hide();
         Dictionary<string, object> eventData = new();
-        EventManager.Instance.Publish(GameEvent.CUTSCENE_COMBAT_CANCEL, eventData);        
+        EventManager.Instance.Publish(GameEvent.INPUT_COMBAT_CANCEL, eventData);        
     }
 }

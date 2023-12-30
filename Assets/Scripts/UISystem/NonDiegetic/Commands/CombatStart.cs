@@ -13,7 +13,7 @@ public class CombatStart : ICommand
     public void Do()
     {
         Dictionary<string, object> eventData = new();
-        EventManager.Instance.Publish(GameEvent.CUTSCENE_COMBAT_ACCEPT, eventData);
+        EventManager.Instance.Publish(GameEvent.INPUT_COMBAT_ACCEPT, eventData);
         dialog.Hide();
     }
 }

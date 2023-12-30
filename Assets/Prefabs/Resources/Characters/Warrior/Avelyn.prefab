@@ -1602,6 +1602,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6095542089587518979}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 940c228c9f103c54a84bc890617652eb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2405444619909969014}
   m_SourcePrefab: {fileID: 100100000, guid: 940c228c9f103c54a84bc890617652eb, type: 3}
 --- !u!4 &2351200411215221420 stripped
 Transform:
@@ -1761,9 +1765,75 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2405444619909969014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659877405080767468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: a9eba6f2b03555744b875e7c1ca86bc0, type: 2}
+    - {fileID: 11400000, guid: 296becda504d16149b0ea035198671b9, type: 2}
+    - {fileID: 11400000, guid: ceb528c940a305943acb89bdf5294d5b, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8025840476279851820}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Attack
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8025840476279851820}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: SpecialAttack
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8025840476279851820}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ReceiveDamage
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!4 &4682586112585954075 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9147080809826518438, guid: 940c228c9f103c54a84bc890617652eb,
+    type: 3}
+  m_PrefabInstance: {fileID: 4470692112192272061}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8025840476279851820 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 940c228c9f103c54a84bc890617652eb,
     type: 3}
   m_PrefabInstance: {fileID: 4470692112192272061}
   m_PrefabAsset: {fileID: 0}

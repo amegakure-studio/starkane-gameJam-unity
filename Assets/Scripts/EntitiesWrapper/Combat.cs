@@ -216,8 +216,20 @@ public class Combat : MonoBehaviour
     public void DoSkill(Player playerFrom, Character characterFrom,
                             Skill skill, Player playerReceiver, Character characterReceiver)
     {
-        if(CanDoSkill(playerFrom, characterFrom, skill))
+        if (CanDoSkill(playerFrom, characterFrom, skill))
+        {
             CallSkillTX(playerFrom, characterFrom, skill, playerReceiver, characterReceiver);
+
+            Dictionary<string, object> context = new() 
+            { 
+                { "PlayerFrom", playerFrom },
+                { "CharacterFrom", characterFrom },
+                { "Skill", skill },
+                { "PlayerReceiver", playerReceiver },
+                { "CharacterReceiver", characterReceiver }
+            };
+            EventManager.Instance.Publish(GameEvent.COMBAT_SKILL_DONE, context);
+        }
     }
 
     private void CallSkillTX(Player playerFrom, Character characterFrom,

@@ -29,15 +29,15 @@ namespace Amegakure.Starkane.CinematicSystem
 
         private void OnEnable()
         {
-            EventManager.Instance.Subscribe(GameEvent.INPUT_ENEMY_COMBAT_INTERACTION, HandleEnemyInteraction);
-            EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_ACCEPT, HandleAcceptInteraction);
-            EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_CANCEL, HandleCancelInteraction);
+            EventManager.Instance.Subscribe(GameEvent.INPUT_COMBAT_CHALLENGE, HandleCombatChallenge);
+            EventManager.Instance.Subscribe(GameEvent.INPUT_COMBAT_ACCEPT, HandleAcceptInteraction);
+            EventManager.Instance.Subscribe(GameEvent.INPUT_COMBAT_CANCEL, HandleCancelInteraction);
         }
         private void OnDisable()
         {
-            EventManager.Instance.Unsubscribe(GameEvent.INPUT_ENEMY_COMBAT_INTERACTION, HandleEnemyInteraction);
-            EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_ACCEPT, HandleAcceptInteraction);
-            EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_CANCEL, HandleCancelInteraction);
+            EventManager.Instance.Unsubscribe(GameEvent.INPUT_COMBAT_CHALLENGE, HandleCombatChallenge);
+            EventManager.Instance.Unsubscribe(GameEvent.INPUT_COMBAT_ACCEPT, HandleAcceptInteraction);
+            EventManager.Instance.Unsubscribe(GameEvent.INPUT_COMBAT_CANCEL, HandleCancelInteraction);
         }
 
         private void HandleAcceptInteraction(Dictionary<string, object> dictionary)
@@ -94,7 +94,7 @@ namespace Amegakure.Starkane.CinematicSystem
             CancelBattle();
         }
 
-        private void HandleEnemyInteraction(Dictionary<string, object> dictionary)
+        private void HandleCombatChallenge(Dictionary<string, object> dictionary)
         {
             Character character = GameObject.FindObjectOfType<Character>();
 

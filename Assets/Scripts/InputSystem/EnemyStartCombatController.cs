@@ -28,6 +28,6 @@ public class EnemyStartCombatController : MonoBehaviour
     {
         Dictionary<string, object> context = new(){ { "Enemy", this } };
 
-        EventManager.Instance.Publish(GameEvent.INPUT_ENEMY_COMBAT_INTERACTION, context);
+        EventManager.Instance.Publish(GameEvent.INPUT_COMBAT_CHALLENGE, context);
     }
 }

@@ -27,6 +27,7 @@ public class Skill : ModelInstance
     private UInt64 mp_cost;
     private UInt64 range;
 
+  
     public uint Id { get => id; set => id = value; }
     public uint Character_id { get => character_id; set => character_id = value; }
     public byte Level { get => level; set => level = value; }
@@ -35,6 +36,8 @@ public class Skill : ModelInstance
     public ulong Power { get => power; set => power = value; }
     public ulong Mp_cost { get => mp_cost; set => mp_cost = value; }
     public ulong Range { get => range; set => range = value; }
+    public bool IsSpecial()
+    { return Skill_type != SkillType.MeleeAttack && Skill_type != SkillType.RangeAttack; }
 
     private Pathfinder m_Pathfinder;
 

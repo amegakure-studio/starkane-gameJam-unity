@@ -38,7 +38,7 @@ public class PlayerAIController : MonoBehaviour
         {
             Player turn = (Player)context["Player"];
 
-            if (turn.GetInstanceID() == player.GetInstanceID()) 
+            if (turn.GetInstanceID() == player.GetInstanceID())
             {
                 StartCoroutine(nameof(DecisionTakerCoroutine));
             }
@@ -54,7 +54,7 @@ public class PlayerAIController : MonoBehaviour
     private IEnumerator DecisionTakerCoroutine()
     {
         yield return new WaitForSeconds(1f);
-        
+
         List<Character> characters = combat.GetCharacters(player);
 
         foreach (Character character in characters)
@@ -84,11 +84,14 @@ public class PlayerAIController : MonoBehaviour
 
     private bool TryDoSkill(Character character)
     {
+        EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
+
         foreach (Skill skill in character.Skills)
         {
             if (combat.CanDoSkill(player, character, skill))
             {
                 Frontier skillFrontier = skill.GetFrontier(character.Location);
+                EventManager.Instance.Publish(GameEvent.FRONTIER_UPDATED, new() { { "Frontier", skillFrontier } });
 
                 foreach (Tile tile in skillFrontier.Tiles)
                 {
@@ -107,36 +110,40 @@ public class PlayerAIController : MonoBehaviour
                         }
                     }
                 }
-            }            
+            }
         }
-        
+
         return false;
     }
 
     private void MoveToTileNearPlayer(Character character)
     {
-            if(combat.CanMove(character, player))
+        EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
+        if (combat.CanMove(character, player))
+        {
+            List<Character> adversaryCharacters = combat.GetRivalCharacters(player);
+            List<Tile> adversaryCoordinates = new();
+
+            foreach (Character adversaryCharacter in adversaryCharacters)
             {
-                List<Character> adversaryCharacters = combat.GetRivalCharacters(player);
-                List<Tile> adversaryCoordinates = new();
+                adversaryCoordinates.Add(adversaryCharacter.Location);
+            }
 
-                foreach (Character adversaryCharacter in adversaryCharacters)
-                {
-                    adversaryCoordinates.Add(adversaryCharacter.Location);
-                }
+            // Select nearest adversary character
+            Character nearestAdversary = FindNearestCharacter(character.Location.coordinate);
 
-                // Select nearest adversary character
-                Character nearestAdversary = FindNearestCharacter(character.Location.coordinate);
+            if (nearestAdversary != null)
+            {
+                // get the nearest tile
+                Frontier characterFrontier = character.GetMovementFrontier();
+                List<Tile> movementTiles = characterFrontier.Tiles;
+                EventManager.Instance.Publish(GameEvent.FRONTIER_UPDATED, new() { { "Frontier", characterFrontier } });
 
-                if (nearestAdversary != null) 
-                {
-                    // get the nearest tile
-                    List<Tile> movementTiles = character.GetMovementFrontier().Tiles;
-                    Tile nearestTileToAdversary = FindNearestTile(movementTiles, nearestAdversary.Location.coordinate);
-
-                    combat.Move(character, player, nearestTileToAdversary);
-                }            
-            }           
+                Tile nearestTileToAdversary = FindNearestTile(movementTiles, nearestAdversary.Location.coordinate);
+                
+                combat.Move(character, player, nearestTileToAdversary);
+            }
+        }
     }
 
     private Character FindNearestCharacter(Vector2 location)

@@ -11,17 +11,18 @@ namespace Amegakure.Starkane.CameraSystem
     public class CharacterCamera : MonoBehaviour
     {
         private CinemachineVirtualCamera virtualCamera;
-        private Character character;
+        private Character currentCharacter;
+        Combat combat;
 
         private void Start()
         {
-            LoadCharacter();
             virtualCamera = GameObject.FindObjectOfType<CinemachineVirtualCamera>();     
+            LoadCharacter();
         }
 
         private void Update()
         {
-            if (character == null)
+            if (currentCharacter == null)
                 LoadCharacter();
         }
 
@@ -34,17 +35,43 @@ namespace Amegakure.Starkane.CameraSystem
         private void OnEnable()
         {
             EventManager.Instance.Subscribe(GameEvent.INPUT_CHARACTER_SELECTED, handleCharacterSelected);
+            EventManager.Instance.Subscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
         }
 
         private void OnDisable()
         {
             EventManager.Instance.Unsubscribe(GameEvent.INPUT_CHARACTER_SELECTED, handleCharacterSelected);
+            EventManager.Instance.Unsubscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
+        }
+
+        private void HandleCombatTurnChanged(Dictionary<string, object> context)
+        {
+            if (combat != null)
+                combat = FindAnyObjectByType<Combat>();
+
+            try
+            {
+                Player playerTurn = (Player)context["Player"];
+                
+                if(combat == null)
+                        combat = GameObject.FindAnyObjectByType<Combat>();
+
+                List<Character> charactersTurn = combat.GetCharacters(playerTurn);
+                
+                Character character =charactersTurn[0];
+                Debug.Log("Turn: player" + playerTurn.Id);
+                FocusCharacter(character);
+                
+            }
+            catch { }
+
         }
 
         private void handleCharacterSelected(Dictionary<string, object> context)
         {
             Character character = (Character) context["Character"];
             FocusCharacter(character);
+            currentCharacter = character;
         }
 
         private void FocusCharacter(Character character)

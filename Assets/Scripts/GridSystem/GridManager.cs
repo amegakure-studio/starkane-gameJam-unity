@@ -31,7 +31,8 @@ namespace Amegakure.Starkane.GridSystem
 
         private void OnEnable()
         {
-            worldManager.OnEntityFeched += WorldManager_OnEntityFeched;
+            if(worldManager != null)
+                worldManager.OnEntityFeched += WorldManager_OnEntityFeched;
         }
 
         

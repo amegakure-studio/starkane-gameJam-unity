@@ -79,7 +79,7 @@ public class MapCC : ModelInstance
     {
         ulong x = (ulong)position.x;
         ulong y = (ulong)position.y;
-        return GetBit((ulong) y * 25 + x );
+        return GetBit((ulong) x * 25 + y );
     }
 
     private bool GetBit(ulong position)

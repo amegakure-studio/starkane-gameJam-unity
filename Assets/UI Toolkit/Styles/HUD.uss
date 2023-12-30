@@ -1,5 +1,5 @@
 .content {
-    height: 70%;
+    height: 60%;
     flex-direction: row;
     justify-content: center;
 }
@@ -9,7 +9,7 @@
 }
 
 .footer {
-    height: 15%;
+    height: 25%;
 }
 
 .content #Left {
@@ -24,6 +24,8 @@
     height: auto;
     width: 70%;
     justify-content: center;
+    -unity-text-align: upper-left;
+    align-items: center;
 }
 
 .content #Dialog {

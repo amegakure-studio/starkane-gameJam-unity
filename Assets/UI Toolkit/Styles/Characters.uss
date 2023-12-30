@@ -1,0 +1,51 @@
+.icon {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/Art/UI/Characters/Avelyn.png?fileID=21300000&guid=e24565b86ed08ce4eba70b2e6b3d684b&type=3#Avelyn');
+    -unity-background-scale-mode: scale-to-fit;
+    height: 70%;
+}
+
+.stats {
+    height: 30%;
+    justify-content: center;
+    align-self: stretch;
+    padding-bottom: 5%;
+    padding-right: 5%;
+    padding-left: 5%;
+    padding-top: 2%;
+}
+
+.progress_bar {
+    height: 100%;
+}
+
+#Mp #Overlay {
+    background-color: rgb(54, 108, 161);
+}
+
+.character {
+    flex-grow: 1;
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    padding-top: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+    visibility: visible;
+    overflow: visible;
+}
+
+.icon:hover {
+    -unity-background-image-tint-color: rgba(91, 91, 91, 0.85);
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.invisible {
+    overflow: hidden;
+    visibility: visible;
+    opacity: 0;
+}

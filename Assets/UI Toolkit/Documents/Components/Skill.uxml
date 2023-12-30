@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/Skills.uss?fileID=7433441132597879392&amp;guid=b021b48c433414649bb6b2d0894b0add&amp;type=3#Skills" />
+    <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="Skill1" class="skillContainer">
+        <ui:VisualElement name="Icon" focusable="false" class="icon skill" style="background-image: url(&apos;project://database/Assets/Art/UI/Icons/UI_Skill_Icon_Chop.png?fileID=2800000&amp;guid=08c71e4e0565fe4469d1e0a593047156&amp;type=3#UI_Skill_Icon_Chop&apos;);" />
+    </ui:Button>
+</ui:UXML>

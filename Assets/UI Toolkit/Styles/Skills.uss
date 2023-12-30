@@ -1,0 +1,41 @@
+.skill {
+    background-image: url('project://database/Assets/ThirdPartyAssets/GUI_Parts/Gui_parts/Mini_frame2.png?fileID=21300000&guid=6a05953725450a442897308eb7564337&type=3#Mini_frame2');
+    -unity-background-scale-mode: stretch-to-fill;
+    padding-top: 5%;
+    padding-right: 5%;
+    padding-bottom: 5%;
+    padding-left: 5%;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.icon {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/Art/UI/Icons/UI_Skill_Icon_Slash.png?fileID=21300000&guid=2a5c892bdd014164da633b8c6fd0f246&type=3#UI_Skill_Icon_Slash');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.icon:hover {
+    -unity-background-image-tint-color: rgba(137, 137, 137, 0.85);
+    background-color: rgba(253, 253, 253, 0);
+}
+
+.icon.disabled {
+    -unity-background-image-tint-color: rgba(176, 176, 176, 0.15);
+}
+
+.skillContainer {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    padding-top: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+}
+
+.invisible {
+    opacity: 0;
+}

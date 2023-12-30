@@ -6,3 +6,20 @@
 .text.small {
     font-size: 20px;
 }
+
+.button {
+    background-image: url('project://database/Assets/Art/UI/GUI_parts/button_ready_off.png?fileID=21300000&guid=a2e2a83536d4eef45ace93d156eab562&type=3#button_ready_off');
+    padding-top: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+}
+
+.button:hover {
+    background-image: url('project://database/Assets/Art/UI/GUI_parts/button_ready_on.png?fileID=21300000&guid=c9006339b2156b142934eac2999ef67c&type=3#button_ready_on');
+}
+
+.dialogOptions .button {
+    flex-grow: 1;
+    height: 100%;
+}

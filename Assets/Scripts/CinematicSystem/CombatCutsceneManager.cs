@@ -11,6 +11,14 @@ using Cinemachine;
 public class CombatCutsceneManager : MonoBehaviour
 {
     [SerializeField] PlayableDirector attackDirector;
+    [SerializeField] Transform attackerCutsceneTransform;
+    [SerializeField] Transform receiverCutsceneTransform;
+
+    private GameObject attackerGo;
+    private GameObject receiverGo;
+
+    private Vector3 attackerPreviousPosition;
+    private Vector3 receiverPreviousPosition;
 
     private void OnEnable()
     {
@@ -51,6 +59,8 @@ public class CombatCutsceneManager : MonoBehaviour
                 if (output.streamName == "AttackerGo")
                 {
                     attackDirector.SetGenericBinding(output.sourceObject, characterFrom.gameObject);
+                    attackerGo = characterFrom.gameObject;
+                    attackerPreviousPosition = attackerGo.transform.position;
                 }
 
                 if (output.streamName == "AttackerSignal")
@@ -62,6 +72,8 @@ public class CombatCutsceneManager : MonoBehaviour
                 if (output.streamName == "ReceiverGo")
                 {
                     attackDirector.SetGenericBinding(output.sourceObject, characterReceiver.gameObject);
+                    receiverGo = characterReceiver.gameObject;
+                    receiverPreviousPosition = receiverGo.transform.position;
                 }
 
                 if (output.streamName == "ReceiverSignal")
@@ -79,8 +91,17 @@ public class CombatCutsceneManager : MonoBehaviour
 
     private void ExecuteCutscene(PlayableDirector director)
     {
+        attackerGo.transform.position = attackerCutsceneTransform.position;
+        receiverGo.transform.position = receiverCutsceneTransform.position;
+
         director.Stop();
         director.time = 0;
         director.Play();
+    }
+
+    public void ResetPlayersPositions()
+    {
+        attackerGo.transform.position = attackerPreviousPosition;
+        receiverGo.transform.position = receiverPreviousPosition;
     }
 }

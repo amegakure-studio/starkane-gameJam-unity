@@ -60,8 +60,9 @@ namespace Amegakure.Starkane.GridSystem
                                 obstacle.transform.parent = tile.transform;
                                 
                                 obstacle.transform.localPosition = Vector3.zero;
-                                obstacle.transform.localRotation = Quaternion.identity;
-                                obstacle.transform.localScale = new Vector3(1,1,1);
+                                tile.OccupyingObject = obstacle;
+                                // obstacle.transform.localRotation = Quaternion.identity;
+                                // obstacle.transform.localScale = new Vector3(1,1,1);
                             }
                         }
                     }

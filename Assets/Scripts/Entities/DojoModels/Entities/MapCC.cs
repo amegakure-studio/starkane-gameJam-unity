@@ -75,7 +75,7 @@ public class MapCC : ModelInstance
     }
 
    
-    private bool IsWalkable(UnityEngine.Vector2 position)
+    public bool IsWalkable(UnityEngine.Vector2 position)
     {
         ulong x = (ulong)position.x;
         ulong y = (ulong)position.y;

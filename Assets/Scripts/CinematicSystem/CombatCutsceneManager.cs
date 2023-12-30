@@ -95,6 +95,8 @@ public class CombatCutsceneManager : MonoBehaviour
 
     private void ExecuteCutscene(PlayableDirector director)
     {
+        EventManager.Instance.Publish(GameEvent.CUTSCENE_COMBAT_START,
+        new Dictionary<string, object>());
         attackerGo.transform.position = attackerCutsceneTransform.position;
         attackerGo.transform.rotation = attackerCutsceneTransform.rotation;
 
@@ -112,6 +114,8 @@ public class CombatCutsceneManager : MonoBehaviour
         attackerGo.transform.rotation = attackerPreviousRotation;
 
         receiverGo.transform.position = receiverPreviousPosition;
-        receiverGo.transform.rotation = receiverPreviousRotation;        
+        receiverGo.transform.rotation = receiverPreviousRotation;
+        EventManager.Instance.Publish(GameEvent.CUTSCENE_COMBAT_END,
+        new Dictionary<string, object>());        
     }
 }

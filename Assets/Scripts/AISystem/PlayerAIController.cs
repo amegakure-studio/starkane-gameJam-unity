@@ -1,6 +1,7 @@
 using Amegakure.Starkane.EntitiesWrapper;
 using Amegakure.Starkane.GridSystem;
 using Amegakure.Starkane.PubSub;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ public class PlayerAIController : MonoBehaviour
 
     public Player Player { get => player; set => player = value; }
 
+    private bool isCutSceneRunning = false;
+
     private void Start()
     {
         combat = FindAnyObjectByType<Combat>();
@@ -22,11 +25,26 @@ public class PlayerAIController : MonoBehaviour
     private void OnEnable()
     {
         EventManager.Instance.Subscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
+        EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
+        EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
     }
 
     private void OnDisable()
     {
         EventManager.Instance.Unsubscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
+        EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
+        EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
+    }
+
+
+    private void HandleCutsceneCombatEnd(Dictionary<string, object> dictionary)
+    {
+        isCutSceneRunning = false;
+    }
+
+    private void HandleCutsceneCombatStart(Dictionary<string, object> dictionary)
+    {
+        isCutSceneRunning = true;
     }
 
     private void HandleCombatTurnChanged(Dictionary<string, object> context)
@@ -60,7 +78,8 @@ public class PlayerAIController : MonoBehaviour
         foreach (Character character in characters)
         {
             TryDoSkill(character);
-            yield return new WaitForSeconds(1f);
+            while (isCutSceneRunning) yield return null;
+            yield return new WaitForSeconds(2f);
             EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
             //Move
             TryMove(character);
@@ -71,7 +90,7 @@ public class PlayerAIController : MonoBehaviour
             TryDoSkill(character);
             yield return new WaitForSeconds(1f);
             EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
-
+            while (isCutSceneRunning) yield return null;
         }
 
         combat.CallEndTurnTX(player);

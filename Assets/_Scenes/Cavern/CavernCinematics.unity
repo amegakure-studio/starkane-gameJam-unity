@@ -3058,7 +3058,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &294363161
 Transform:
   m_ObjectHideFlags: 0
@@ -3330,6 +3330,10 @@ PlayableDirector:
     value: {fileID: 1966866494}
   - key: {fileID: 3389896154227074115, guid: 95d93904f9d1d4d4b862504ef215a37e, type: 2}
     value: {fileID: 262389035}
+  - key: {fileID: -5914934176529028418, guid: 95d93904f9d1d4d4b862504ef215a37e, type: 2}
+    value: {fileID: 262389026}
+  - key: {fileID: 4549848291994301236, guid: 95d93904f9d1d4d4b862504ef215a37e, type: 2}
+    value: {fileID: 262389035}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &747123016
@@ -3347,7 +3351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &747123017
 Transform:
   m_ObjectHideFlags: 0
@@ -4627,7 +4631,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1631721353}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.027878942, y: 0.7121204, z: -0.028323965, w: 0.70093155}
+  m_LocalRotation: {x: 0.027878933, y: 0.7121205, z: -0.028323963, w: 0.7009315}
   m_LocalPosition: {x: -15.536102, y: 2.46, z: -1.704246}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5388,6 +5392,10 @@ PlayableDirector:
     value: {fileID: 262389035}
   - key: {fileID: 1997443928284991464, guid: a129e76df3967c74d9138ff3abd414d1, type: 2}
     value: {fileID: 1966866494}
+  - key: {fileID: 8022041036650482864, guid: a129e76df3967c74d9138ff3abd414d1, type: 2}
+    value: {fileID: 262389026}
+  - key: {fileID: 6061740727377224127, guid: a129e76df3967c74d9138ff3abd414d1, type: 2}
+    value: {fileID: 262389035}
   m_ExposedReferences:
     m_References: []
 --- !u!1 &2051786772

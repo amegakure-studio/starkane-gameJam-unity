@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
+using Cinemachine;
 
 public class CombatCutsceneManager : MonoBehaviour
 {
@@ -33,6 +34,20 @@ public class CombatCutsceneManager : MonoBehaviour
 
             foreach (var output in attackDirector.playableAsset.outputs)
             {
+                if (output.streamName == "CutSceneCamera")
+                {
+                    // Access the binding of the GameObject track
+                    var trackBinding = attackDirector.GetGenericBinding(output.sourceObject) as GameObject;
+
+                    // Check if the GameObject has the name "CutSceneCamera"
+                    if (trackBinding != null)
+                    {
+                        CinemachineVirtualCamera virtualCamera = trackBinding.GetComponent<CinemachineVirtualCamera>();
+                        virtualCamera.LookAt = characterFrom.transform;
+                        virtualCamera.Follow = characterFrom.transform;
+                    }
+                }
+
                 if (output.streamName == "AttackerGo")
                 {
                     attackDirector.SetGenericBinding(output.sourceObject, characterFrom.gameObject);
@@ -51,7 +66,7 @@ public class CombatCutsceneManager : MonoBehaviour
 
                 if (output.streamName == "ReceiverSignal")
                 {
-                    SignalReceiver characterReceiverSignal = characterFrom.GetComponent<SignalReceiver>();
+                    SignalReceiver characterReceiverSignal = characterReceiver.GetComponent<SignalReceiver>();
                     attackDirector.SetGenericBinding(output.sourceObject, characterReceiverSignal);
                 }
             }

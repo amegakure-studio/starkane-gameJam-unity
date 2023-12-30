@@ -31,11 +31,31 @@ public class HUDCombatController : MonoBehaviour
     private void OnEnable() 
     { 
         EventManager.Instance.Subscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
+        EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
+        EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
     }
 
     private void OnDisable() 
     { 
         EventManager.Instance.Unsubscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
+        EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
+        EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
+    }
+
+    private void HandleCutsceneCombatStart(Dictionary<string, object> context) {  HideElements(); }
+
+    private void HandleCutsceneCombatEnd(Dictionary<string, object> context) { ShowElements(); }
+
+    private void HideElements()
+    {
+        endTurnBtn.style.visibility = Visibility.Hidden;
+        playerTurnLbl.style.visibility = Visibility.Hidden;
+    }
+
+    private void ShowElements()
+    {
+        endTurnBtn.style.visibility = Visibility.Visible;
+        playerTurnLbl.style.visibility = Visibility.Visible;
     }
 
     private void BtnEndTurn_clicked() 

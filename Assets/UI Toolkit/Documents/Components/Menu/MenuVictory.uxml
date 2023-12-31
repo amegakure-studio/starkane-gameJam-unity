@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Scenes/MainMenu/UIBase.uss?fileID=7433441132597879392&amp;guid=00147121608580f4aa85ad4558f232bf&amp;type=3#UIBase" />
+    <ui:VisualElement name="Component" style="flex-grow: 1; flex-direction: column-reverse; align-items: center; align-self: auto; justify-content: center;">
+        <ui:VisualElement name="box" class="menuContainer">
+            <ui:VisualElement class="menuBorder" style="flex-grow: 1;">
+                <ui:Label tabindex="-1" text="VICTORY" parse-escape-sequences="true" display-tooltip-when-elided="true" class="menuTitle" />
+                <ui:Button text="Return to World" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ReturnBtn" class="menuBtn" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -10,5 +10,6 @@ namespace Amegakure.Starkane.EntitiesWrapper
         [SerializeField] Player player;
 
         public Player Player { get => player; set => player = value; }
+
     }
 }

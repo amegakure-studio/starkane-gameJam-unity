@@ -35,7 +35,8 @@ namespace Amegakure.Starkane.Config
 
         private void Create(WorldManager worldManager)
         {
-            Player player  = GameObject.FindObjectOfType<Player>();
+            Session session = GameObject.FindObjectOfType<Session>();
+            Player player  = session.Player;
         
             GameObject builderGo = Instantiate(new GameObject());
             CharacterBuilder builder = builderGo.AddComponent<CharacterBuilder>();
@@ -65,7 +66,7 @@ namespace Amegakure.Starkane.Config
                                     .AddCharacterController()
                                     .Build();
 
-                            characterGo.transform.parent = player.gameObject.transform;
+                            // characterGo.transform.parent = player.gameObject.transform;
                         }
                     }
                 }

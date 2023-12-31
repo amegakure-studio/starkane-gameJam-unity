@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using Dojo;
 using Dojo.Torii;
 using dojo_bindings;
@@ -9,10 +10,10 @@ public class MatchPlayer : ModelInstance
     private UInt32 match_id;
     private UInt32 id;
     private dojo.FieldElement player;
-    private int playerId;
+    private BigInteger playerId;
 
     public uint Match_id { get => match_id; private set => match_id = value; }
-    public int PlayerId { get => playerId; private set => playerId = value; }
+    public BigInteger PlayerId { get => playerId; private set => playerId = value; }
 
     public override void Initialize(Model model)
     {
@@ -21,7 +22,7 @@ public class MatchPlayer : ModelInstance
         player = model.members["player"].ty.ty_primitive.felt252;
 
         var playerString = BitConverter.ToString(player.data.ToArray()).Replace("-", "").ToLower();
-        playerId = System.Int32.Parse(playerString, System.Globalization.NumberStyles.AllowHexSpecifier);
+        playerId = BigInteger.Parse(playerString, System.Globalization.NumberStyles.AllowHexSpecifier);
 
         // Debug.Log("MatchPlayer: \n match_id: " + match_id + "\n id: " + id + "\n playerId: " + playerId + "\n");
     }

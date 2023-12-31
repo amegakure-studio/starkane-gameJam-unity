@@ -4,6 +4,7 @@ using Amegakure.Starkane.PubSub;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Character = Amegakure.Starkane.EntitiesWrapper.Character;
@@ -80,7 +81,7 @@ public class SkillsViewController : MonoBehaviour
                     Character characterReceiver = occupyingObjectGo.GetComponent<Character>();
                     if(characterReceiver != null)
                     {
-                        int playerIdReceiver = characterReceiver.GetPlayerId();
+                        BigInteger playerIdReceiver = characterReceiver.GetPlayerId();
                         combat = GetCombat();
 
                         Player playerReceiver = combat.GetPlayerByID(playerIdReceiver);
@@ -155,31 +156,6 @@ public class SkillsViewController : MonoBehaviour
 
             skillsDict.Add(skillSelected, skillVe);
         }
-
-        //foreach (Skill skill in skills)
-        //{
-        //    VisualElement skillVe = skillUIAsset.Instantiate();
-        //    skillVe.AddToClassList("skillContainer");
-        //    skillVe.AddToClassList("skill");
-        //    skillVe.Q<VisualElement>("Icon").style.backgroundImage = FindSkillIcon(skill);
-
-        //    Button skillBtn = skillVe.Q<Button>();
-        //    //skillBtn.clicked += () => DoSkill(skillVe, skill, character);
-        //    skillBtn.clicked += () => SelectSkill(character, skill);
-        //    //skillBtn.RegisterCallback<MouseEnterEvent>((evt) => MouseEnterCallback(evt, character));
-        //    //skillBtn.RegisterCallback<MouseLeaveEvent>((evt) => MouseLeaveCallback(evt));
-
-        //    skillBtns.Add(skillBtn, skill);
-
-        //    if (!character.CanDoSkill(skill))
-        //    {
-        //        skillVe.Q<VisualElement>("Icon").AddToClassList("disabled");
-        //        skillVe.Q<Button>().SetEnabled(false);
-        //    }
-
-        //    skillsDict.Add(skill, skillVe);
-        //    skillContainer.Add(skillVe);
-        //}
     }
 
     private Combat GetCombat()
@@ -206,45 +182,6 @@ public class SkillsViewController : MonoBehaviour
 
         EventManager.Instance.Publish(GameEvent.FRONTIER_UPDATED, new() { { "Frontier", skillSelected.GetFrontier(characterSelected.Location) } });
     }
-
-    //private void MouseLeaveCallback(MouseLeaveEvent evt)
-    //{
-    //    try
-    //    {
-    //        Button btn = (Button)evt.target;
-
-    //        if (skillBtns.Keys.Contains(btn))
-    //        {
-    //            skillBtns[btn].CleanFrontier();
-    //        }
-    //    }
-    //    catch { }
-    //}
-
-    //private void MouseEnterCallback(MouseEnterEvent evt, Character character)
-    //{
-    //    try
-    //    {
-    //        Button btn = (Button)evt.target;
-
-    //        if (skillBtns.Keys.Contains(btn))
-    //        {
-    //            skillBtns[btn].GetSkillFrontiers(character.GetLocation());
-    //        }
-    //    } catch { }
-        
-    //}
-
-
-    //private void DoSkill(VisualElement visualElement, Skill skill, Character character)
-    //{
-    //    character.DoSkill(skill);
-    //    if (!character.CanDoSkill(skill))
-    //    {
-    //        visualElement.Q<VisualElement>("Icon").AddToClassList("disabled");
-    //        visualElement.Q<Button>().SetEnabled(false);
-    //    }
-    //}
 
     private StyleBackground FindSkillIcon(Skill skill)
     {

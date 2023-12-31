@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Security.Cryptography;
 using Amegakure.Starkane.Entities;
 using Amegakure.Starkane.EntitiesWrapper;
@@ -24,6 +25,11 @@ namespace Amegakure.Starkane.Config
             characterPrefabsDict[CharacterType.Cleric] = "Wizard";
             characterPrefabsDict[CharacterType.Warrior] = "Avelyn";
             characterPrefabsDict[CharacterType.Goblin] = "Goblin";
+        }
+
+        private void Start()
+        {
+            
         }
 
         void OnEnable()
@@ -51,7 +57,7 @@ namespace Amegakure.Starkane.Config
 
             combat.MatchState = matchState;
 
-            List<int> matchPlayers = FindMatchPlayers(match_id);
+            List<BigInteger> matchPlayers = FindMatchPlayers(match_id);
             GameObject builderGo = Instantiate(new GameObject());
             CharacterBuilder builder = builderGo.AddComponent<CharacterBuilder>();
 
@@ -68,10 +74,11 @@ namespace Amegakure.Starkane.Config
                         List<int> matchPlayerCharacterID =  FindPlayerCharactersInAMatch(match_id, player.Id);
                         CharacterType characterType = characterPlayerProgress.GetCharacterType();
 
-                        if(characterPlayerProgress.getPlayerID() == player.Id
+                        if(characterPlayerProgress.getPlayerID().Equals(player.Id)
                         && matchPlayerCharacterID.Contains((int)characterType))
                         {
-                            player.SetDojoId(characterPlayerProgress.Owner);
+                            Debug.Log("ID Player" + player.Id);
+                            Debug.Log("Dojo Player" + characterPlayerProgress.getPlayerID());
 
                             CharacterState characterState = GetCharacterState(player.Id, match_id, (int)characterType );
                             ActionState actionState = GetCharacterActionState(player.Id, match_id, (int)characterType );
@@ -88,17 +95,19 @@ namespace Amegakure.Starkane.Config
                             
                             Character character = characterGo.GetComponent<Character>();
                             combat.AddCharacter(player, character, actionState, characterState);
+                            Debug.Log("Added: " + player.PlayerName + "Character: " + character.CharacterName );
 
-                            characterGo.transform.parent = player.gameObject.transform;
+                            // characterGo.transform.parent = player.gameObject.transform;
                         }
                         else 
                         {
-                            int adversaryID = characterPlayerProgress.getPlayerID();
+                            BigInteger adversaryID = characterPlayerProgress.getPlayerID();
                             List<int> matchAdversaryCharacterID =  FindPlayerCharactersInAMatch(match_id, adversaryID);
 
                             if (matchPlayers.Contains(adversaryID) && 
                                 matchAdversaryCharacterID.Contains((int)characterType))
                             {
+                                Debug.Log("ID ADV:" + adversaryID);
                                 CharacterState characterState = GetCharacterState(adversaryID, match_id, (int)characterType);
                                 ActionState actionState = GetCharacterActionState(adversaryID, match_id, (int)characterType);
                                 List<Skill> characterSkills = GetSkills((int)characterType);
@@ -129,7 +138,7 @@ namespace Amegakure.Starkane.Config
             Destroy(builderGo);
         }
 
-        private Player CreateAdversary(int adversaryId)
+        private Player CreateAdversary(BigInteger adversaryId)
         {
             GameObject adversaryGo = Instantiate(new GameObject());
             Player adversary = adversaryGo.AddComponent<Player>();
@@ -167,9 +176,9 @@ namespace Amegakure.Starkane.Config
             throw new ArgumentException("Couldn't get character entity");
         }
 
-        private List<int> FindMatchPlayers(int match_id)
+        private List<BigInteger> FindMatchPlayers(BigInteger match_id)
         {
-            List<int> matchPlayers = new();
+            List<BigInteger> matchPlayers = new();
 
             GameObject[] entities = worldManager.Entities();
 
@@ -180,7 +189,7 @@ namespace Amegakure.Starkane.Config
                     MatchPlayer matchPlayer = go.GetComponent<MatchPlayer>();
                     if (matchPlayer != null)
                     {
-                        if ((int) matchPlayer.Match_id == match_id)
+                        if ((BigInteger) matchPlayer.Match_id == match_id)
                             matchPlayers.Add(matchPlayer.PlayerId);
                     }
                 }
@@ -190,7 +199,7 @@ namespace Amegakure.Starkane.Config
             return matchPlayers;
         }
 
-        private List<int> FindPlayerCharactersInAMatch(int match_id, int player_id)
+        private List<int> FindPlayerCharactersInAMatch(int match_id, BigInteger player_id)
         {
             List<int> playerCharactersInMatch = new();
 
@@ -203,7 +212,8 @@ namespace Amegakure.Starkane.Config
                     MatchPlayerCharacter matchPlayerCharacter = go.GetComponent<MatchPlayerCharacter>();
                     if (matchPlayerCharacter != null)
                     {
-                        if ((int) matchPlayerCharacter.Match_id == match_id && matchPlayerCharacter.PlayerId == player_id)
+                        if ((int) matchPlayerCharacter.Match_id == match_id
+                            && matchPlayerCharacter.PlayerId.Equals(player_id))
                             playerCharactersInMatch.Add((int)matchPlayerCharacter.Character_id);
                     }
                 }
@@ -249,7 +259,7 @@ namespace Amegakure.Starkane.Config
                     
                     if(matchState != null && player != null)
                     {
-                        List<int> playerIdInMatch = FindMatchPlayers((int)matchState.Id);
+                        List<BigInteger> playerIdInMatch = FindMatchPlayers((BigInteger)matchState.Id);
 
                         if (matchState.WinnerId == 0 && playerIdInMatch.Contains(player.Id))
                         {
@@ -263,7 +273,7 @@ namespace Amegakure.Starkane.Config
             return null;
         }
 
-        private CharacterState GetCharacterState(int playerID, int matchID, int characterID)
+        private CharacterState GetCharacterState(BigInteger playerID, int matchID, int characterID)
         {
             // Debug.Log("!!!PID: " + playerID + " \n matchID" + matchID + "\n characterID" + characterID );
             GameObject[] entities = worldManager.Entities();
@@ -277,7 +287,7 @@ namespace Amegakure.Starkane.Config
                     {
                         int match_id = checked((int)characterState.Match_id);
                         int character_id = checked((int)characterState.Character_id);
-                        int player_id = characterState.Player_id;
+                        BigInteger player_id = characterState.Player_id;
 
                         // Debug.Log("Component data: \n match_id" + match_id
                         //         + "\n character_id" + character_id
@@ -288,8 +298,8 @@ namespace Amegakure.Starkane.Config
                         //         + "\n player_id" + playerID);
 
 
-                        if (match_id == matchID && player_id == playerID
-                        && character_id == (characterID))
+                        if (match_id == matchID && player_id.Equals(playerID)
+                        && character_id == characterID)
                             return characterState;
                     }
                 }
@@ -299,7 +309,7 @@ namespace Amegakure.Starkane.Config
             throw new ArgumentException("Couldn't get character state");
         }
 
-        private ActionState GetCharacterActionState(int playerID, int matchID, int characterID)
+        private ActionState GetCharacterActionState(BigInteger playerID, int matchID, int characterID)
         {
             GameObject[] entities = worldManager.Entities();
 
@@ -313,7 +323,7 @@ namespace Amegakure.Starkane.Config
                     {
                         int match_id = checked((int)actionState.Match_id);
                         int character_id = checked((int)actionState.Character_id);
-                        int player_id = actionState.Player_id;
+                        BigInteger player_id = actionState.Player_id;
 
                         //         Debug.Log("Component data: \n match_id"+ match_id
                         //         + "\n character_id" + character_id
@@ -324,8 +334,8 @@ namespace Amegakure.Starkane.Config
                         //         + "\n player_id" + playerID);
                     
                         bool matchRes = match_id == matchID;
-                        bool playerRes = player_id == playerID;
-                        bool characterRes = character_id == (characterID);
+                        bool playerRes = player_id.Equals(playerID);
+                        bool characterRes = character_id == characterID;
 
                         // Debug.Log("matchRes" + matchRes
                         //         + "\n playerRes" + playerRes

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using Amegakure.Starkane.EntitiesWrapper;
 using Amegakure.Starkane.PubSub;
 using bottlenoselabs.C2CS.Runtime;
@@ -10,6 +11,8 @@ using dojo_bindings;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Amegakure.Starkane.CinematicSystem
 {
@@ -58,14 +61,19 @@ namespace Amegakure.Starkane.CinematicSystem
                     battleDirector.SetGenericBinding(output.sourceObject, animator);
                     
                     Player player  = GameObject.FindObjectOfType<Session>().Player;
-                    int playerMatchId = player.Id;
+                    BigInteger playerMatchId = player.Id;
                     int playerCharacterId = (int)player.DefaultCharacter;
                     
-                    int adversaryMatchId = 2;
+                    var playerHash = new Hash128();
+                    playerHash.Append("enemy");
+                    playerHash.Append("enemy");
+                    string adversaryId = playerHash.ToString();
+                    
+                    Debug.Log("Enemy hash: "+ adversaryId);
                     int adversaryCharacterId = 4;
 
                     this.LoadOrCreateMatch(playerMatchId, playerCharacterId,
-                                            adversaryMatchId, adversaryCharacterId);
+                                            adversaryId, adversaryCharacterId);
                 }
             }
 
@@ -178,9 +186,9 @@ namespace Amegakure.Starkane.CinematicSystem
         }
 
 
-        private List<int> FindMatchPlayers(int match_id)
+        private List<BigInteger> FindMatchPlayers(int match_id)
         {
-            List<int> matchPlayers = new();
+            List<BigInteger> matchPlayers = new();
 
             GameObject[] entities = worldManager.Entities();
 
@@ -202,7 +210,7 @@ namespace Amegakure.Starkane.CinematicSystem
         }
 
 
-        private MatchState GetMatchState(int playerId, int adversaryId)
+        private MatchState GetMatchState(BigInteger playerId, string adversaryId)
         {
             if(worldManager == null)
                 worldManager = GameObject.FindAnyObjectByType<WorldManager>();
@@ -214,12 +222,18 @@ namespace Amegakure.Starkane.CinematicSystem
                 try
                 {
                     MatchState matchState = go.GetComponent<MatchState>();
-                    
+                    var adversaryDojoId = dojo.felt_from_hex_be(new CString(adversaryId)).ok;
+                    var hexString = BitConverter.ToString(adversaryDojoId.data.ToArray()).Replace("-", "").ToLower();
+                    BigInteger adversaryMatchId = BigInteger.Parse( hexString, System.Globalization.NumberStyles.AllowHexSpecifier );
+
                     if(matchState != null)
                     {
-                        List<int> playerIdInMatch = FindMatchPlayers((int)matchState.Id);
-                        bool isPlayerAdversaryMatch = playerIdInMatch.Contains(playerId) && playerIdInMatch.Contains(adversaryId);
-                        if (matchState.WinnerId == 0 && isPlayerAdversaryMatch)
+                        List<BigInteger> playerIdInMatch = FindMatchPlayers((int)matchState.Id);
+                        
+                        bool isPlayerAdversaryMatch = playerIdInMatch.Contains(playerId)
+                        && playerIdInMatch.Contains(adversaryMatchId);
+                        
+                        if (matchState.WinnerId.Equals(0) && isPlayerAdversaryMatch)
                         {
                             return matchState;
                         }
@@ -231,8 +245,8 @@ namespace Amegakure.Starkane.CinematicSystem
             return null;
         }
         
-        private void CallCreateMatchTX(int playerId, int playerCharacterId,
-                                    int adversayId, int adversayCharacterId)
+        private void CallCreateMatchTX(BigInteger playerId, int playerCharacterId,
+                                    string adversayId, int adversayCharacterId)
         {
             string rpcUrl = "http://localhost:5050";
 
@@ -249,9 +263,7 @@ namespace Amegakure.Starkane.CinematicSystem
             string characterIdString =  playerCharacterId.ToString("X");
             var character_id = dojo.felt_from_hex_be(new CString(characterIdString)).ok;
             
-
-            string adversaryIdString =  adversayId.ToString("X");
-            var adversary_id = dojo.felt_from_hex_be(new CString(adversaryIdString)).ok; 
+            var adversary_id = dojo.felt_from_hex_be(new CString(adversayId)).ok; 
 
             string adversaryCharacterIdString =  adversayCharacterId.ToString("X");
             var adversary_character_id = dojo.felt_from_hex_be(new CString(adversaryCharacterIdString)).ok;
@@ -272,8 +284,8 @@ namespace Amegakure.Starkane.CinematicSystem
             
         }
 
-        public void LoadOrCreateMatch(int playerId, int playerCharacterId,
-                                    int adversayId, int adversayCharacterId )
+        public void LoadOrCreateMatch(BigInteger playerId, int playerCharacterId,
+                                    string adversayId, int adversayCharacterId )
         {
             MatchState matchState = this.GetMatchState(playerId, adversayId);
             if(matchState == null)
@@ -281,6 +293,12 @@ namespace Amegakure.Starkane.CinematicSystem
                 CallCreateMatchTX(playerId, playerCharacterId, adversayId, adversayCharacterId);
             }    
         }
+
+        public void MintEnemyCharacters()
+        {
+
+        }
     }
+    
 
 }

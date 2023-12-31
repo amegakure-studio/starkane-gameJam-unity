@@ -10,10 +10,10 @@ public class HUDCombatController : MonoBehaviour
 {
     private VisualElement root;
     private Combat combat;
-
     private Button endTurnBtn;
     private Label playerTurnLbl;
     private Player player;
+    private bool isCombatEnd = false;
 
     void Awake()
     {
@@ -33,6 +33,9 @@ public class HUDCombatController : MonoBehaviour
         EventManager.Instance.Subscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
         EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
         EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
+        EventManager.Instance.Subscribe(GameEvent.CHARACTER_MOVE_START, HandleCharacterMovementStart);
+        EventManager.Instance.Subscribe(GameEvent.CHARACTER_MOVE_END, HandleCharacterMovementEnd);
+        EventManager.Instance.Subscribe(GameEvent.COMBAT_VICTORY, HandleCombatVictory);
     }
 
     private void OnDisable() 
@@ -40,11 +43,50 @@ public class HUDCombatController : MonoBehaviour
         EventManager.Instance.Unsubscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
         EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
         EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
+        EventManager.Instance.Unsubscribe(GameEvent.CHARACTER_MOVE_START, HandleCharacterMovementStart);
+        EventManager.Instance.Unsubscribe(GameEvent.CHARACTER_MOVE_END, HandleCharacterMovementEnd);
+        EventManager.Instance.Unsubscribe(GameEvent.COMBAT_VICTORY, HandleCombatVictory);
+    }
+
+    private void HandleCharacterMovementEnd(Dictionary<string, object> context)
+    {
+        Character contextCharacter = (Character)context["Character"];
+        if(combat == null)
+            combat = GameObject.FindAnyObjectByType<Combat>();
+        
+        Player contextPlayer = combat.GetPlayerByID(contextCharacter.GetPlayerId());
+        List<Character> playerCharacters = combat.GetCharacters(contextPlayer);
+
+        if(playerCharacters.Contains(contextCharacter))
+            ShowElements();
+    }
+
+    private void HandleCharacterMovementStart(Dictionary<string, object> context)
+    {
+        Character contextCharacter = (Character)context["Character"];
+        if(combat == null)
+            combat = GameObject.FindAnyObjectByType<Combat>();
+        
+        Player contextPlayer = combat.GetPlayerByID(contextCharacter.GetPlayerId());
+        List<Character> playerCharacters = combat.GetCharacters(contextPlayer);
+
+        if(playerCharacters.Contains(contextCharacter))
+            HideElements();
+    }
+
+    private void HandleCombatVictory(Dictionary<string, object> context)
+    {
+        isCombatEnd = true;
+        HideElements();
     }
 
     private void HandleCutsceneCombatStart(Dictionary<string, object> context) {  HideElements(); }
 
-    private void HandleCutsceneCombatEnd(Dictionary<string, object> context) { ShowElements(); }
+    private void HandleCutsceneCombatEnd(Dictionary<string, object> context)
+    {
+        if(!isCombatEnd)
+            ShowElements(); 
+    }
 
     private void HideElements()
     {

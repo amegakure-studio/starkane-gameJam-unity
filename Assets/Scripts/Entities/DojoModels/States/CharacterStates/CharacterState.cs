@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using Dojo;
 using Dojo.Torii;
 using dojo_bindings;
@@ -16,7 +17,7 @@ namespace Amegakure.Starkane.Entities
         private UInt64 remain_mp;
         private UInt64 x;
         private UInt64 y;
-        private int player_id;
+        private BigInteger player_id;
 
         public uint Match_id { get => match_id; set => match_id = value; }
         public uint Character_id { get => character_id; set => character_id = value; }
@@ -25,7 +26,7 @@ namespace Amegakure.Starkane.Entities
         public ulong Remain_mp { get => remain_mp; set => remain_mp = value; }
         public ulong X { get => x; set => x = value; }
         public ulong Y { get => y; set => y = value; }
-        public int Player_id{ get => player_id; set => player_id = value; }
+        public BigInteger Player_id{ get => player_id; set => player_id = value; }
 
         public override void Initialize(Model model)
         {
@@ -38,7 +39,7 @@ namespace Amegakure.Starkane.Entities
             Y = model.members["y"].ty.ty_primitive.u64;
             
             var hexString = BitConverter.ToString(Player.data.ToArray()).Replace("-", "").ToLower();
-            player_id = System.Int32.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
+            player_id = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
             // Debug.Log("CHARACTER STATE: \n match_id: " + Match_id + "\n"
             //         + "character_id: " + Character_id + "\n" +
             //         "player: "+ hexString + "\n"

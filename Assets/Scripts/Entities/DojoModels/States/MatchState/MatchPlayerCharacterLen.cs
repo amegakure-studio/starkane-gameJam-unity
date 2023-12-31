@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using Dojo;
 using Dojo.Torii;
 using dojo_bindings;
@@ -8,7 +9,7 @@ public class MatchPlayerCharacterLen : ModelInstance
 {
     private UInt32 match_id;
     private dojo.FieldElement player;
-    private int playerId;
+    private BigInteger playerId;
     private UInt32 characters_len;
     private UInt32 remain_characters;
 
@@ -20,7 +21,7 @@ public class MatchPlayerCharacterLen : ModelInstance
         remain_characters = model.members["remain_characters"].ty.ty_primitive.u32;
 
         var playerString = BitConverter.ToString(player.data.ToArray()).Replace("-", "").ToLower();
-        playerId = System.Int32.Parse(playerString, System.Globalization.NumberStyles.AllowHexSpecifier);
+        playerId = BigInteger.Parse(playerString, System.Globalization.NumberStyles.AllowHexSpecifier);
 
         // Debug.Log("MatchPlayerCharacterLen: \n match_id: " + match_id
         //           + "\n playerId: " + playerId

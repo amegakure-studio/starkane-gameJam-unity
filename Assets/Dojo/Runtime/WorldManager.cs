@@ -30,7 +30,7 @@ namespace Dojo
             // problem is when to start the subscription service
             synchronizationMaster.SynchronizeEntities();
             
-            OnEntityFeched.Invoke(this);
+            OnEntityFeched?.Invoke(this);
 
             // listen for entity updates
             synchronizationMaster.RegisterEntityCallbacks();

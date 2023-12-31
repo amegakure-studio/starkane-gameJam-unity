@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using UnityEngine;
 using Character = Amegakure.Starkane.EntitiesWrapper.Character;
 
@@ -26,8 +27,10 @@ public class Combat : MonoBehaviour
         {
             matchState = value;
             matchState.playerTurnIdChanged += MatchState_playerTurnIdChanged;
+            matchState.winnerChanged += MatchState_winnerChanged;
         } 
     }
+
     public Dictionary<Player, List<Character>> PlayerMatchCharacter { get => playerMatchCharacters; private set => playerMatchCharacters = value; }
     public Dictionary<Player, List<ActionState>> ActionStates { get => actionStates; private set => actionStates = value; }
     public Dictionary<Player, List<CharacterState>> CharacterStates { get => characterStates; private set => characterStates = value; }
@@ -41,8 +44,13 @@ public class Combat : MonoBehaviour
 
     private void Start()
     {
-        int playerId = matchState.PlayerTurnId;
-        Player playerTurn = playerMatchCharacters.Keys.First(p => p.Id == playerId);
+        BigInteger playerId = matchState.PlayerTurnId;
+        Debug.Log("Match turn playerID:" + playerId);
+        foreach( Player player in playerMatchCharacters.Keys)
+        {
+            Debug.Log("ID in dict: " + player.Id);
+        }
+        Player playerTurn = playerMatchCharacters.Keys.First(p => p.Id.Equals(playerId));
 
         EventManager.Instance.Publish(GameEvent.COMBAT_TURN_CHANGED, new() { { "Player", playerTurn } });
     }
@@ -51,14 +59,25 @@ public class Combat : MonoBehaviour
     private void OnDisable()
     {
         matchState.playerTurnIdChanged -= MatchState_playerTurnIdChanged;
+        matchState.winnerChanged -= MatchState_winnerChanged;
     }
 
-    private void MatchState_playerTurnIdChanged(int playerId)
+    private void MatchState_playerTurnIdChanged(BigInteger playerId)
     {
         Player playerTurn = playerMatchCharacters.Keys.First(p => p.Id == playerId);
 
         EventManager.Instance.Publish(GameEvent.COMBAT_TURN_CHANGED, new() { { "Player", playerTurn } });
     }
+
+
+    private void MatchState_winnerChanged(BigInteger playerId)
+    {
+        Player playerWinner = playerMatchCharacters.Keys.First(p => p.Id == playerId);
+        Debug.Log("!!!!The Winnerr ....... is: " + playerWinner.PlayerName);
+
+        EventManager.Instance.Publish(GameEvent.COMBAT_VICTORY, new() { { "Player", playerWinner } });
+    }
+
 
     public void AddCharacter(Player player, Character character, ActionState actionState, CharacterState characterState)
     {
@@ -187,10 +206,10 @@ public class Combat : MonoBehaviour
 
     public Player GetActualTurnPlayer()
     {
-        int playerID = matchState.PlayerTurnId;
+        BigInteger playerID = matchState.PlayerTurnId;
         foreach(Player player in playerMatchCharacters.Keys)
         {
-            if(player.Id == playerID)
+            if(player.Id.Equals(playerID))
             {
                 return player;
             }
@@ -199,12 +218,12 @@ public class Combat : MonoBehaviour
         return null;
     }
 
-    public Player GetPlayerByID(int id) 
+    public Player GetPlayerByID(BigInteger id) 
     {
-        int playerID = matchState.PlayerTurnId;
+        BigInteger playerID = matchState.PlayerTurnId;
         foreach (Player player in playerMatchCharacters.Keys)
         {
-            if (player.Id == id)
+            if (player.Id.Equals(id))
             {
                 return player;
             }
@@ -308,6 +327,7 @@ public class Combat : MonoBehaviour
 
     internal List<Character> GetRivalCharacters(Player player)
     {
+        // TODO: Verify if p != player works correctly
         List<Player> rivals = playerMatchCharacters.Keys.Where(p => p != player).ToList();
         List<Character> rivalCharacters = new();
 

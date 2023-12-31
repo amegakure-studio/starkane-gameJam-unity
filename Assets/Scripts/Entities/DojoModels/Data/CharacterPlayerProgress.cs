@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Numerics;
 using Amegakure.Starkane.Entities;
 using Dojo;
 using Dojo.Torii;
@@ -14,7 +15,7 @@ public class CharacterPlayerProgress : ModelInstance
     UInt32  skin_id;
     bool owned;
     UInt32 level;
-    private int intID;
+    private BigInteger playerID;
 
     public CharacterType GetCharacterType()
     {
@@ -43,18 +44,18 @@ public class CharacterPlayerProgress : ModelInstance
         level = model.members["level"].ty.ty_primitive.u32;
         
         var hexString = BitConverter.ToString(owner.data.ToArray()).Replace("-", "").ToLower();
-        intID = System.Int32.Parse( hexString, NumberStyles.AllowHexSpecifier );
+        playerID = BigInteger.Parse( hexString, NumberStyles.AllowHexSpecifier );
         // print();
     }
 
-    public int getPlayerID()
+    public BigInteger getPlayerID()
     {
-        return intID;
+        return playerID;
     }
 
     public void print()
     {
-        Debug.Log(" CPP: owner: " + intID + "\n"
+        Debug.Log(" CPP: owner: " + playerID + "\n"
                   + "character_id: " + character_id + "\n" + "skin_id: " + skin_id + "\n" + "owned: " + owned
                   + "\n" + "level: " + level);
         

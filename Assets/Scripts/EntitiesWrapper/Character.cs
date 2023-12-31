@@ -43,12 +43,6 @@ namespace Amegakure.Starkane.EntitiesWrapper
                 
                 gridMovement.OnMovementStart += OnMovementStart;
                 gridMovement.OnMovementEnd += OnMovementEnd;
-
-                // if(characterState)
-                // {    
-                //     Vector2 characterPos = new(checked((int)characterState.X), checked((int)characterState.Y));
-                //     this.Location = gridManager.WorldMap[characterPos];
-                // }
             } 
         }
 
@@ -143,11 +137,10 @@ namespace Amegakure.Starkane.EntitiesWrapper
             return (float) GetMp() / (float)characterEntity.Mp;
         }
 
-        public int GetPlayerId()
+        public System.Numerics.BigInteger GetPlayerId()
         {
             return this.CharacterPlayerProgress.getPlayerID();
         }
-
     }
 }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using Dojo;
 using Dojo.Torii;
 using dojo_bindings;
@@ -8,7 +9,7 @@ public class Ranking : ModelInstance
 {
     private UInt32 id;
     private dojo.FieldElement player;
-    private int playerId;
+    private BigInteger playerID;
     private UInt64 score;
 
     public override void Initialize(Model model)
@@ -20,10 +21,10 @@ public class Ranking : ModelInstance
         var playerString = BitConverter.ToString(player.data.ToArray()).Replace("-", "").ToLower();
         // Assuming the 'player' field is a hexadecimal representation of felt252 data
         // Convert it to an integer or process it as needed
-        playerId = System.Int32.Parse(playerString, System.Globalization.NumberStyles.AllowHexSpecifier);
+        playerID = BigInteger.Parse(playerString, System.Globalization.NumberStyles.AllowHexSpecifier);
 
-        Debug.Log("Ranking: \n id: " + id
-                  + "\n playerId: " + playerId
-                  + "\n score: " + score + "\n");
+        // Debug.Log("Ranking: \n id: " + id
+        //           + "\n playerId: " + playerID
+        //           + "\n score: " + score + "\n");
     }
 }

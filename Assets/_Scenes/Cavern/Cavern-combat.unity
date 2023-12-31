@@ -36387,6 +36387,7 @@ GameObject:
   - component: {fileID: 859056662}
   - component: {fileID: 859056663}
   - component: {fileID: 859056664}
+  - component: {fileID: 859056665}
   m_Layer: 0
   m_Name: UIDocument
   m_TagString: Untagged
@@ -36465,6 +36466,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillUIAsset: {fileID: 9197481963319205126, guid: 64631dbd8a6455c459d42c8c76b23515,
+    type: 3}
+--- !u!114 &859056665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859056659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f3d0b7c5bbd34418eef6665ec3753b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  victoryMenuAsset: {fileID: 9197481963319205126, guid: 275ce68cb7bcf914784f58efa26ebcab,
+    type: 3}
+  defeatMenuAsset: {fileID: 9197481963319205126, guid: 95bad61eb0af34741bba92deb9240dda,
     type: 3}
 --- !u!1 &859210944
 GameObject:
@@ -39412,7 +39429,6 @@ GameObject:
   - component: {fileID: 913559973}
   - component: {fileID: 913559971}
   - component: {fileID: 913559969}
-  - component: {fileID: 913559974}
   m_Layer: 0
   m_Name: Config
   m_TagString: Untagged
@@ -39475,19 +39491,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldManager: {fileID: 1811083815}
---- !u!114 &913559974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 913559968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 053b238fd205ee8418955d5dbe2e4b1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1122083327}
 --- !u!1 &925455758
 GameObject:
   m_ObjectHideFlags: 0
@@ -45266,7 +45269,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1122083327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45279,7 +45282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3542cec598b76bb8c9ba68e0c144b520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1
   playerName: Bregus
   defaultCharacter: 3
 --- !u!4 &1122083328
@@ -72132,7 +72134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldManager: {fileID: 1811083815}
-  limit: 1000
+  limit: 10000
   models:
   - {fileID: 1811083833}
   - {fileID: 1811083832}
@@ -74961,17 +74963,17 @@ PrefabInstance:
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.26174212
+      value: 0.2617421
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.36872905
+      value: 0.36872903
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.10902387
+      value: -0.10902386
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}

@@ -23,6 +23,7 @@ namespace Amegakure.Starkane.SoundSystem
             audioSource.clip = defaultSound;
             audioSource.loop = true;
             audioSource.playOnAwake = true;
+            audioSource.Play();
         }
         private void OnEnable()
         {
@@ -43,7 +44,8 @@ namespace Amegakure.Starkane.SoundSystem
 
         private void HandleCutsceneCombatEnd(Dictionary<string, object> context)
         {
-            audioSource.clip = default;
+            audioSource.clip = defaultSound;
+            audioSource.Play();
         }
 
         private void HandleCombatSkillDone(Dictionary<string, object> context)
@@ -52,7 +54,7 @@ namespace Amegakure.Starkane.SoundSystem
             {
                 Player playerFrom = (Player)context["PlayerFrom"];
                 audioSource.clip = playerFrom == sessionPlayer ? playerSound : rivalSound;
-
+                audioSource.Play();
             } catch { }       
         }
     }

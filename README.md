@@ -7,5 +7,17 @@
 Turn-based RPG game - Unity + Starknet Dojo
 
 
-## Assets list:
+## Assets 
+### SDK:
 * [dojo.unity SDK](https://github.com/dojoengine/dojo.unity)
+
+### Music
+* [Login menu](https://www.youtube.com/watch?v=KtPk1iy-ypY)
+* [Cavern battle](https://www.youtube.com/watch?v=1weNnjzaXbY)
+* [Free world (city)](https://www.youtube.com/watch?v=gq2xoIMlzqs)
+* [Cavern (pre-battle)](https://www.youtube.com/watch?v=fbTf3moH72s)
+* [Enemy attack cinematic](https://www.youtube.com/watch?v=_hbwa53fo14)
+* [Hero attack cinematic](https://www.youtube.com/watch?v=YwgFwKmxv7E)
+
+### 3D Models
+* [Casual RPG characters](https://rigmodels.com/index.php?searchkeyword=casual-rpg)

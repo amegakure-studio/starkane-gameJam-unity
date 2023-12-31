@@ -17,9 +17,10 @@ namespace Amegakure.Starkane.Config
         private void Awake()
         {
             characterPrefabsDict =  new();
-            characterPrefabsDict[CharacterType.Warrior] = "Avelyn";
-            characterPrefabsDict[CharacterType.Pig] = "Enemy";
             characterPrefabsDict[CharacterType.Archer] = "Darkelf";
+            characterPrefabsDict[CharacterType.Cleric] = "Wizard";
+            characterPrefabsDict[CharacterType.Warrior] = "Avelyn";
+            characterPrefabsDict[CharacterType.Goblin] = "Goblin";
         }
 
         void OnEnable()

@@ -72119,7 +72119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toriiUrl: http://localhost:8080
   rpcUrl: http://localhost:5050
-  worldAddress: 0x33ac2f528bb97cc7b79148fd1756dc368be0e95d391d8c6d6473ecb60b4560e
+  worldAddress: 0x1caef8b56b3f0627479ab624eefff92d7d8e1daa9d418cc76bd74935f1dc283
   synchronizationMaster: {fileID: 1811083816}
 --- !u!114 &1811083816
 MonoBehaviour:
@@ -74963,17 +74963,17 @@ PrefabInstance:
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.2617421
+      value: 0.26174212
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.36872903
+      value: 0.36872905
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.10902386
+      value: -0.10902387
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}

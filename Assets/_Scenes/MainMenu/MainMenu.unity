@@ -12344,7 +12344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toriiUrl: http://localhost:8080
   rpcUrl: http://localhost:5050
-  worldAddress: 0x33ac2f528bb97cc7b79148fd1756dc368be0e95d391d8c6d6473ecb60b4560e
+  worldAddress: 0x1caef8b56b3f0627479ab624eefff92d7d8e1daa9d418cc76bd74935f1dc283
   synchronizationMaster: {fileID: 575451492}
 --- !u!1 &580792327
 GameObject:

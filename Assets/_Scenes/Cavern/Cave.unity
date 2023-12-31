@@ -2200,7 +2200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toriiUrl: http://localhost:8080
   rpcUrl: http://localhost:5050
-  worldAddress: 0x33ac2f528bb97cc7b79148fd1756dc368be0e95d391d8c6d6473ecb60b4560e
+  worldAddress: 0x1caef8b56b3f0627479ab624eefff92d7d8e1daa9d418cc76bd74935f1dc283
   synchronizationMaster: {fileID: 197338382}
 --- !u!114 &197338382
 MonoBehaviour:
@@ -10023,22 +10023,22 @@ PrefabInstance:
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5975717
+      value: 0.5975714
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.17668623
+      value: 0.17668597
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.75000906
+      value: 0.7500095
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.22175768
+      value: -0.22175752
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}

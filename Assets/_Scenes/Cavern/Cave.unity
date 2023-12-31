@@ -2215,7 +2215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldManager: {fileID: 197338381}
-  limit: 100
+  limit: 10000
   models:
   - {fileID: 197338386}
   - {fileID: 197338385}

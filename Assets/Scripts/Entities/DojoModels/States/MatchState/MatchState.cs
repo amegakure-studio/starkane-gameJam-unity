@@ -35,8 +35,11 @@ public class MatchState : ModelInstance
         get => winnerId;
         set
         {
-            winnerId = value; 
-            winnerChanged?.Invoke(winnerId);
+            if(!winnerId.Equals(value))
+            {
+                winnerId = value; 
+                winnerChanged?.Invoke(winnerId);
+            }
         }
     }
 

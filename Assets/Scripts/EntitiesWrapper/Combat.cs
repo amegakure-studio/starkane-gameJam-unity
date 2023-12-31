@@ -27,8 +27,10 @@ public class Combat : MonoBehaviour
         {
             matchState = value;
             matchState.playerTurnIdChanged += MatchState_playerTurnIdChanged;
+            matchState.winnerChanged += MatchState_winnerChanged;
         } 
     }
+
     public Dictionary<Player, List<Character>> PlayerMatchCharacter { get => playerMatchCharacters; private set => playerMatchCharacters = value; }
     public Dictionary<Player, List<ActionState>> ActionStates { get => actionStates; private set => actionStates = value; }
     public Dictionary<Player, List<CharacterState>> CharacterStates { get => characterStates; private set => characterStates = value; }
@@ -57,6 +59,7 @@ public class Combat : MonoBehaviour
     private void OnDisable()
     {
         matchState.playerTurnIdChanged -= MatchState_playerTurnIdChanged;
+        matchState.winnerChanged -= MatchState_winnerChanged;
     }
 
     private void MatchState_playerTurnIdChanged(BigInteger playerId)
@@ -65,6 +68,16 @@ public class Combat : MonoBehaviour
 
         EventManager.Instance.Publish(GameEvent.COMBAT_TURN_CHANGED, new() { { "Player", playerTurn } });
     }
+
+
+    private void MatchState_winnerChanged(BigInteger playerId)
+    {
+        Player playerWinner = playerMatchCharacters.Keys.First(p => p.Id == playerId);
+        Debug.Log("!!!!The Winnerr ....... is: " + playerWinner.PlayerName);
+
+        EventManager.Instance.Publish(GameEvent.COMBAT_VICTORY, new() { { "Player", playerWinner } });
+    }
+
 
     public void AddCharacter(Player player, Character character, ActionState actionState, CharacterState characterState)
     {

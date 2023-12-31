@@ -1,0 +1,74 @@
+.menuContainer {
+    flex-grow: 1;
+    flex-direction: column-reverse;
+    width: 401px;
+    height: 415px;
+    background-color: rgba(0, 0, 0, 0.42);
+    border-left-color: rgb(250, 168, 72);
+    border-right-color: rgb(250, 168, 72);
+    border-top-color: rgb(250, 168, 72);
+    border-bottom-color: rgb(250, 168, 72);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    margin-bottom: 20%;
+    margin-top: 20%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    background-image: url('project://database/Assets/ThirdPartyAssets/GUI_Parts/Gui_parts/Mini_background.png?fileID=21300000&guid=4f033cdd2b09f9a43b139729d09d002c&type=3#Mini_background');
+    justify-content: space-around;
+}
+
+.menuBtn {
+    align-self: center;
+    visibility: visible;
+    overflow: hidden;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    -unity-text-align: middle-center;
+    min-width: 40%;
+    align-items: auto;
+    flex-direction: column;
+    margin-bottom: 5%;
+    background-image: url('project://database/Assets/ThirdPartyAssets/GUI_Parts/Gui_parts/button2_ready_off.png?fileID=21300000&guid=4b3d2095baccc2041b973b66b786b9d0&type=3#button2_ready_off');
+    min-height: auto;
+    max-width: 70%;
+    max-height: none;
+    text-overflow: clip;
+    margin-top: 2%;
+    -unity-font: url('project://database/Assets/Art/UI/Fonts/new_GI_font.ttf?fileID=12800000&guid=fb7b8f63b476ac5019701b5a8bd99b7d&type=3#new_GI_font');
+    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/new_GI_font%20SDF.asset?fileID=11400000&guid=62d9a3a0ccb2db3468f1e0222f18d4e3&type=2#new_GI_font SDF');
+    color: rgb(229, 229, 229);
+    padding-top: 3%;
+    padding-right: 7%;
+    padding-bottom: 3%;
+    padding-left: 7%;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.menuTitle {
+    -unity-text-align: upper-center;
+    -unity-font: url('project://database/Assets/Art/UI/Fonts/new_GI_font.ttf?fileID=12800000&guid=fb7b8f63b476ac5019701b5a8bd99b7d&type=3#new_GI_font');
+    -unity-font-definition: url('project://database/Assets/Art/UI/Fonts/new_GI_font%20SDF.asset?fileID=11400000&guid=62d9a3a0ccb2db3468f1e0222f18d4e3&type=2#new_GI_font SDF');
+    font-size: 55px;
+    color: rgb(221, 221, 221);
+    -unity-font-style: normal;
+    text-shadow: 5px 5px 1px rgba(0, 0, 0, 0);
+    letter-spacing: 0;
+    background-color: rgba(250, 250, 250, 0);
+}
+
+.menuBorder {
+    flex-grow: 1;
+    justify-content: center;
+    background-image: url('project://database/Assets/Art/UI/GUI_parts/Frame_mid.png?fileID=2800000&guid=6d7101bf7fb390f4c80c361981c09639&type=3#Frame_mid');
+}
+
+.menuBtn:hover {
+    background-image: url('project://database/Assets/Art/UI/GUI_parts/button_ready_on.png?fileID=21300000&guid=5cbad7c0c9f9c6d46b82bf56aeedf73a&type=3#button_ready_on');
+}

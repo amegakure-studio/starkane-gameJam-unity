@@ -1,11 +1,15 @@
+using Amegakure.Starkane.Entities;
 using Amegakure.Starkane.EntitiesWrapper;
 using bottlenoselabs.C2CS.Runtime;
+using Dojo;
 using Dojo.Starknet;
 using dojo_bindings;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class LoginController : MonoBehaviour
@@ -13,6 +17,7 @@ public class LoginController : MonoBehaviour
     private Button loginBtn;
     private TextField usernameTxtField;
     private TextField passwordTxtField;
+    [SerializeField] WorldManager worldManager;
 
     private void Start()
     {
@@ -27,26 +32,119 @@ public class LoginController : MonoBehaviour
 
     private void LoginBtn_clicked()
     {
-        CallLoginTx();
-        CreateSessionObj();
+        string username = usernameTxtField.text;
+        string password = passwordTxtField.text;
+
+        if (!string.IsNullOrWhiteSpace(username) &&
+           !string.IsNullOrWhiteSpace(password))
+        {
+            Debug.Log(username + " : " + password);
+            
+            var playerHash = new Hash128();
+            playerHash.Append(username);
+            playerHash.Append(password);
+            
+            string playerId = playerHash.ToString();
+            
+            Debug.Log("HASH: " + playerId);
+
+            Session session = CreateSessionObj();
+            Player sessionPlayer = FindSessionPlayer(username, playerId, session.gameObject);
+            if (sessionPlayer != null)
+            {
+                session.Player = sessionPlayer;
+            }
+            else
+            {
+                Player player = CreatePlayer(username, playerId, session.gameObject);
+                session.Player = player;
+                
+                try
+                {
+                    CallCreatePlayerTx(playerId);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("Can't log-in: " + e);
+                }
+            }
+            
+            StartCoroutine(nameof(LoadAsyncScene));
+        }
     }
 
-    private void CreateSessionObj()
+    IEnumerator LoadAsyncScene()
     {
-        GameObject sessionGo = Instantiate(new GameObject);   
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    private Player CreatePlayer(string sessionPlayername, string sessionPlayerStringId, GameObject sessionGo)
+    {
+        var player_id = dojo.felt_from_hex_be(new CString(sessionPlayerStringId)).ok;
+        var hexString = BitConverter.ToString(player_id.data.ToArray()).Replace("-", "").ToLower();
+        BigInteger intID = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
+
+        Debug.Log("!!HASH BIN: " + intID);
+
+        Player player = sessionGo.AddComponent<Player>();
+        player.Id = intID;
+        player.PlayerName = sessionPlayername;
+        player.DefaultCharacter = CharacterType.Warrior;
+        return player;
+    }
+
+    private Session CreateSessionObj()
+    {
+        GameObject sessionGo = Instantiate(new GameObject());
+        sessionGo.name = "Session";
+
         Session session = sessionGo.AddComponent<Session>();
-        session.Player = FindSessionPlayer();
 
         DontDestroyOnLoad(sessionGo);
-        DontDestroyOnLoad(session.Player);
+        // DontDestroyOnLoad(session.Player);
+
+        return session;
     }
 
-    private Player FindSessionPlayer()
+    private Player FindSessionPlayer(string sessionPlayername, string sessionPlayerStringId, GameObject sessionGo)
     {
-        throw new NotImplementedException();
+        var player_id = dojo.felt_from_hex_be(new CString(sessionPlayerStringId)).ok;
+
+        var hexString = BitConverter.ToString(player_id.data.ToArray()).Replace("-", "").ToLower();
+        BigInteger intID = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
+        Debug.Log("Bing Int ID: " + intID);
+
+        GameObject[] entities = worldManager.Entities();
+
+        foreach (GameObject go in entities)
+        {
+            CharacterPlayerProgress characterPlayerProgress = go.GetComponent<CharacterPlayerProgress>();
+            if (characterPlayerProgress != null)
+            {
+                bool res = characterPlayerProgress.getPlayerID().Equals(intID);
+                if (res)
+                {
+                    Player player = sessionGo.AddComponent<Player>();
+                    player.Id = intID;
+                    player.SetDojoId(characterPlayerProgress.Owner);
+                    player.PlayerName = sessionPlayername;
+                    player.DefaultCharacter = characterPlayerProgress.GetCharacterType();
+                    Debug.Log("Session player Found!!");
+                    return player;
+                }
+            }
+        }
+
+        return null;
     }
 
-    private void CallLoginTx()
+    private void CallCreatePlayerTx(string playerId)
     {
         string rpcUrl = "http://localhost:5050";
 
@@ -57,17 +155,9 @@ public class LoginController : MonoBehaviour
         var account = new Account(provider, signer, playerAddress);
         string actionsAddress = "0x57a6556e89380b76465e525c725d8ed065a03b47fb9a4c9b676a1afea8177c5";
 
+        var character_id = dojo.felt_from_hex_be(new CString("0x03")).ok;
+        var player_id = dojo.felt_from_hex_be(new CString(playerId)).ok;
 
-        var hash = new Hash128();
-        hash.Append("Santi");
-        hash.Append("Hello");
-        string hashString = hash.ToString();
-        Debug.Log(hashString);
-
-        var character_id = dojo.felt_from_hex_be(new CString("0x02")).ok;
-        var player_id = dojo.felt_from_hex_be(new CString(hashString)).ok;
-
-        Debug.Log(player_id);
         dojo.Call call = new dojo.Call()
         {
             calldata = new dojo.FieldElement[]
@@ -80,6 +170,17 @@ public class LoginController : MonoBehaviour
             selector = "mint"
         };
 
-        account.ExecuteRaw(new[] { call });
+        try
+        {
+            account.ExecuteRaw(new[] { call });
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Cannot create new player");
+            Debug.LogError(e);
+        }
+
+        Debug.Log("Success!!!");
+
     }
 }

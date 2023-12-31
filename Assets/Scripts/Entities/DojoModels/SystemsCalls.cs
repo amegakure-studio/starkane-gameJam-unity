@@ -5,7 +5,7 @@ using Dojo.Starknet;
 using dojo_bindings;
 using UnityEngine;
 
-struct PlayerCharacter 
+struct PlayerCharacter
 {
     public dojo.FieldElement player;
     public dojo.FieldElement character_id;
@@ -16,9 +16,11 @@ public class SystemsCalls : MonoBehaviour
 
     private void Start()
     {
-        int intValue = 24;
-        string hexValue = intValue.ToString("X");
-        Debug.Log("Int to hexa: " + hexValue);
+        var hash = new Hash128();
+        hash.Append("enemy");
+        hash.Append("enmy");
+        string hashString = hash.ToString();
+        Debug.Log(hashString);
     }
     private void mint()
     {
@@ -32,7 +34,7 @@ public class SystemsCalls : MonoBehaviour
 
             var account = new Account(provider, signer, playerAddress);
             string actionsAddress = "0x57a6556e89380b76465e525c725d8ed065a03b47fb9a4c9b676a1afea8177c5";
-            
+
 
             var hash = new Hash128();
             hash.Append("Santi");
@@ -72,12 +74,12 @@ public class SystemsCalls : MonoBehaviour
 
             var account = new Account(provider, signer, playerAddress);
             string actionsAddress = "0x2d4efd349d469a05680cb7f1186024b8d95c33bd11563de07fe687ddcbfa483";
-            
+
             var character_id = dojo.felt_from_hex_be(new CString("0x03")).ok;
             var player_id = dojo.felt_from_hex_be(new CString("0x01")).ok;
 
             var character_id2 = dojo.felt_from_hex_be(new CString("0x01")).ok;
-            var player_id2 = dojo.felt_from_hex_be(new CString("0x02")).ok; 
+            var player_id2 = dojo.felt_from_hex_be(new CString("0x02")).ok;
 
             PlayerCharacter[] playerCharacters = new PlayerCharacter[2];
             PlayerCharacter p1 = new PlayerCharacter();
@@ -92,7 +94,7 @@ public class SystemsCalls : MonoBehaviour
             playerCharacters[1] = p2;
 
             // dojo.FieldElement[] calldata = new dojo.FieldElement[playerCharacters.Length * 2];
-            
+
             // for (int i = 0; i < playerCharacters.Length; i++)
             // {
             //     calldata[i * 2] = playerCharacters[i].player;
@@ -116,7 +118,7 @@ public class SystemsCalls : MonoBehaviour
                 to = actionsAddress,
                 selector = "init"
             };
-    
+
             account.ExecuteRaw(new[] { call });
         }
     }
@@ -134,7 +136,7 @@ public class SystemsCalls : MonoBehaviour
 
             var account = new Account(provider, signer, playerAddress);
             string actionsAddress = "0xf95f269a39505092b2d4eea3268e2e8da83cfd12a20b0eceb505044ecaabf2";
-            
+
             var match_id = dojo.felt_from_hex_be(new CString("0x0")).ok;
             var player_id = dojo.felt_from_hex_be(new CString("0x2")).ok;
             var character_id = dojo.felt_from_hex_be(new CString("0x4")).ok;
@@ -150,12 +152,12 @@ public class SystemsCalls : MonoBehaviour
                 to = actionsAddress,
                 selector = "move"
             };
-    
+
             account.ExecuteRaw(new[] { call });
         }
     }
 
-     private void end_turn()
+    private void end_turn()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -167,7 +169,7 @@ public class SystemsCalls : MonoBehaviour
 
             var account = new Account(provider, signer, playerAddress);
             string actionsAddress = "0x61231db30a04f42b3c3e57cd13b0dee6053f8ed7c350135735e67c254b60454";
-            
+
 
             List<dojo.FieldElement> calldata = new List<dojo.FieldElement>();
 
@@ -183,7 +185,7 @@ public class SystemsCalls : MonoBehaviour
                 to = actionsAddress,
                 selector = "end_turn"
             };
-    
+
             account.ExecuteRaw(new[] { call });
         }
     }
@@ -200,12 +202,12 @@ public class SystemsCalls : MonoBehaviour
 
             var account = new Account(provider, signer, playerAddress);
             string actionsAddress = "0x68705e426f391541eb50797796e5e71ee3033789d82a8c801830bb191aa3bf1";
-            
+
 
             List<dojo.FieldElement> calldata = new List<dojo.FieldElement>();
 
             var match_id = dojo.felt_from_hex_be(new CString("0x0")).ok;
-            
+
             var player_id_from = dojo.felt_from_hex_be(new CString("0x01")).ok;
             var character_id_from = dojo.felt_from_hex_be(new CString("0x03")).ok;
             var skill_id = dojo.felt_from_hex_be(new CString("0x01")).ok;
@@ -224,7 +226,7 @@ public class SystemsCalls : MonoBehaviour
                 to = actionsAddress,
                 selector = "action"
             };
-    
+
             account.ExecuteRaw(new[] { call });
         }
     }

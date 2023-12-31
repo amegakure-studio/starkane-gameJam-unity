@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/_Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/_Scenes/MainMenu/MainMenu.unity
+    guid: 588743014d4efe7458ea4c5eaaa0216d
+  - enabled: 1
     path: Assets/_Scenes/Cavern/World-cavern.unity
     guid: a3d09dc7e095e0e94828c10695c0115e
   - enabled: 1

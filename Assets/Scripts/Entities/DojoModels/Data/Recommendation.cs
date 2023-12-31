@@ -24,8 +24,8 @@ public class Recommendation : ModelInstance
         // Assuming the 'to' field is a hexadecimal representation of felt252 data
         // Convert it to an integer or process it as needed
 
-        Debug.Log("Recommendation: \n from: " + fromString
-                  + "\n to: " + toString
-                  + "\n recommended: " + recommended + "\n");
+        // Debug.Log("Recommendation: \n from: " + fromString
+        //           + "\n to: " + toString
+        //           + "\n recommended: " + recommended + "\n");
     }
 }

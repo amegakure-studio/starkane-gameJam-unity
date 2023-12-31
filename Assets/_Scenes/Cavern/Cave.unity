@@ -1953,7 +1953,6 @@ GameObject:
   m_Component:
   - component: {fileID: 191827666}
   - component: {fileID: 191827665}
-  - component: {fileID: 191827664}
   - component: {fileID: 191827663}
   - component: {fileID: 191827667}
   m_Layer: 0
@@ -1977,19 +1976,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialLocation: {fileID: 1050604900}
   isCombatMode: 0
---- !u!114 &191827664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 191827662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c4d37d87e25250ecba522fa375d5cfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  worldManager: {fileID: 197338381}
 --- !u!114 &191827665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2027,10 +2013,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 191827662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 053b238fd205ee8418955d5dbe2e4b1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c6078c2f4f70be24ad6ccf8192ac503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 284648044}
 --- !u!1 &197239004
 GameObject:
   m_ObjectHideFlags: 0
@@ -3421,7 +3406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &284648044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3434,7 +3419,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3542cec598b76bb8c9ba68e0c144b520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1
   playerName: Bregus
   defaultCharacter: 3
 --- !u!4 &284648045

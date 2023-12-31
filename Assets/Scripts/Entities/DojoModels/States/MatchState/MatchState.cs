@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Numerics;
 using Dojo;
 using Dojo.Torii;
 using dojo_bindings;
@@ -10,16 +11,16 @@ public class MatchState : ModelInstance
     private UInt32 id;
     private UInt32 turn;
     private dojo.FieldElement player_turn;
-    private int playerTurnId;
+    private BigInteger playerTurnId;
     private UInt32 map_id;
     private dojo.FieldElement winner;
-    private int winnerId;
-    public event Action<int> playerTurnIdChanged;
-    public event Action<int> winnerChanged;
+    private BigInteger winnerId;
+    public event Action<BigInteger> playerTurnIdChanged;
+    public event Action<BigInteger> winnerChanged;
 
     public uint Id { get => id; set => id = value; }
     public uint Turn { get => turn; set => turn = value; }
-    public int PlayerTurnId
+    public BigInteger PlayerTurnId
     {
         get => playerTurnId;
         set 
@@ -29,13 +30,13 @@ public class MatchState : ModelInstance
         } 
     }
     public uint Map_id { get => map_id; set => map_id = value; }
-    public int WinnerId
+    public BigInteger WinnerId
     { 
         get => winnerId;
         set
         {
             winnerId = value; 
-            winnerChanged.Invoke(winnerId);
+            winnerChanged?.Invoke(winnerId);
         }
     }
 
@@ -48,10 +49,10 @@ public class MatchState : ModelInstance
         winner = model.members["winner"].ty.ty_primitive.felt252;
 
         var player_turn_string = BitConverter.ToString(player_turn.data.ToArray()).Replace("-", "").ToLower();
-        PlayerTurnId = System.Int32.Parse( player_turn_string, NumberStyles.AllowHexSpecifier );
+        PlayerTurnId = BigInteger.Parse( player_turn_string, NumberStyles.AllowHexSpecifier );
 
         var winner_id_string = BitConverter.ToString(winner.data.ToArray()).Replace("-", "").ToLower();
-        winnerId = System.Int32.Parse( winner_id_string, NumberStyles.AllowHexSpecifier );
+        WinnerId = BigInteger.Parse( winner_id_string, NumberStyles.AllowHexSpecifier );
 
         // Debug.Log("Match_state: \n id: " + id + "\n"
         //             + "turn: " + turn + "\n" +

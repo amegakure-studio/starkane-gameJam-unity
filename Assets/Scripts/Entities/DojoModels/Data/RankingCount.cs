@@ -7,7 +7,7 @@ using UnityEngine;
 public class RankingCount : ModelInstance
 {
     private dojo.FieldElement id;
-    private int idValue; // Assuming the 'id' field is a hexadecimal representation of felt252 data
+    private int idValue;
     private UInt32 index;
 
     public override void Initialize(Model model)
@@ -18,7 +18,7 @@ public class RankingCount : ModelInstance
         var idString = BitConverter.ToString(id.data.ToArray()).Replace("-", "").ToLower();
         idValue = System.Int32.Parse(idString, System.Globalization.NumberStyles.AllowHexSpecifier);
 
-        Debug.Log("RankingCount: \n id: " + idValue
-                  + "\n index: " + index + "\n");
+        // Debug.Log("RankingCount: \n id: " + idValue
+        //           + "\n index: " + index + "\n");
     }
 }

@@ -1,6 +1,7 @@
 using Amegakure.Starkane.EntitiesWrapper;
 using Amegakure.Starkane.GridSystem;
 using Amegakure.Starkane.PubSub;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,9 @@ public class PlayerAIController : MonoBehaviour
 
     public Player Player { get => player; set => player = value; }
 
+    private bool isCutSceneRunning = false;
+    private bool isCoroutineRunning = false;
+
     private void Start()
     {
         combat = FindAnyObjectByType<Combat>();
@@ -22,25 +26,43 @@ public class PlayerAIController : MonoBehaviour
     private void OnEnable()
     {
         EventManager.Instance.Subscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
+        EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
+        EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
     }
 
     private void OnDisable()
     {
         EventManager.Instance.Unsubscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
+        EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
+        EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
+    }
+
+
+    private void HandleCutsceneCombatEnd(Dictionary<string, object> dictionary)
+    {
+        isCutSceneRunning = false;
+    }
+
+    private void HandleCutsceneCombatStart(Dictionary<string, object> dictionary)
+    {
+        isCutSceneRunning = true;
     }
 
     private void HandleCombatTurnChanged(Dictionary<string, object> context)
     {
-        if (combat != null)
+        if (combat == null)
             combat = FindAnyObjectByType<Combat>();
 
         try
         {
             Player turn = (Player)context["Player"];
-
-            if (turn.GetInstanceID() == player.GetInstanceID())
+            if (turn.Id == player.Id)
             {
-                StartCoroutine(nameof(DecisionTakerCoroutine));
+                if(!isCoroutineRunning)
+                {
+                    isCoroutineRunning = true;
+                    StartCoroutine(nameof(DecisionTakerCoroutine));
+                }
             }
 
             else
@@ -56,11 +78,11 @@ public class PlayerAIController : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         List<Character> characters = combat.GetCharacters(player);
-
         foreach (Character character in characters)
         {
             TryDoSkill(character);
-            yield return new WaitForSeconds(1f);
+            while (isCutSceneRunning) yield return null;
+            yield return new WaitForSeconds(2f);
             EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
             //Move
             TryMove(character);
@@ -71,10 +93,11 @@ public class PlayerAIController : MonoBehaviour
             TryDoSkill(character);
             yield return new WaitForSeconds(1f);
             EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
-
+            while (isCutSceneRunning) yield return null;
         }
 
         combat.CallEndTurnTX(player);
+        isCoroutineRunning = false;
     }
 
     private void TryMove(Character character)
@@ -85,7 +108,6 @@ public class PlayerAIController : MonoBehaviour
     private bool TryDoSkill(Character character)
     {
         EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
-
         foreach (Skill skill in character.Skills)
         {
             if (combat.CanDoSkill(player, character, skill))
@@ -104,6 +126,7 @@ public class PlayerAIController : MonoBehaviour
                         if (characterReceiver != null)
                         {
                             Player playerReceiver = combat.GetPlayerByID(characterReceiver.GetPlayerId());
+                            
                             combat.DoSkill(player, character, skill, playerReceiver, characterReceiver);
 
                             return true;

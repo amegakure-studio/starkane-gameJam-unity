@@ -220,6 +220,7 @@ public class Combat : MonoBehaviour
         {
             CallSkillTX(playerFrom, characterFrom, skill, playerReceiver, characterReceiver);
 
+            // Debug.Log("Skill");
             Dictionary<string, object> context = new() 
             { 
                 { "PlayerFrom", playerFrom },

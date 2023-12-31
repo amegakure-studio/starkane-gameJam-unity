@@ -50,7 +50,7 @@ namespace Amegakure.Starkane.CinematicSystem
                 var binding = battleDirector.GetGenericBinding(output.sourceObject);
 
                 // Output information about the binding
-                Debug.Log($"Binding Name: {output.streamName}, Target Object: {binding}");
+                // Debug.Log($"Binding Name: {output.streamName}, Target Object: {binding}");
     
                 if(output.streamName == "Animation Track")
                 {
@@ -82,7 +82,7 @@ namespace Amegakure.Starkane.CinematicSystem
                 var binding = dismissDirector.GetGenericBinding(output.sourceObject);
 
                 // Output information about the binding
-                Debug.Log($"Binding Name: {output.streamName}, Target Object: {binding}");
+                // Debug.Log($"Binding Name: {output.streamName}, Target Object: {binding}");
     
                 if(output.streamName == "Animation Track (1)")
                 {
@@ -104,7 +104,7 @@ namespace Amegakure.Starkane.CinematicSystem
                 var binding = encounterDirector.GetGenericBinding(output.sourceObject);
 
                 // Output information about the binding
-                Debug.Log($"Binding Name: {output.streamName}, Target Object: {binding}");
+                // Debug.Log($"Binding Name: {output.streamName}, Target Object: {binding}");
                 if(output.streamName == "Activation Track")
                 {
                     playerGo = character.gameObject;

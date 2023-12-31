@@ -59,7 +59,7 @@ namespace Amegakure.Starkane.CameraSystem
                 List<Character> charactersTurn = combat.GetCharacters(playerTurn);
                 
                 Character character =charactersTurn[0];
-                Debug.Log("Turn: player" + playerTurn.Id);
+                // Debug.Log("Turn: player" + playerTurn.Id);
                 FocusCharacter(character);
                 
             }

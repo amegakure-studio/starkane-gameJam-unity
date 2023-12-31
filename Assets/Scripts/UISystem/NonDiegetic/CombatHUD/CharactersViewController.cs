@@ -40,13 +40,21 @@ public class CharactersViewController : MonoBehaviour
     {
         EventManager.Instance.Subscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
         EventManager.Instance.Subscribe(GameEvent.COMBAT_SKILL_DONE, HandleSkillDone);
+        // EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
+        // EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
     }
 
     private void OnDisable()
     {
         EventManager.Instance.Unsubscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
         EventManager.Instance.Unsubscribe(GameEvent.COMBAT_SKILL_DONE, HandleSkillDone);
+        // EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
+        // EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
     }
+
+    private void HandleCutsceneCombatStart(Dictionary<string, object> context) { charactersContainer.style.visibility = Visibility.Hidden; }
+
+    private void HandleCutsceneCombatEnd(Dictionary<string, object> context) { charactersContainer.style.visibility = Visibility.Visible; }
 
     private void HandleSkillDone(Dictionary<string, object> context)
     {
@@ -80,7 +88,6 @@ public class CharactersViewController : MonoBehaviour
 
     private void ShowCharacters(List<Character> characters, Player playerTurn)
     {
-        //charactersContainer?.Clear();
         characterVeDict.Clear();
         UnregisterBtns(characterBtns);
 
@@ -107,25 +114,6 @@ public class CharactersViewController : MonoBehaviour
             characterVeDict.Add(characters[i], characterVe);
             charactersContainer.Add(characterVe);
         }
-
-        //foreach (Character character in characters)
-        //{
-        //    VisualElement characterVe = characterUIAsset.Instantiate();
-        //    characterVe.AddToClassList("character");         
-        //    characterVe.Q<VisualElement>("Icon").style.backgroundImage = FindCharacterIcon(character);
-        //    characterVe.Q<VisualElement>("Hp").Q<VisualElement>("Overlay").style.width = Length.Percent(character.GetHpNormalized() * 100);
-        //    characterVe.Q<VisualElement>("Mp").Q<VisualElement>("Overlay").style.width = Length.Percent(character.GetMpNormalized() * 100);
-            
-        //    if (player != playerTurn) 
-        //    {
-        //        Button characterBtn = characterVe.Q<Button>();
-        //        characterBtn.clicked += () => SelectCharacter(character);
-        //        characterBtns.Add(characterBtn);
-        //    }
-            
-        //    characterVeDict.Add(character, characterVe);
-        //    charactersContainer.Add(characterVe);
-        //}
     }
 
     private void ClearCharacterContainers(List<VisualElement> characterVeContainers)
@@ -154,11 +142,9 @@ public class CharactersViewController : MonoBehaviour
         
         if (combat.CanMove(character, player))
         {
-            Debug.Log("character selected: " + character.CharacterName);
+            // Debug.Log("character selected: " + character.CharacterName);
             EventManager.Instance.Publish(GameEvent.INPUT_CHARACTER_SELECTED,
                     new Dictionary<string, object>() { { "Character", character } });
-
-            //character.GetMovementFrontier();
         }        
     }
 

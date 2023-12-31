@@ -39,13 +39,13 @@ namespace Amegakure.Starkane.Entities
             
             var hexString = BitConverter.ToString(Player.data.ToArray()).Replace("-", "").ToLower();
             player_id = System.Int32.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
-            Debug.Log("CHARACTER STATE: \n match_id: " + Match_id + "\n"
-                    + "character_id: " + Character_id + "\n" +
-                    "player: "+ hexString + "\n"
-                    + "remain_hp: " + Remain_hp + "\n" 
-                    + "remain_mp: " + Remain_mp + "\n"
-                    + "X:" + X + "\n"
-                    + "Y:" + Y + "\n" );
+            // Debug.Log("CHARACTER STATE: \n match_id: " + Match_id + "\n"
+            //         + "character_id: " + Character_id + "\n" +
+            //         "player: "+ hexString + "\n"
+            //         + "remain_hp: " + Remain_hp + "\n" 
+            //         + "remain_mp: " + Remain_mp + "\n"
+            //         + "X:" + X + "\n"
+            //         + "Y:" + Y + "\n" );
         }
     }
 

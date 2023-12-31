@@ -66,7 +66,7 @@ namespace Amegakure.Starkane.Config
                                     .AddCharacterController()
                                     .Build();
 
-                            characterGo.transform.parent = player.gameObject.transform;
+                            // characterGo.transform.parent = player.gameObject.transform;
                         }
                     }
                 }

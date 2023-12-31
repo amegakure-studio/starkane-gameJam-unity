@@ -29,12 +29,7 @@ namespace Amegakure.Starkane.Config
 
         private void Start()
         {
-            Character[] characters = GameObject.FindObjectsOfType<Character>();
-
-            foreach(Character character in characters)
-            {
-                Destroy(character.gameObject);
-            }
+            
         }
 
         void OnEnable()
@@ -102,7 +97,7 @@ namespace Amegakure.Starkane.Config
                             combat.AddCharacter(player, character, actionState, characterState);
                             Debug.Log("Added: " + player.PlayerName + "Character: " + character.CharacterName );
 
-                            characterGo.transform.parent = player.gameObject.transform;
+                            // characterGo.transform.parent = player.gameObject.transform;
                         }
                         else 
                         {

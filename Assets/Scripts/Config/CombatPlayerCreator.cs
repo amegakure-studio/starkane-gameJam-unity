@@ -225,8 +225,8 @@ namespace Amegakure.Starkane.Config
                     Skill skill = go.GetComponent<Skill>();
                     if(skill.Character_id == characterID)
                     {
-                        Debug.Log("Skill: " + skill.Id +
-                        " belongs to the character: " + characterID );
+                        // Debug.Log("Skill: " + skill.Id +
+                        // " belongs to the character: " + characterID );
                         skills.Add(skill);
                     }
                 }

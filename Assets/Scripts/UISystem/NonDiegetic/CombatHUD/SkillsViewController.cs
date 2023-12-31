@@ -47,8 +47,8 @@ public class SkillsViewController : MonoBehaviour
         EventManager.Instance.Subscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
         EventManager.Instance.Subscribe(GameEvent.TILE_SELECTED, HandleTileSelected);
 
-        EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
-        EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
+        // EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
+        // EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
     }
 
     private void OnDisable()
@@ -57,8 +57,8 @@ public class SkillsViewController : MonoBehaviour
         EventManager.Instance.Unsubscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
         EventManager.Instance.Unsubscribe(GameEvent.TILE_SELECTED, HandleTileSelected);
 
-        EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
-        EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
+        // EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
+        // EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
     }
 
     private void HandleCutsceneCombatStart(Dictionary<string, object> context) { skillContainer.style.visibility = Visibility.Hidden; }

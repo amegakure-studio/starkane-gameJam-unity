@@ -53,10 +53,10 @@ public class MatchState : ModelInstance
         var winner_id_string = BitConverter.ToString(winner.data.ToArray()).Replace("-", "").ToLower();
         winnerId = System.Int32.Parse( winner_id_string, NumberStyles.AllowHexSpecifier );
 
-        Debug.Log("Match_state: \n id: " + id + "\n"
-                    + "turn: " + turn + "\n" +
-                    "playerTurnId: "+ playerTurnId + "\n"
-                    + "map_id: " + map_id + "\n" 
-                    + "winnerId: " + winnerId + "\n");
+        // Debug.Log("Match_state: \n id: " + id + "\n"
+        //             + "turn: " + turn + "\n" +
+        //             "playerTurnId: "+ playerTurnId + "\n"
+        //             + "map_id: " + map_id + "\n" 
+        //             + "winnerId: " + winnerId + "\n");
     }
 }

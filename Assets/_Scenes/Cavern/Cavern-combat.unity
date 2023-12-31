@@ -71988,7 +71988,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldManager: {fileID: 1811083815}
-  limit: 100
+  limit: 1000
   models:
   - {fileID: 1811083833}
   - {fileID: 1811083832}
@@ -74817,17 +74817,17 @@ PrefabInstance:
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.26174212
+      value: 0.2617421
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.36872905
+      value: 0.36872903
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.10902387
+      value: -0.10902386
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}

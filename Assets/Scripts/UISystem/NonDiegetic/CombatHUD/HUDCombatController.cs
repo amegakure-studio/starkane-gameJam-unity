@@ -48,14 +48,18 @@ public class HUDCombatController : MonoBehaviour
 
     private void HideElements()
     {
-        endTurnBtn.style.visibility = Visibility.Hidden;
-        playerTurnLbl.style.visibility = Visibility.Hidden;
+        root.Q<VisualElement>("Footer").style.display = DisplayStyle.None;
+        // root.style.visibility = Visibility.Hidden;
+        // endTurnBtn.style.visibility = Visibility.Hidden;
+        // playerTurnLbl.style.visibility = Visibility.Hidden;
     }
 
     private void ShowElements()
     {
-        endTurnBtn.style.visibility = Visibility.Visible;
-        playerTurnLbl.style.visibility = Visibility.Visible;
+        root.Q<VisualElement>("Footer").style.display = DisplayStyle.Flex;
+        // root.style.visibility = Visibility.Visible;
+        // endTurnBtn.style.visibility = Visibility.Visible;
+        // playerTurnLbl.style.visibility = Visibility.Visible;
     }
 
     private void BtnEndTurn_clicked() 

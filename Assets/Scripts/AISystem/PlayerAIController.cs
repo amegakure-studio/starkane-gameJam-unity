@@ -16,6 +16,7 @@ public class PlayerAIController : MonoBehaviour
     public Player Player { get => player; set => player = value; }
 
     private bool isCutSceneRunning = false;
+    private bool isCoroutineRunning = false;
 
     private void Start()
     {
@@ -49,16 +50,19 @@ public class PlayerAIController : MonoBehaviour
 
     private void HandleCombatTurnChanged(Dictionary<string, object> context)
     {
-        if (combat != null)
+        if (combat == null)
             combat = FindAnyObjectByType<Combat>();
 
         try
         {
             Player turn = (Player)context["Player"];
-
-            if (turn.GetInstanceID() == player.GetInstanceID())
+            if (turn.Id == player.Id)
             {
-                StartCoroutine(nameof(DecisionTakerCoroutine));
+                if(!isCoroutineRunning)
+                {
+                    isCoroutineRunning = true;
+                    StartCoroutine(nameof(DecisionTakerCoroutine));
+                }
             }
 
             else
@@ -74,7 +78,6 @@ public class PlayerAIController : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         List<Character> characters = combat.GetCharacters(player);
-
         foreach (Character character in characters)
         {
             TryDoSkill(character);
@@ -94,6 +97,7 @@ public class PlayerAIController : MonoBehaviour
         }
 
         combat.CallEndTurnTX(player);
+        isCoroutineRunning = false;
     }
 
     private void TryMove(Character character)
@@ -104,7 +108,6 @@ public class PlayerAIController : MonoBehaviour
     private bool TryDoSkill(Character character)
     {
         EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
-
         foreach (Skill skill in character.Skills)
         {
             if (combat.CanDoSkill(player, character, skill))
@@ -123,6 +126,7 @@ public class PlayerAIController : MonoBehaviour
                         if (characterReceiver != null)
                         {
                             Player playerReceiver = combat.GetPlayerByID(characterReceiver.GetPlayerId());
+                            
                             combat.DoSkill(player, character, skill, playerReceiver, characterReceiver);
 
                             return true;

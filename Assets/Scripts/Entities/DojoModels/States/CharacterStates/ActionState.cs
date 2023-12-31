@@ -30,10 +30,10 @@ public class ActionState : ModelInstance
         var playerString = BitConverter.ToString(player.data.ToArray()).Replace("-", "").ToLower();
         playerId = System.Int32.Parse(playerString, System.Globalization.NumberStyles.AllowHexSpecifier);
 
-        Debug.Log("ActionState: \n match_id: " + match_id
-                  + "\n character_id: " + character_id
-                  + "\n playerId: " + playerId
-                  + "\n action: " + action
-                  + "\n movement: " + movement + "\n");
+        // Debug.Log("ActionState: \n match_id: " + match_id
+        //           + "\n character_id: " + character_id
+        //           + "\n playerId: " + playerId
+        //           + "\n action: " + action
+        //           + "\n movement: " + movement + "\n");
     }
 }

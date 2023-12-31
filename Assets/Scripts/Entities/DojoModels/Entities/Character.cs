@@ -11,7 +11,7 @@ namespace Amegakure.Starkane.Entities
         Archer,
         Cleric,
         Warrior,
-        Pig,
+        Goblin,
         Peasant
     }
 

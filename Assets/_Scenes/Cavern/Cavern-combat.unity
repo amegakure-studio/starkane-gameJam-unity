@@ -50316,6 +50316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320fc5ed128f74a4d857cadd4c0167fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultSound: {fileID: 8300000, guid: ff79ccd7a5de82541b76d4cffa016c68, type: 3}
   playerSound: {fileID: 8300000, guid: 488803a5659c53c4ebf6c515b28bf206, type: 3}
   rivalSound: {fileID: 8300000, guid: 472f2c9365ba63544a406ee851f7d7a4, type: 3}
 --- !u!82 &1225936381

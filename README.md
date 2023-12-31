@@ -28,7 +28,7 @@ Turn-based RPG game - Unity + Starknet Dojo
 
 ## Special thanks
 
-## Creators ✨
+### Creators ✨
 Thanks goes to these wonderful people
 ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 

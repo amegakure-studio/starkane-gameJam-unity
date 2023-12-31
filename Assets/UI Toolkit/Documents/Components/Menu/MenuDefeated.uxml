@@ -4,7 +4,7 @@
         <ui:VisualElement name="box" class="menuContainer">
             <ui:VisualElement name="boxBg" class="menuBorder">
                 <ui:Label tabindex="-1" text="DEFEATED" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="menuTitle" />
-                <ui:Button text="Return to World" parse-escape-sequences="true" display-tooltip-when-elided="true" class="menuBtn" />
+                <ui:Button text="Return to World" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ReturnBtn" class="menuBtn" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

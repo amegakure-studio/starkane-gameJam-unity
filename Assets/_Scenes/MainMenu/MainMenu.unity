@@ -255,14 +255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 6, y: 0}
-  GreenChild: {fileID: 1748077957}
-  WhiteChild: {fileID: 476269808}
-  debug: 0
 --- !u!64 &10117067
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -633,14 +625,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 1, y: 0}
-  GreenChild: {fileID: 1899780041}
-  WhiteChild: {fileID: 1131173708}
-  debug: 0
 --- !u!64 &38759545
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -928,14 +912,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 2, y: 7}
-  GreenChild: {fileID: 781886469}
-  WhiteChild: {fileID: 1036043980}
-  debug: 0
 --- !u!64 &41513679
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1421,14 +1397,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 4, y: 3}
-  GreenChild: {fileID: 333108544}
-  WhiteChild: {fileID: 6198074}
-  debug: 0
 --- !u!64 &68015102
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1716,14 +1684,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 14, y: 3}
-  GreenChild: {fileID: 2080887941}
-  WhiteChild: {fileID: 283406882}
-  debug: 0
 --- !u!64 &95911043
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1928,14 +1888,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 0, y: 1}
-  GreenChild: {fileID: 2074890916}
-  WhiteChild: {fileID: 199456955}
-  debug: 0
 --- !u!64 &119468771
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2306,14 +2258,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 2, y: 5}
-  GreenChild: {fileID: 138540847}
-  WhiteChild: {fileID: 1502259470}
-  debug: 0
 --- !u!64 &138745702
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2850,14 +2794,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 3, y: 3}
-  GreenChild: {fileID: 1748205008}
-  WhiteChild: {fileID: 569033348}
-  debug: 0
 --- !u!64 &176683939
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2979,14 +2915,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 13, y: 6}
-  GreenChild: {fileID: 1147547142}
-  WhiteChild: {fileID: 915671925}
-  debug: 0
 --- !u!64 &180495947
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3108,14 +3036,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 12, y: 3}
-  GreenChild: {fileID: 39622192}
-  WhiteChild: {fileID: 1220313602}
-  debug: 0
 --- !u!64 &180944477
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3237,14 +3157,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 14, y: 2}
-  GreenChild: {fileID: 1209498770}
-  WhiteChild: {fileID: 2077320360}
-  debug: 0
 --- !u!64 &183909100
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3615,14 +3527,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 13, y: 4}
-  GreenChild: {fileID: 761777287}
-  WhiteChild: {fileID: 1447776304}
-  debug: 0
 --- !u!64 &193404820
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3827,14 +3731,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 5, y: 6}
-  GreenChild: {fileID: 946537125}
-  WhiteChild: {fileID: 477907598}
-  debug: 0
 --- !u!64 &201583846
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4371,14 +4267,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 5, y: 5}
-  GreenChild: {fileID: 1833225101}
-  WhiteChild: {fileID: 328387403}
-  debug: 0
 --- !u!64 &232428205
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4500,14 +4388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 2, y: 1}
-  GreenChild: {fileID: 1324315627}
-  WhiteChild: {fileID: 1984871380}
-  debug: 0
 --- !u!64 &233188642
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4629,14 +4509,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 12, y: 6}
-  GreenChild: {fileID: 558000268}
-  WhiteChild: {fileID: 1705727802}
-  debug: 0
 --- !u!64 &234489127
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4758,14 +4630,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 12, y: 0}
-  GreenChild: {fileID: 246874424}
-  WhiteChild: {fileID: 1944047628}
-  debug: 0
 --- !u!64 &240298149
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5053,14 +4917,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 5, y: 1}
-  GreenChild: {fileID: 954002386}
-  WhiteChild: {fileID: 462752721}
-  debug: 0
 --- !u!64 &256504389
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5265,14 +5121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 9, y: 0}
-  GreenChild: {fileID: 1766161300}
-  WhiteChild: {fileID: 2004993558}
-  debug: 0
 --- !u!64 &263542195
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5477,14 +5325,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 2, y: 6}
-  GreenChild: {fileID: 1810722081}
-  WhiteChild: {fileID: 1344284495}
-  debug: 0
 --- !u!64 &271337176
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5606,14 +5446,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 11, y: 1}
-  GreenChild: {fileID: 705680239}
-  WhiteChild: {fileID: 468360891}
-  debug: 0
 --- !u!64 &274464136
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5818,14 +5650,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 4, y: 7}
-  GreenChild: {fileID: 1031797012}
-  WhiteChild: {fileID: 1632418222}
-  debug: 0
 --- !u!64 &281736440
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6113,14 +5937,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 6, y: 3}
-  GreenChild: {fileID: 2012659862}
-  WhiteChild: {fileID: 565903131}
-  debug: 0
 --- !u!64 &320419456
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6242,14 +6058,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 3, y: 2}
-  GreenChild: {fileID: 1620200040}
-  WhiteChild: {fileID: 387667181}
-  debug: 0
 --- !u!64 &322725466
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6703,14 +6511,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 11, y: 3}
-  GreenChild: {fileID: 39498405}
-  WhiteChild: {fileID: 1217938015}
-  debug: 0
 --- !u!64 &334304424
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6832,14 +6632,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 14, y: 5}
-  GreenChild: {fileID: 466736350}
-  WhiteChild: {fileID: 1047029510}
-  debug: 0
 --- !u!64 &337098850
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7803,37 +7595,37 @@ PrefabInstance:
     - target: {fileID: 4143786334582018390, guid: dd20d2e901321024292d9d8171e764b1,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.2416191
+      value: -0.27216733
       objectReference: {fileID: 0}
     - target: {fileID: 4143786334582018390, guid: dd20d2e901321024292d9d8171e764b1,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0042039263
+      value: 0.0038498351
       objectReference: {fileID: 0}
     - target: {fileID: 4143786334582018390, guid: dd20d2e901321024292d9d8171e764b1,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9702982
+      value: 0.9621764
       objectReference: {fileID: 0}
     - target: {fileID: 4143786334582018390, guid: dd20d2e901321024292d9d8171e764b1,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.011136238
+      value: 0.01126355
       objectReference: {fileID: 0}
     - target: {fileID: 4143786334582018390, guid: dd20d2e901321024292d9d8171e764b1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -1.355
+      value: -1.362
       objectReference: {fileID: 0}
     - target: {fileID: 4143786334582018390, guid: dd20d2e901321024292d9d8171e764b1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 207.964
+      value: 211.588
       objectReference: {fileID: 0}
     - target: {fileID: 4143786334582018390, guid: dd20d2e901321024292d9d8171e764b1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0.159
+      value: 0.073
       objectReference: {fileID: 0}
     - target: {fileID: 4386792929885244289, guid: dd20d2e901321024292d9d8171e764b1,
         type: 3}
@@ -9382,14 +9174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 7, y: 6}
-  GreenChild: {fileID: 825204272}
-  WhiteChild: {fileID: 1981788080}
-  debug: 0
 --- !u!64 &362537603
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9511,14 +9295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 6, y: 7}
-  GreenChild: {fileID: 476936449}
-  WhiteChild: {fileID: 1666703585}
-  debug: 0
 --- !u!64 &362967261
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9758,14 +9534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 0, y: 5}
-  GreenChild: {fileID: 131402820}
-  WhiteChild: {fileID: 1408107718}
-  debug: 0
 --- !u!64 &373875765
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9887,14 +9655,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 0, y: 0}
-  GreenChild: {fileID: 258394293}
-  WhiteChild: {fileID: 525356356}
-  debug: 0
 --- !u!64 &382108306
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10265,14 +10025,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 10, y: 3}
-  GreenChild: {fileID: 36818384}
-  WhiteChild: {fileID: 1182236591}
-  debug: 0
 --- !u!64 &402138256
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10641,14 +10393,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 3, y: 1}
-  GreenChild: {fileID: 1797407088}
-  WhiteChild: {fileID: 643024235}
-  debug: 0
 --- !u!64 &420583289
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11185,14 +10929,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 12, y: 2}
-  GreenChild: {fileID: 2113507734}
-  WhiteChild: {fileID: 1375319353}
-  debug: 0
 --- !u!64 &468870418
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -11729,14 +11465,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 7, y: 3}
-  GreenChild: {fileID: 191018924}
-  WhiteChild: {fileID: 1595821152}
-  debug: 0
 --- !u!64 &513454307
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12273,14 +12001,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 5, y: 0}
-  GreenChild: {fileID: 2114609740}
-  WhiteChild: {fileID: 1307718560}
-  debug: 0
 --- !u!64 &559383591
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12734,14 +12454,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 4, y: 5}
-  GreenChild: {fileID: 142470562}
-  WhiteChild: {fileID: 217819669}
-  debug: 0
 --- !u!64 &580792330
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12863,14 +12575,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 8, y: 7}
-  GreenChild: {fileID: 1727139677}
-  WhiteChild: {fileID: 523946970}
-  debug: 0
 --- !u!64 &606683599
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -13241,14 +12945,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 11, y: 0}
-  GreenChild: {fileID: 1892480791}
-  WhiteChild: {fileID: 1067235609}
-  debug: 0
 --- !u!64 &613209805
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -13370,14 +13066,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 14, y: 7}
-  GreenChild: {fileID: 56698477}
-  WhiteChild: {fileID: 818237244}
-  debug: 0
 --- !u!64 &618439244
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -13582,14 +13270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 7, y: 2}
-  GreenChild: {fileID: 984940996}
-  WhiteChild: {fileID: 400896532}
-  debug: 0
 --- !u!64 &619974380
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -13794,14 +13474,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 11, y: 4}
-  GreenChild: {fileID: 400611531}
-  WhiteChild: {fileID: 1862578584}
-  debug: 0
 --- !u!64 &636579440
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14006,14 +13678,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 12, y: 5}
-  GreenChild: {fileID: 346872145}
-  WhiteChild: {fileID: 729893276}
-  debug: 0
 --- !u!64 &647550275
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14135,14 +13799,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 10, y: 7}
-  GreenChild: {fileID: 830117901}
-  WhiteChild: {fileID: 1802809355}
-  debug: 0
 --- !u!64 &647603581
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14347,14 +14003,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 7, y: 0}
-  GreenChild: {fileID: 1034329114}
-  WhiteChild: {fileID: 1195835482}
-  debug: 0
 --- !u!64 &650046753
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14476,14 +14124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 11, y: 7}
-  GreenChild: {fileID: 274557946}
-  WhiteChild: {fileID: 495945719}
-  debug: 0
 --- !u!64 &651494923
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14688,14 +14328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 11, y: 6}
-  GreenChild: {fileID: 1552430507}
-  WhiteChild: {fileID: 1029291464}
-  debug: 0
 --- !u!64 &670140286
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14817,14 +14449,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 12, y: 4}
-  GreenChild: {fileID: 1517968597}
-  WhiteChild: {fileID: 2073438098}
-  debug: 0
 --- !u!64 &678326429
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -15029,14 +14653,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 3, y: 0}
-  GreenChild: {fileID: 1362082838}
-  WhiteChild: {fileID: 1777288413}
-  debug: 0
 --- !u!64 &687824517
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16139,14 +15755,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 2, y: 3}
-  GreenChild: {fileID: 1147676651}
-  WhiteChild: {fileID: 1363304673}
-  debug: 0
 --- !u!64 &760515781
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16434,14 +16042,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 10, y: 4}
-  GreenChild: {fileID: 535909822}
-  WhiteChild: {fileID: 1459773465}
-  debug: 0
 --- !u!64 &778245806
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16646,14 +16246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 9, y: 4}
-  GreenChild: {fileID: 1809114389}
-  WhiteChild: {fileID: 162208501}
-  debug: 0
 --- !u!64 &799997092
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16775,14 +16367,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 13, y: 1}
-  GreenChild: {fileID: 610394427}
-  WhiteChild: {fileID: 918887949}
-  debug: 0
 --- !u!64 &810507841
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17070,14 +16654,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 6, y: 1}
-  GreenChild: {fileID: 1097147607}
-  WhiteChild: {fileID: 1682054285}
-  debug: 0
 --- !u!64 &822323354
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17199,14 +16775,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 6, y: 4}
-  GreenChild: {fileID: 1108657126}
-  WhiteChild: {fileID: 1641478555}
-  debug: 0
 --- !u!64 &823485569
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -18158,14 +17726,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 8, y: 3}
-  GreenChild: {fileID: 545113983}
-  WhiteChild: {fileID: 1470894385}
-  debug: 0
 --- !u!64 &909543123
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -18287,14 +17847,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 0, y: 7}
-  GreenChild: {fileID: 633799308}
-  WhiteChild: {fileID: 78705505}
-  debug: 0
 --- !u!64 &911645669
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -18582,14 +18134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 14, y: 1}
-  GreenChild: {fileID: 1151320660}
-  WhiteChild: {fileID: 882574411}
-  debug: 0
 --- !u!64 &924833212
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -19209,14 +18753,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 14, y: 4}
-  GreenChild: {fileID: 754628203}
-  WhiteChild: {fileID: 1373092608}
-  debug: 0
 --- !u!64 &966320145
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -19421,14 +18957,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 10, y: 5}
-  GreenChild: {fileID: 1212097416}
-  WhiteChild: {fileID: 610114755}
-  debug: 0
 --- !u!64 &981090507
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -19716,14 +19244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 9, y: 3}
-  GreenChild: {fileID: 1997350305}
-  WhiteChild: {fileID: 648081202}
-  debug: 0
 --- !u!64 &993888795
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -20426,14 +19946,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 6, y: 2}
-  GreenChild: {fileID: 2139222766}
-  WhiteChild: {fileID: 154502900}
-  debug: 0
 --- !u!64 &1051885563
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -20555,14 +20067,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 8, y: 6}
-  GreenChild: {fileID: 1220147151}
-  WhiteChild: {fileID: 18122796}
-  debug: 0
 --- !u!64 &1053262181
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -21348,14 +20852,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 5, y: 2}
-  GreenChild: {fileID: 185042103}
-  WhiteChild: {fileID: 690051432}
-  debug: 0
 --- !u!64 &1127233829
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -21560,14 +21056,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 7, y: 1}
-  GreenChild: {fileID: 1374244181}
-  WhiteChild: {fileID: 1872934695}
-  debug: 0
 --- !u!64 &1136709008
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -21689,14 +21177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 11, y: 5}
-  GreenChild: {fileID: 1499295709}
-  WhiteChild: {fileID: 689578187}
-  debug: 0
 --- !u!64 &1147485235
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -22233,14 +21713,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 13, y: 0}
-  GreenChild: {fileID: 1848517239}
-  WhiteChild: {fileID: 1879404300}
-  debug: 0
 --- !u!64 &1173192371
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -22528,14 +22000,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 10, y: 1}
-  GreenChild: {fileID: 1648283277}
-  WhiteChild: {fileID: 104244442}
-  debug: 0
 --- !u!64 &1204605572
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -23023,6 +22487,134 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1220313602}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1224690078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1224690080}
+  - component: {fileID: 1224690079}
+  m_Layer: 0
+  m_Name: Audio Source
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1224690079
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224690078}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2a46af9295009e64db37522e01d8225f, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.4
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1224690080
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224690078}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1244632270
 GameObject:
   m_ObjectHideFlags: 0
@@ -23072,14 +22664,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 8, y: 1}
-  GreenChild: {fileID: 1915287105}
-  WhiteChild: {fileID: 1760161230}
-  debug: 0
 --- !u!64 &1244632273
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -23201,14 +22785,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 1, y: 4}
-  GreenChild: {fileID: 2037595863}
-  WhiteChild: {fileID: 265709069}
-  debug: 0
 --- !u!64 &1246958335
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -23330,14 +22906,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 1, y: 5}
-  GreenChild: {fileID: 55974069}
-  WhiteChild: {fileID: 1074191018}
-  debug: 0
 --- !u!64 &1253570356
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -23542,14 +23110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 12, y: 7}
-  GreenChild: {fileID: 1413420413}
-  WhiteChild: {fileID: 253327005}
-  debug: 0
 --- !u!64 &1260234778
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -23754,14 +23314,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 4, y: 6}
-  GreenChild: {fileID: 153386415}
-  WhiteChild: {fileID: 220275820}
-  debug: 0
 --- !u!64 &1272025801
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -23883,14 +23435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 3, y: 5}
-  GreenChild: {fileID: 1786846234}
-  WhiteChild: {fileID: 610556650}
-  debug: 0
 --- !u!64 &1275506103
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -24095,14 +23639,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 9, y: 5}
-  GreenChild: {fileID: 686656100}
-  WhiteChild: {fileID: 1619018662}
-  debug: 0
 --- !u!64 &1279834602
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -24473,14 +24009,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 13, y: 5}
-  GreenChild: {fileID: 943968442}
-  WhiteChild: {fileID: 773499311}
-  debug: 0
 --- !u!64 &1302388653
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -24605,22 +24133,22 @@ PrefabInstance:
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8018035
+      value: 0.8140051
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.04367446
+      value: -0.044339087
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5951075
+      value: 0.57830584
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.032415673
+      value: 0.03150048
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
@@ -24869,14 +24397,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 5, y: 7}
-  GreenChild: {fileID: 720623086}
-  WhiteChild: {fileID: 745609308}
-  debug: 0
 --- !u!64 &1313486995
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -24998,14 +24518,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 0, y: 3}
-  GreenChild: {fileID: 1513896837}
-  WhiteChild: {fileID: 855343397}
-  debug: 0
 --- !u!64 &1315188475
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -25346,14 +24858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 1, y: 7}
-  GreenChild: {fileID: 864089209}
-  WhiteChild: {fileID: 1358145234}
-  debug: 0
 --- !u!64 &1333478748
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -25475,14 +24979,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 10, y: 6}
-  GreenChild: {fileID: 718998938}
-  WhiteChild: {fileID: 1692470757}
-  debug: 0
 --- !u!64 &1334067775
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -25687,14 +25183,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 10, y: 2}
-  GreenChild: {fileID: 1550788364}
-  WhiteChild: {fileID: 563658391}
-  debug: 0
 --- !u!64 &1346121247
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -25816,14 +25304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 13, y: 2}
-  GreenChild: {fileID: 574017944}
-  WhiteChild: {fileID: 1812973345}
-  debug: 0
 --- !u!64 &1348603145
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -26028,14 +25508,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 13, y: 7}
-  GreenChild: {fileID: 868203192}
-  WhiteChild: {fileID: 329003906}
-  debug: 0
 --- !u!64 &1353620048
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -26157,14 +25629,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 5, y: 4}
-  GreenChild: {fileID: 467684123}
-  WhiteChild: {fileID: 506270470}
-  debug: 0
 --- !u!64 &1353970508
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -26286,14 +25750,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 8, y: 4}
-  GreenChild: {fileID: 1410877608}
-  WhiteChild: {fileID: 1890640593}
-  debug: 0
 --- !u!64 &1356773265
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -26415,14 +25871,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 6, y: 5}
-  GreenChild: {fileID: 14574983}
-  WhiteChild: {fileID: 1767458560}
-  debug: 0
 --- !u!64 &1357388536
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -26793,14 +26241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 10, y: 0}
-  GreenChild: {fileID: 1158820562}
-  WhiteChild: {fileID: 1991329962}
-  debug: 0
 --- !u!64 &1372378718
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -27005,14 +26445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 0, y: 6}
-  GreenChild: {fileID: 1277932792}
-  WhiteChild: {fileID: 1325624706}
-  debug: 0
 --- !u!64 &1373965462
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -27383,14 +26815,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 4, y: 4}
-  GreenChild: {fileID: 878994564}
-  WhiteChild: {fileID: 1696514352}
-  debug: 0
 --- !u!64 &1393794906
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -27761,14 +27185,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 9, y: 6}
-  GreenChild: {fileID: 901394297}
-  WhiteChild: {fileID: 1864687650}
-  debug: 0
 --- !u!64 &1417815178
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -27890,14 +27306,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 1, y: 6}
-  GreenChild: {fileID: 1641353129}
-  WhiteChild: {fileID: 744352198}
-  debug: 0
 --- !u!64 &1430392025
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -28517,14 +27925,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 3, y: 4}
-  GreenChild: {fileID: 989533627}
-  WhiteChild: {fileID: 1020181442}
-  debug: 0
 --- !u!64 &1484308277
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -28646,14 +28046,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 9, y: 7}
-  GreenChild: {fileID: 213757069}
-  WhiteChild: {fileID: 1882541625}
-  debug: 0
 --- !u!64 &1491962733
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -29107,14 +28499,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 1, y: 2}
-  GreenChild: {fileID: 1292009279}
-  WhiteChild: {fileID: 822197341}
-  debug: 0
 --- !u!64 &1515178359
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -29402,14 +28786,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 14, y: 0}
-  GreenChild: {fileID: 1624269910}
-  WhiteChild: {fileID: 201687233}
-  debug: 0
 --- !u!64 &1525122941
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -29780,14 +29156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 9, y: 2}
-  GreenChild: {fileID: 1112967186}
-  WhiteChild: {fileID: 1672360490}
-  debug: 0
 --- !u!64 &1558748631
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -30075,14 +29443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 13, y: 3}
-  GreenChild: {fileID: 1280822822}
-  WhiteChild: {fileID: 1074912452}
-  debug: 0
 --- !u!64 &1606885602
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -30204,14 +29564,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 11, y: 2}
-  GreenChild: {fileID: 927049214}
-  WhiteChild: {fileID: 1027703475}
-  debug: 0
 --- !u!64 &1616508460
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -30665,14 +30017,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 7, y: 5}
-  GreenChild: {fileID: 746144777}
-  WhiteChild: {fileID: 663752036}
-  debug: 0
 --- !u!64 &1634374059
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -31043,14 +30387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 0, y: 4}
-  GreenChild: {fileID: 1289421560}
-  WhiteChild: {fileID: 1873863676}
-  debug: 0
 --- !u!64 &1665372174
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -31255,14 +30591,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 1, y: 3}
-  GreenChild: {fileID: 66229518}
-  WhiteChild: {fileID: 1068006136}
-  debug: 0
 --- !u!64 &1670874660
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -31550,14 +30878,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 0, y: 2}
-  GreenChild: {fileID: 1598320960}
-  WhiteChild: {fileID: 836250871}
-  debug: 0
 --- !u!64 &1688176961
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -31845,14 +31165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 3, y: 6}
-  GreenChild: {fileID: 1376687603}
-  WhiteChild: {fileID: 1881657733}
-  debug: 0
 --- !u!64 &1698873156
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -32057,14 +31369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 5, y: 3}
-  GreenChild: {fileID: 2137449254}
-  WhiteChild: {fileID: 161838135}
-  debug: 0
 --- !u!64 &1724368709
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -32269,14 +31573,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 1, y: 1}
-  GreenChild: {fileID: 971590973}
-  WhiteChild: {fileID: 87485074}
-  debug: 0
 --- !u!64 &1733043899
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -33081,14 +32377,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 7, y: 4}
-  GreenChild: {fileID: 217261019}
-  WhiteChild: {fileID: 732950759}
-  debug: 0
 --- !u!64 &1791780675
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -33210,14 +32498,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 8, y: 2}
-  GreenChild: {fileID: 618896281}
-  WhiteChild: {fileID: 326186335}
-  debug: 0
 --- !u!64 &1793844808
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -33955,14 +33235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 2, y: 0}
-  GreenChild: {fileID: 1501864048}
-  WhiteChild: {fileID: 1519857901}
-  debug: 0
 --- !u!64 &1824649347
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -34167,14 +33439,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 8, y: 0}
-  GreenChild: {fileID: 1482923947}
-  WhiteChild: {fileID: 2143521280}
-  debug: 0
 --- !u!64 &1842147355
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -34628,14 +33892,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 9, y: 1}
-  GreenChild: {fileID: 436206905}
-  WhiteChild: {fileID: 189968667}
-  debug: 0
 --- !u!64 &1872752655
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -34923,14 +34179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 6, y: 6}
-  GreenChild: {fileID: 405346800}
-  WhiteChild: {fileID: 1151707501}
-  debug: 0
 --- !u!64 &1878777480
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -35467,14 +34715,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 2, y: 4}
-  GreenChild: {fileID: 1994647250}
-  WhiteChild: {fileID: 2058220112}
-  debug: 0
 --- !u!64 &1897697201
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -35762,14 +35002,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 8, y: 5}
-  GreenChild: {fileID: 1971206018}
-  WhiteChild: {fileID: 1351516247}
-  debug: 0
 --- !u!64 &1920901488
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -36721,14 +35953,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 4, y: 1}
-  GreenChild: {fileID: 59062424}
-  WhiteChild: {fileID: 282440917}
-  debug: 0
 --- !u!64 &2019950673
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -37016,14 +36240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 4, y: 2}
-  GreenChild: {fileID: 1058574342}
-  WhiteChild: {fileID: 1269501194}
-  debug: 0
 --- !u!64 &2058166899
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -37228,14 +36444,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 3, y: 7}
-  GreenChild: {fileID: 128326568}
-  WhiteChild: {fileID: 885184819}
-  debug: 0
 --- !u!64 &2060936720
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -37357,14 +36565,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 12, y: 1}
-  GreenChild: {fileID: 1254708625}
-  WhiteChild: {fileID: 1451581957}
-  debug: 0
 --- !u!64 &2064455810
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -37818,14 +37018,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 7, y: 7}
-  GreenChild: {fileID: 948142703}
-  WhiteChild: {fileID: 1534300299}
-  debug: 0
 --- !u!64 &2086263830
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -37947,14 +37139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 4, y: 0}
-  GreenChild: {fileID: 1451585824}
-  WhiteChild: {fileID: 1808470928}
-  debug: 0
 --- !u!64 &2096022163
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -38325,14 +37509,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 2, y: 2}
-  GreenChild: {fileID: 2049392052}
-  WhiteChild: {fileID: 941623097}
-  debug: 0
 --- !u!64 &2138376807
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -38620,14 +37796,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e756be36c92cff47bb1f4e8017253b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
-  connectedTile: {fileID: 0}
-  occupyingCharacter: {fileID: 0}
-  cost: 0
-  coordinate: {x: 14, y: 6}
-  GreenChild: {fileID: 1975475917}
-  WhiteChild: {fileID: 1863925949}
-  debug: 0
 --- !u!64 &2145864796
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -38850,3 +38018,4 @@ SceneRoots:
   - {fileID: 60242871}
   - {fileID: 1798198366}
   - {fileID: 1784271445}
+  - {fileID: 1224690080}

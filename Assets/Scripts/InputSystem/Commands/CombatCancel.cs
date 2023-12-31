@@ -9,7 +9,7 @@ public class CombatCancel : ICommand
     public CombatCancel(Dialog dialog)
     { this.dialog = dialog; }
 
-    public string Name => "Cancelar";
+    public string Name => "Ignore";
 
     public void Do()
     {

@@ -14046,11 +14046,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba7fd088bb9a59909a5a5ba56314ceae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactorName: Enemigo
-  dialogText: "\xA1Ja, ja, ja! As\xED que por fin decides aparecer. \xBFQu\xE9 te
-    trae por aqu\xED? \xBFTu curiosidad por descubrir nuestros planes? Bueno, \xBFqu\xE9
-    dices? \xBFTe atreves a enfrentarte a m\xED en un duelo o prefieres retirarte
-    y dejar que sigamos con nuestros asuntos?"
+  interactorName: Goblin
+  dialogText: Ha, ha, ha! So you finally decide to show up. What brings you here?
+    Curiosity to discover our plans? Well, what do you say? Do you dare to face me
+    in a duel, or would you rather retreat and let us continue with our business?
 --- !u!1 &2063635831
 GameObject:
   m_ObjectHideFlags: 0

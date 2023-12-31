@@ -5,7 +5,7 @@ using Amegakure.Starkane.UI.NonDiegetic;
 public class CombatStart : ICommand
 {
     private Dialog dialog;
-    public string Name => "Atacar";
+    public string Name => "Attack";
 
     public CombatStart(Dialog dialog)
     { this.dialog = dialog; }

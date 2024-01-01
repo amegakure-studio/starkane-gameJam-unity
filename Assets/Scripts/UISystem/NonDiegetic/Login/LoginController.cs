@@ -38,7 +38,7 @@ public class LoginController : MonoBehaviour
         if (!string.IsNullOrWhiteSpace(username) &&
            !string.IsNullOrWhiteSpace(password))
         {
-            Debug.Log(username + " : " + password);
+            // Debug.Log(username + " : " + password);
             
             var playerHash = new Hash128();
             playerHash.Append(username);
@@ -46,7 +46,7 @@ public class LoginController : MonoBehaviour
             
             string playerId = playerHash.ToString();
             
-            Debug.Log("HASH: " + playerId);
+            // Debug.Log("HASH: " + playerId);
 
             Session session = CreateSessionObj();
             Player sessionPlayer = FindSessionPlayer(username, playerId, session.gameObject);
@@ -90,7 +90,7 @@ public class LoginController : MonoBehaviour
         var hexString = BitConverter.ToString(player_id.data.ToArray()).Replace("-", "").ToLower();
         BigInteger intID = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
 
-        Debug.Log("!!HASH BIN: " + intID);
+        // Debug.Log("!!HASH BIN: " + intID);
 
         Player player = sessionGo.AddComponent<Player>();
         player.Id = intID;
@@ -118,7 +118,7 @@ public class LoginController : MonoBehaviour
 
         var hexString = BitConverter.ToString(player_id.data.ToArray()).Replace("-", "").ToLower();
         BigInteger intID = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
-        Debug.Log("Bing Int ID: " + intID);
+        // Debug.Log("Bing Int ID: " + intID);
 
         GameObject[] entities = worldManager.Entities();
 
@@ -142,6 +142,26 @@ public class LoginController : MonoBehaviour
         }
 
         return null;
+    }
+
+    private List<CharacterPlayerProgress> GetCharacterPlayerProgressesFromPlayerId(BigInteger intID)
+    {
+        List<CharacterPlayerProgress> players = new();
+        GameObject[] entities = worldManager.Entities();
+         foreach (GameObject go in entities)
+        {
+            CharacterPlayerProgress characterPlayerProgress = go.GetComponent<CharacterPlayerProgress>();
+            if (characterPlayerProgress != null)
+            {
+                bool res = characterPlayerProgress.getPlayerID().Equals(intID);
+                
+                if(res)
+                    players.Add(characterPlayerProgress);
+            }
+        }
+
+        return players;
+
     }
 
     private void CallCreatePlayerTx(string playerId)

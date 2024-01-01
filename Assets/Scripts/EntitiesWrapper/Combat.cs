@@ -47,11 +47,11 @@ public class Combat : MonoBehaviour
     private void Start()
     {
         BigInteger playerId = matchState.PlayerTurnId;
-        Debug.Log("Match turn playerID:" + playerId);
-        foreach (Player player in playerMatchCharacters.Keys)
-        {
-            Debug.Log("ID in dict: " + player.Id);
-        }
+        // Debug.Log("Match turn playerID:" + playerId);
+        // foreach (Player player in playerMatchCharacters.Keys)
+        // {
+        //     Debug.Log("ID in dict: " + player.Id);
+        // }
         Player playerTurn = playerMatchCharacters.Keys.First(p => p.Id.Equals(playerId));
 
         EventManager.Instance.Publish(GameEvent.COMBAT_TURN_CHANGED, new() { { "Player", playerTurn } });
@@ -119,8 +119,8 @@ public class Combat : MonoBehaviour
 
     private void CallMoveTx(Character character, Player player, Tile target)
     {
-        Debug.Log("Move: " + player.PlayerName + "With: " + character.CharacterName
-                    + "To: " + target.coordinate.ToString());
+        // Debug.Log("Move: " + player.PlayerName + "With: " + character.CharacterName
+        //             + "To: " + target.coordinate.ToString());
         
         
         var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
@@ -305,11 +305,15 @@ public class Combat : MonoBehaviour
 
         if (playerRegistered)
         {
+            // Debug.Log("Player name: " + player.PlayerName);
             ActionState playerActionState = GetActionState(player, character);
             CharacterState playerCharacterState = GetCharacterState(player, character);
+            // Debug.Log("Character using: " + character.CharacterName);
 
             bool skillPerformed = playerActionState.Action;
             bool enoughMana = playerCharacterState.Remain_mp >= skillSelected.Mp_cost;
+            // Debug.Log(" skillPerformed " + skillPerformed);
+            // Debug.Log("enoughMana " + enoughMana);
 
             return !skillPerformed && enoughMana;
         }

@@ -77,9 +77,10 @@ public class PlayerAIController : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        List<Character> characters = combat.GetCharacters(player);
+        List<Character> characters = combat.GetCharacters(player).FindAll(cc => cc.IsAlive());
         foreach (Character character in characters)
         {
+            // Debug.Log("!!!!-- Character AI: " + character.name);
             TryDoSkill(character);
             while (isCutSceneRunning) yield return null;
             yield return new WaitForSeconds(2f);
@@ -112,6 +113,7 @@ public class PlayerAIController : MonoBehaviour
         {
             if (combat.CanDoSkill(player, character, skill))
             {
+                Debug.Log("Can do skill with character: " + character.CharacterName);
                 Frontier skillFrontier = skill.GetFrontier(character.Location);
                 EventManager.Instance.Publish(GameEvent.FRONTIER_UPDATED, new() { { "Frontier", skillFrontier } });
 
@@ -126,10 +128,11 @@ public class PlayerAIController : MonoBehaviour
                         if (characterReceiver != null)
                         {
                             Player playerReceiver = combat.GetPlayerByID(characterReceiver.GetPlayerId());
-                            
-                            combat.DoSkill(player, character, skill, playerReceiver, characterReceiver);
-
-                            return true;
+                            if(playerReceiver.GetInstanceID() != player.GetInstanceID())
+                            {
+                                combat.DoSkill(player, character, skill, playerReceiver, characterReceiver);
+                                return true;
+                            }
                         }
                     }
                 }
@@ -149,8 +152,6 @@ public class PlayerAIController : MonoBehaviour
 
             foreach (Character adversaryCharacter in adversaryCharacters)
             {
-                Debug.Log("Adversary character: " + adversaryCharacter.CharacterName +
-                " Health: " + adversaryCharacter.GetHpNormalized());
                 adversaryCoordinates.Add(adversaryCharacter.Location);
             }
 

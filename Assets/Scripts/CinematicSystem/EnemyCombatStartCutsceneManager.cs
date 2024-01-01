@@ -69,7 +69,7 @@ namespace Amegakure.Starkane.CinematicSystem
                     playerHash.Append("enemy");
                     string adversaryId = playerHash.ToString();
                     
-                    Debug.Log("Enemy hash: "+ adversaryId);
+                    // Debug.Log("Enemy hash: "+ adversaryId);
                     int adversaryCharacterId = 4;
 
                     this.LoadOrCreateMatch(playerMatchId, playerCharacterId,
@@ -274,8 +274,9 @@ namespace Amegakure.Starkane.CinematicSystem
                 // },
                 calldata = new[]
                 {
-                   dojo.felt_from_hex_be(new CString("0x02")).ok, player_id, character_id,
-                   adversary_id, adversary_character_id
+                   dojo.felt_from_hex_be(new CString("0x03")).ok, player_id, character_id,
+                   adversary_id, adversary_character_id,
+                   adversary_id, dojo.felt_from_hex_be(new CString("0x06")).ok
                 },
                 to = dojoTxConfig.MatchSystemActionAddress,
                 selector = "init"

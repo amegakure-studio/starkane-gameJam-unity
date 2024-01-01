@@ -274,7 +274,9 @@ namespace Amegakure.Starkane.CinematicSystem
                 // },
                 calldata = new[]
                 {
-                   dojo.felt_from_hex_be(new CString("0x03")).ok, player_id, character_id,
+                   dojo.felt_from_hex_be(new CString("0x04")).ok,
+                   player_id, character_id,
+                   player_id, dojo.felt_from_hex_be(new CString("0x01")).ok, 
                    adversary_id, adversary_character_id,
                    adversary_id, dojo.felt_from_hex_be(new CString("0x06")).ok
                 },

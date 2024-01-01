@@ -39,13 +39,13 @@ public class LoginController : MonoBehaviour
            !string.IsNullOrWhiteSpace(password))
         {
             // Debug.Log(username + " : " + password);
-            
+
             var playerHash = new Hash128();
             playerHash.Append(username);
             playerHash.Append(password);
-            
+
             string playerId = playerHash.ToString();
-            
+
             // Debug.Log("HASH: " + playerId);
 
             Session session = CreateSessionObj();
@@ -58,7 +58,7 @@ public class LoginController : MonoBehaviour
             {
                 Player player = CreatePlayer(username, playerId, session.gameObject);
                 session.Player = player;
-                
+
                 try
                 {
                     CallCreatePlayerTx(playerId);
@@ -68,7 +68,7 @@ public class LoginController : MonoBehaviour
                     Debug.LogError("Can't log-in: " + e);
                 }
             }
-            
+
             StartCoroutine(nameof(LoadAsyncScene));
         }
     }
@@ -120,42 +120,44 @@ public class LoginController : MonoBehaviour
         BigInteger intID = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
         // Debug.Log("Bing Int ID: " + intID);
 
-        GameObject[] entities = worldManager.Entities();
-
-        foreach (GameObject go in entities)
+        List<CharacterPlayerProgress> characterPlayerProgresses = GetCharacterPlayerProgressesFromPlayerId(intID);
+        if (characterPlayerProgresses.Count > 0)
         {
-            CharacterPlayerProgress characterPlayerProgress = go.GetComponent<CharacterPlayerProgress>();
-            if (characterPlayerProgress != null)
-            {
-                bool res = characterPlayerProgress.getPlayerID().Equals(intID);
-                if (res)
-                {
-                    Player player = sessionGo.AddComponent<Player>();
-                    player.Id = intID;
-                    player.SetDojoId(characterPlayerProgress.Owner);
-                    player.PlayerName = sessionPlayername;
-                    player.DefaultCharacter = characterPlayerProgress.GetCharacterType();
-                    Debug.Log("Session player Found!!");
-                    return player;
-                }
-            }
+
+            CharacterPlayerProgress defaultCharacterPlayerProgress = GetDefaultCharacter(characterPlayerProgresses, CharacterType.Warrior);
+
+            if (defaultCharacterPlayerProgress == null)
+                defaultCharacterPlayerProgress = characterPlayerProgresses[0];
+            
+            Player player = sessionGo.AddComponent<Player>();
+            player.Id = intID;
+            player.SetDojoId(defaultCharacterPlayerProgress.Owner);
+            player.PlayerName = sessionPlayername;
+            player.DefaultCharacter = defaultCharacterPlayerProgress.GetCharacterType();
+            Debug.Log("Session player Found!!");
+            return player;
         }
 
         return null;
+    }
+
+    private CharacterPlayerProgress GetDefaultCharacter(List<CharacterPlayerProgress> characterPlayerProgresses, CharacterType warrior)
+    {
+        return characterPlayerProgresses.Find(cp => cp.GetCharacterType() == warrior);
     }
 
     private List<CharacterPlayerProgress> GetCharacterPlayerProgressesFromPlayerId(BigInteger intID)
     {
         List<CharacterPlayerProgress> players = new();
         GameObject[] entities = worldManager.Entities();
-         foreach (GameObject go in entities)
+        foreach (GameObject go in entities)
         {
             CharacterPlayerProgress characterPlayerProgress = go.GetComponent<CharacterPlayerProgress>();
             if (characterPlayerProgress != null)
             {
                 bool res = characterPlayerProgress.getPlayerID().Equals(intID);
-                
-                if(res)
+
+                if (res)
                     players.Add(characterPlayerProgress);
             }
         }
@@ -169,7 +171,7 @@ public class LoginController : MonoBehaviour
         DojoTxConfig dojoTxConfig = GameObject.FindAnyObjectByType<DojoTxConfig>();
         var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
         var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
-        
+
         var character_id = dojo.felt_from_hex_be(new CString("0x03")).ok;
         var player_id = dojo.felt_from_hex_be(new CString(playerId)).ok;
 

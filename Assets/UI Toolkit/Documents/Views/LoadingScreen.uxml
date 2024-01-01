@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/LoadingScreen.uss?fileID=7433441132597879392&amp;guid=b68e8aa833695824a8026e142d6a7b00&amp;type=3#LoadingScreen" />
+    <ui:VisualElement name="LoadingContainer" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Art/UI/Wallpaper/loading_screen.jpg?fileID=21300000&amp;guid=6a278c5adf255bb4794ae3719cdb9187&amp;type=3#loading_screen&apos;); justify-content: flex-end; align-items: center; padding-top: 5%; padding-right: 5%; padding-bottom: 5%; padding-left: 5%;">
+        <ui:Label tabindex="-1" text="Loading ..." parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 36px; -unity-font: url(&apos;project://database/Assets/Art/UI/Fonts/Barlow-BlackItalic.ttf?fileID=12800000&amp;guid=e2e0618ce4a1d724d9d2dab61d9d661c&amp;type=3#Barlow-BlackItalic&apos;); -unity-font-style: bold; color: rgb(214, 214, 214);" />
+    </ui:VisualElement>
+</ui:UXML>

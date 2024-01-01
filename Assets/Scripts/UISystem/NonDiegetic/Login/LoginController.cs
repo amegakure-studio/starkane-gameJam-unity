@@ -1,5 +1,6 @@
 using Amegakure.Starkane.Entities;
 using Amegakure.Starkane.EntitiesWrapper;
+using Amegakure.Starkane.PubSub;
 using bottlenoselabs.C2CS.Runtime;
 using Dojo;
 using Dojo.Starknet;
@@ -93,10 +94,18 @@ public class LoginController : MonoBehaviour
     IEnumerator LoadAsyncScene()
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1);
+        asyncLoad.allowSceneActivation = false;
 
-        // Wait until the asynchronous scene fully loads
+        EventManager.Instance.Publish(GameEvent.GAME_LOADING_START, new Dictionary<string, object>());
+
         while (!asyncLoad.isDone)
         {
+            Debug.Log("Still here: " + asyncLoad.progress);
+            if (asyncLoad.progress >= 0.9f)
+            {
+                asyncLoad.allowSceneActivation = true;
+            }
+            
             yield return null;
         }
     }

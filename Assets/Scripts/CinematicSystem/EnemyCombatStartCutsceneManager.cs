@@ -175,8 +175,27 @@ namespace Amegakure.Starkane.CinematicSystem
 
         public void battleStart()
         {
-            SceneManager.LoadScene("Cavern-combat");
+            StartCoroutine(nameof(LoadAsyncScene));
         }
+
+        IEnumerator LoadAsyncScene()
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(3);
+        asyncLoad.allowSceneActivation = false;
+
+        EventManager.Instance.Publish(GameEvent.GAME_LOADING_START, new Dictionary<string, object>());
+
+        while (!asyncLoad.isDone)
+        {
+            Debug.Log("Still here: " + asyncLoad.progress);
+            if (asyncLoad.progress >= 0.9f)
+            {
+                asyncLoad.allowSceneActivation = true;
+            }
+            
+            yield return null;
+        }
+    }
 
         private Quaternion GetAngleBetweenMeAndEnemy(Transform playerTransform, Transform enemyTransform)
         {

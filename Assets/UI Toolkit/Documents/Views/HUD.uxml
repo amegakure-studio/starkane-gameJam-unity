@@ -1,7 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="Dialog" src="project://database/Assets/UI%20Toolkit/Documents/Components/Dialog.uxml?fileID=9197481963319205126&amp;guid=1266cac30a60c574db44bfc1e470c7fc&amp;type=3#Dialog" />
+    <ui:Template name="LoadingScreen" src="project://database/Assets/UI%20Toolkit/Documents/Views/LoadingScreen.uxml?fileID=9197481963319205126&amp;guid=1ce99d693c237d342b0f69ddaf861d85&amp;type=3#LoadingScreen" />
     <Style src="project://database/Assets/UI%20Toolkit/Styles/HUD.uss?fileID=7433441132597879392&amp;guid=db0ced92d00180c40b3d44e1db004e0f&amp;type=3#HUD" />
     <Style src="project://database/Assets/UI%20Toolkit/Styles/Common.uss?fileID=7433441132597879392&amp;guid=7f31884dfb911114485ee9a152b44132&amp;type=3#Common" />
+    <Style src="project://database/Assets/UI%20Toolkit/Styles/LoadingScreen.uss?fileID=7433441132597879392&amp;guid=b68e8aa833695824a8026e142d6a7b00&amp;type=3#LoadingScreen" />
     <ui:VisualElement name="Container" style="flex-grow: 1;">
         <ui:VisualElement name="Header" class="header" style="flex-grow: 1;" />
         <ui:VisualElement name="Content" class="content" style="flex-grow: 1;">
@@ -13,4 +15,5 @@
         </ui:VisualElement>
         <ui:VisualElement name="Footer" class="footer" style="flex-grow: 1; flex-direction: row; justify-content: space-between; align-items: center; align-self: auto; height: 15%; padding-right: 2%; padding-left: 2%; padding-bottom: 1%;" />
     </ui:VisualElement>
+    <ui:Instance template="LoadingScreen" name="LoadingScreen" class="hidden" style="position: absolute; width: 100%; height: 100%;" />
 </ui:UXML>

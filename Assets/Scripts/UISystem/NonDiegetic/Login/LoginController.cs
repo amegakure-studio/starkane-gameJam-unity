@@ -53,6 +53,7 @@ public class LoginController : MonoBehaviour
             if (sessionPlayer != null)
             {
                 session.Player = sessionPlayer;
+                StartCoroutine(nameof(LoadAsyncScene));
             }
             else
             {
@@ -61,7 +62,7 @@ public class LoginController : MonoBehaviour
 
                 try
                 {
-                    CallCreatePlayerTx(playerId);
+                    StartCoroutine(nameof(MintCoroutine), playerId);
                 }
                 catch (Exception e)
                 {
@@ -69,8 +70,24 @@ public class LoginController : MonoBehaviour
                 }
             }
 
+        }
+    }
+
+    IEnumerator MintCoroutine(string playerId)
+    {
+        CallCreatePlayerTx(playerId, "0x03");
+        Debug.Log("Mint");
+
+        yield return new WaitForSeconds(2);
+        Debug.Log("2-Mint");
+        try
+        {
+            CallCreatePlayerTx(playerId, "0x01");
             StartCoroutine(nameof(LoadAsyncScene));
         }
+        catch{}
+        
+        yield return null;
     }
 
     IEnumerator LoadAsyncScene()
@@ -128,7 +145,7 @@ public class LoginController : MonoBehaviour
 
             if (defaultCharacterPlayerProgress == null)
                 defaultCharacterPlayerProgress = characterPlayerProgresses[0];
-            
+
             Player player = sessionGo.AddComponent<Player>();
             player.Id = intID;
             player.SetDojoId(defaultCharacterPlayerProgress.Owner);
@@ -166,13 +183,13 @@ public class LoginController : MonoBehaviour
 
     }
 
-    private void CallCreatePlayerTx(string playerId)
+    private void CallCreatePlayerTx(string playerId, string characterId)
     {
         DojoTxConfig dojoTxConfig = GameObject.FindAnyObjectByType<DojoTxConfig>();
         var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
         var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
 
-        var character_id = dojo.felt_from_hex_be(new CString("0x03")).ok;
+        var character_id = dojo.felt_from_hex_be(new CString(characterId)).ok;
         var player_id = dojo.felt_from_hex_be(new CString(playerId)).ok;
 
         dojo.Call call = new dojo.Call()

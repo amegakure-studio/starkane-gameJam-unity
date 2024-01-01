@@ -1,6 +1,7 @@
 using Amegakure.Starkane.EntitiesWrapper;
 using Amegakure.Starkane.GridSystem;
 using Amegakure.Starkane.PubSub;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Amegakure.Starkane.InputSystem
         private Player player;
         private Character character;
         private Combat combat;
+        private Character characterSelected;
 
         private bool clicked = false;
         private bool canInteract = true;
@@ -25,15 +27,26 @@ namespace Amegakure.Starkane.InputSystem
         {
             EventManager.Instance.Subscribe(GameEvent.CHARACTER_MOVE_START, HandleMovementStart);
             EventManager.Instance.Subscribe(GameEvent.CHARACTER_MOVE_END, HandleMovementEnd);
-
             EventManager.Instance.Subscribe(GameEvent.TILE_SELECTED, HandleTileSelected);
+            EventManager.Instance.Subscribe(GameEvent.INPUT_CHARACTER_SELECTED, handleCharacterSelected);
         }
 
         private void OnDisable()
         {
-            EventManager.Instance.Subscribe(GameEvent.CHARACTER_MOVE_START, HandleMovementStart);
+            EventManager.Instance.Unsubscribe(GameEvent.CHARACTER_MOVE_START, HandleMovementStart);
             EventManager.Instance.Unsubscribe(GameEvent.CHARACTER_MOVE_END, HandleMovementEnd);
             EventManager.Instance.Unsubscribe(GameEvent.TILE_SELECTED, HandleTileSelected);
+            EventManager.Instance.Unsubscribe(GameEvent.INPUT_CHARACTER_SELECTED, handleCharacterSelected);
+        }
+
+        private void handleCharacterSelected(Dictionary<string, object> dictionary)
+        {
+            try
+            {
+                characterSelected = (Character)dictionary["Character"];
+
+            }
+            catch { }
         }
 
         private void HandleMovementStart(Dictionary<string, object> context)
@@ -58,16 +71,16 @@ namespace Amegakure.Starkane.InputSystem
         private void HandleTileSelected(Dictionary<string, object> context)
         {
             try
-            { 
+            {
                 if (canInteract && combat.CanMove(character, player))
                 {
-                    Tile tile = (Tile)context["Tile"];
-                    Debug.Log("!!!!Is movement tile?" + tile.IsMovementTile);
-                    
-                    if(tile.IsMovementTile)        
-                        combat.Move(character, player, tile);
+                    if (characterSelected.GetInstanceID() == character.GetInstanceID())
+                    {
+                        Tile tile = (Tile)context["Tile"];
+                        if (tile.IsMovementTile)
+                            combat.Move(character, player, tile);
+                    }
                 }
-
             }
             catch { }
         }

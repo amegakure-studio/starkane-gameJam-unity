@@ -111,6 +111,9 @@ public class Combat : MonoBehaviour
 
     private void CallMoveTx(Character character, Player player, Tile target)
     {
+        Debug.Log("Move: " + player.PlayerName + "With: " + character.CharacterName
+                    + "To: " + target.coordinate.ToString());
+                    
         string rpcUrl = "http://localhost:5050";
 
         var provider = new JsonRpcClient(rpcUrl);

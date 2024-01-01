@@ -101,27 +101,19 @@ public class CharactersViewController : MonoBehaviour
             Character selected = characters[i];
             VisualElement characterVe = charactersContainer[i];
             characterVe.Q<VisualElement>("Icon").style.backgroundImage = FindCharacterIcon(characters[i]);
-            // characterVe.Q<VisualElement>("Hp").Q<VisualElement>("Overlay").style.width = Length.Percent(characters[i].GetHpNormalized() * 100);
-            // characterVe.Q<VisualElement>("Mp").Q<VisualElement>("Overlay").style.width = Length.Percent(characters[i].GetMpNormalized() * 100);
+            characterVe.Q<VisualElement>("Hp").Q<VisualElement>("Overlay").style.width = Length.Percent(characters[i].GetHpNormalized() * 100);
+            characterVe.Q<VisualElement>("Mp").Q<VisualElement>("Overlay").style.width = Length.Percent(characters[i].GetMpNormalized() * 100);
             characterVe.RemoveFromClassList("invisible");
 
-            Button characterBtn = characterVe.Q<Button>();
-            characterBtn.SetEnabled(true);
-            
-            Debug.Log("Character name: " + selected.CharacterName);
-            characterBtn.clicked += () => SelectCharacter(selected);
-            characterBtns.Add(characterBtn);
+            if (player == playerTurn)
+            {
+                Button characterBtn = characterVe.Q<Button>();
+                characterBtn.SetEnabled(true);
 
-            // if (player == playerTurn)
-            // {
-            //     Button characterBtn = characterVe.Q<Button>();
-            //     characterBtn.SetEnabled(true);
-
-            //     Character selected = characters[i];
-            //     Debug.Log("Character name: " + selected.CharacterName);
-            //     characterBtn.clicked += () =>  SelectCharacter(selected);
-            //     characterBtns.Add(characterBtn);
-            // }
+                Debug.Log("Character name: " + selected.CharacterName);
+                characterBtn.clicked += () =>  SelectCharacter(selected);
+                characterBtns.Add(characterBtn);
+            }
 
             characterVeDict.Add(characters[i], characterVe);
             // charactersContainer.Add(characterVe);
@@ -153,13 +145,9 @@ public class CharactersViewController : MonoBehaviour
     private void SelectCharacter(Character character)
     {
         Debug.Log("Character Selected: " + character.CharacterName);
-
-        if (combat.CanMove(character, player))
-        {
-            // Debug.Log("character selected: " + character.CharacterName);
-            EventManager.Instance.Publish(GameEvent.INPUT_CHARACTER_SELECTED,
+        
+        EventManager.Instance.Publish(GameEvent.INPUT_CHARACTER_SELECTED,
                     new Dictionary<string, object>() { { "Character", character } });
-        }
     }
 
     private void UnregisterBtns(List<Button> btns)

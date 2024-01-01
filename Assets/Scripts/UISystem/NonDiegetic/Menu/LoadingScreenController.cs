@@ -12,7 +12,7 @@ public class LoadingScreenController : MonoBehaviour
     private void Start()
     {
         VisualElement root = GameObject.FindAnyObjectByType<UIDocument>().rootVisualElement;
-        container = root.Q<VisualElement>("LoadingContainer");
+        container = root.Q<VisualElement>("LoadingScreen");
     }
 
     private void OnEnable()

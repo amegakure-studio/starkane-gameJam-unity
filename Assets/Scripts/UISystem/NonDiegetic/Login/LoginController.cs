@@ -100,9 +100,9 @@ public class LoginController : MonoBehaviour
 
         while (!asyncLoad.isDone)
         {
+            Debug.Log("Still here: " + asyncLoad.progress);
             if (asyncLoad.progress >= 0.9f)
             {
-                EventManager.Instance.Publish(GameEvent.GAME_LOADING_END, new Dictionary<string, object>());
                 asyncLoad.allowSceneActivation = true;
             }
             

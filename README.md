@@ -25,6 +25,16 @@ Turn-based RPG game - Unity + Starknet Dojo
 
 ### 3D Models
 * [Casual RPG characters](https://rigmodels.com/index.php?searchkeyword=casual-rpg)
+* [Cave Model](https://sketchfab.com/3d-models/magical-abandoned-mine-7ae4754b0db74ba884072215b5d013f5)
+* [World Model](https://sketchfab.com/3d-models/modular-lowpoly-medieval-environment-5bf0a1562b7e401e9e6d7758ec54d09c)
+* [Cave Entrance](https://sketchfab.com/3d-models/the-cave-entrance-likes-a-head-4a7643ff40dd42c3bfafd73f2d84547c)
+
+### UI
+* [GUI Parts](https://assetstore.unity.com/packages/2d/gui/icons/gui-parts-159068)
+* [Skill Icons](https://assetstore.unity.com/packages/2d/gui/icons/2d-skills-icon-set-handpainted-210622)
+
+### VFX
+* [Cartoon FX](https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-remaster-free-109565)
 
 ## Special thanks
 

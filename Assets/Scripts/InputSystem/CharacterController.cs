@@ -23,7 +23,7 @@ public class CharacterController : MonoBehaviour
 
     private void OnDisable()
     {
-        EventManager.Instance.Subscribe(GameEvent.CHARACTER_MOVE_START, HandleMovementStart);
+        EventManager.Instance.Unsubscribe(GameEvent.CHARACTER_MOVE_START, HandleMovementStart);
         EventManager.Instance.Unsubscribe(GameEvent.CHARACTER_MOVE_END, HandleMovementEnd);
         EventManager.Instance.Unsubscribe(GameEvent.TILE_SELECTED, HandleTileSelected);
     }
@@ -105,6 +105,7 @@ public class CharacterController : MonoBehaviour
 
     public void CharacterSelected()
     {
+        Debug.Log("Mouse on character");
         EventManager.Instance.Publish(GameEvent.INPUT_CHARACTER_SELECTED, new() { { "Character", character }});
     }
 }

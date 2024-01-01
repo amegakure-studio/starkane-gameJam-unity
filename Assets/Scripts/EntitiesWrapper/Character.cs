@@ -25,25 +25,25 @@ namespace Amegakure.Starkane.EntitiesWrapper
         public Entities.Character CharacterEntity { get => characterEntity; set => characterEntity = value; }
         public ActionState ActionState { get => actionState; set => actionState = value; }
         public string CharacterName { get => characterName; set => characterName = value; }
-        public List<Skill> Skills{get => skills; set => skills = value;}
+        public List<Skill> Skills { get => skills; set => skills = value; }
 
         public bool IsMoving { get => isMoving; private set => isMoving = value; }
 
-        public GridMovement GridMovement 
+        public GridMovement GridMovement
         {
-            get => gridMovement; 
-            set 
+            get => gridMovement;
+            set
             {
-                if(gridMovement != null)
+                if (gridMovement != null)
                 {
                     gridMovement.OnMovementStart -= OnMovementStart;
                     gridMovement.OnMovementEnd -= OnMovementEnd;
                 }
                 gridMovement = value;
-                
+
                 gridMovement.OnMovementStart += OnMovementStart;
                 gridMovement.OnMovementEnd += OnMovementEnd;
-            } 
+            }
         }
 
         private void Awake()
@@ -51,35 +51,61 @@ namespace Amegakure.Starkane.EntitiesWrapper
             gridManager = GameObject.FindObjectOfType<GridManager>();
         }
 
-        public Tile Location 
+        private void OnEnable()
+        {
+            EventManager.Instance.Subscribe(GameEvent.COMBAT_CHARACTER_DEAD, HandleCharacterDead);
+        }
+
+        public Tile Location
         {
             get => location;
-            set 
+            set
             {
                 if (location != null)
                     location.OccupyingObject = null;
-                    
+
                 location = value;
                 location.OccupyingObject = gameObject;
                 gameObject.transform.position = location.transform.position;
-            } 
+            }
         }
 
-        public CharacterState CharacterState 
-        { 
+        public void ResetLocation()
+        {
+            location.OccupyingObject = null;
+            location = null;
+        }
+
+        public CharacterState CharacterState
+        {
             get => characterState;
             set
             {
                 characterState = value;
                 Vector2 characterPos = new(checked((int)characterState.X), checked((int)characterState.Y));
                 this.Location = gridManager.WorldMap[characterPos];
-            } 
+            }
         }
 
         private void OnDisable()
         {
             gridMovement.OnMovementStart -= OnMovementStart;
             gridMovement.OnMovementEnd -= OnMovementEnd;
+            EventManager.Instance.Unsubscribe(GameEvent.COMBAT_CHARACTER_DEAD, HandleCharacterDead);
+        }
+
+        private void HandleCharacterDead(Dictionary<string, object> context)
+        {
+            try
+            {
+                Character characterDead = (Character)context["Character"];
+
+                if (characterDead.GetInstanceID() == this.GetInstanceID())
+                {
+                    ResetLocation();
+                }
+            }
+            catch { }
         }
 
         private void OnMovementStart(Tile tile)
@@ -92,14 +118,14 @@ namespace Amegakure.Starkane.EntitiesWrapper
         {
             Location = tile;
             isMoving = false;
-            EventManager.Instance.Publish(GameEvent.CHARACTER_MOVE_END, new() { { "Character", this } });        
+            EventManager.Instance.Publish(GameEvent.CHARACTER_MOVE_END, new() { { "Character", this } });
         }
 
 
         public void Move(Tile target)
         {
             if (!isMoving)
-                gridMovement.GoTo(location, target);           
+                gridMovement.GoTo(location, target);
         }
 
         public Frontier GetMovementFrontier()
@@ -109,12 +135,12 @@ namespace Amegakure.Starkane.EntitiesWrapper
 
         public int GetId()
         {
-            return (int) characterPlayerProgress.GetCharacterType();
+            return (int)characterPlayerProgress.GetCharacterType();
         }
 
         public int GetHp()
         {
-            return (int) characterState.Remain_hp;
+            return (int)characterState.Remain_hp;
         }
 
         public int GetMp()
@@ -129,17 +155,22 @@ namespace Amegakure.Starkane.EntitiesWrapper
 
         public float GetHpNormalized()
         {
-            return (float) GetHp() / (float) characterEntity.Hp;
+            return (float)GetHp() / (float)characterEntity.Hp;
         }
 
         public float GetMpNormalized()
         {
-            return (float) GetMp() / (float)characterEntity.Mp;
+            return (float)GetMp() / (float)characterEntity.Mp;
         }
 
         public System.Numerics.BigInteger GetPlayerId()
         {
             return this.CharacterPlayerProgress.getPlayerID();
+        }
+
+        public bool IsAlive()
+        {
+            return GetHpNormalized() > 0;
         }
     }
 }

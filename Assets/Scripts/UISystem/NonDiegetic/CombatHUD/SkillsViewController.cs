@@ -75,27 +75,27 @@ public class SkillsViewController : MonoBehaviour
             if (!target.IsMovementTile)
             {
                 GameObject occupyingObjectGo = target.OccupyingObject;
-                
-                if(occupyingObjectGo != null)
+
+                if (occupyingObjectGo != null)
                 {
                     Character characterReceiver = occupyingObjectGo.GetComponent<Character>();
-                    if(characterReceiver != null)
+                    if (characterReceiver != null)
                     {
                         BigInteger playerIdReceiver = characterReceiver.GetPlayerId();
                         combat = GetCombat();
 
                         Player playerReceiver = combat.GetPlayerByID(playerIdReceiver);
                         combat.DoSkill(player, characterSelected, skillSelected, playerReceiver, characterReceiver);
-                        
+
                         List<Tile> tilesToReset = skillSelected.GetFrontier(characterSelected.Location).Tiles;
-                        EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET, new() { { "Tiles", tilesToReset} });
+                        EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET, new() { { "Tiles", tilesToReset } });
 
                         foreach (Skill skill in skillsDict.Keys)
                         {
                             VisualElement skillVe = skillsDict[skill];
                             skillVe.Q<VisualElement>("Icon").AddToClassList("disabled");
                             skillVe.Q<Button>().SetEnabled(false);
-                        }  
+                        }
                     }
                 }
             }
@@ -111,11 +111,16 @@ public class SkillsViewController : MonoBehaviour
 
             combat = GetCombat();
 
-            Character character = combat.GetCharacters(player)[0];
-            characterSelected = character;
-            ShowSkills(character.Skills, character);
+            List<Character> playerCharacters = combat.GetCharacters(player);
+            Character character = playerCharacters.Find(pc => pc.IsAlive());
+            if (character != null)
+            {
+                characterSelected = character;
+                ShowSkills(character.Skills, character);
 
-            skillContainer.style.visibility = playerTurn == player ? Visibility.Visible : Visibility.Hidden;
+                skillContainer.style.visibility = playerTurn == player ? Visibility.Visible : Visibility.Hidden;
+            }
+
         }
         catch (Exception e) { Debug.LogException(e); }
     }
@@ -128,7 +133,7 @@ public class SkillsViewController : MonoBehaviour
         skillsDict.Clear();
 
         List<VisualElement> skillVeContainers = skillContainer.Children().ToList();
-      
+
         ClearSkillContainers(skillVeContainers);
 
         for (int i = 0; i < Math.Min(characterSelected.Skills.Count, skillVeContainers.Count); i++)
@@ -141,9 +146,9 @@ public class SkillsViewController : MonoBehaviour
 
             Button skillBtn = skillVe.Q<Button>();
             skillVe.Q<VisualElement>("Icon").RemoveFromClassList("disabled");
-            skillBtn.SetEnabled(true);     
+            skillBtn.SetEnabled(true);
             skillBtn.clicked += () => SelectSkill(skillSelected);
-            
+
             skillBtns.Add(skillBtn, skillSelected);
 
             combat = GetCombat();
@@ -177,7 +182,7 @@ public class SkillsViewController : MonoBehaviour
             tilesToReset.AddRange(skillSelected.GetFrontier(characterSelected.Location).Tiles);
 
         EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET, new() { { "Tiles", tilesToReset } });
-       
+
         skillSelected = skill;
 
         EventManager.Instance.Publish(GameEvent.FRONTIER_UPDATED, new() { { "Frontier", skillSelected.GetFrontier(characterSelected.Location) } });

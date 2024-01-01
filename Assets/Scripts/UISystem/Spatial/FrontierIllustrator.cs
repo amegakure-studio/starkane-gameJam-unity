@@ -66,14 +66,22 @@ namespace Amegakure.Starkane.UI.Spatial
         {
             try
             {
-                tileRenderer.ClearColor(gridManager.TilesInMap);
+                if(gridManager == null)
+                    gridManager = FindAnyObjectByType<GridManager>();
+                
+                List<Tile> tiles = gridManager.TilesInMap;
+                tileRenderer.ClearColor(tiles);
                 
                 Character character = (Character)context["Character"];
                 Frontier frontier  = character.GetMovementFrontier();
 
                 this.IllustrateFrontier(frontier);
             }
-            catch { }
+            catch(Exception e)
+            { 
+                Debug.Log("Error at handling character selected");
+                Debug.LogError(e);
+            }
         }
 
         private void HandlePathFrontiersReset(Dictionary<string, object> context)

@@ -80,10 +80,11 @@ public class CharactersViewController : MonoBehaviour
 
             charactersTurn = combat.GetCharacters(playerTurn);
 
-            Debug.Log("Character in battle for player: " + player.PlayerName + ", " + charactersTurn.Count);
+            // Debug.Log("Character in battle for player: " + player.PlayerName + ", " + charactersTurn.Count);
 
             ShowCharacters(charactersTurn, playerTurn);
-            SelectCharacter(charactersTurn[0]);
+            Character character = charactersTurn.Find( ct => ct.IsAlive());
+            SelectCharacter(character);
         }
         catch (Exception e) { Debug.LogException(e); }
     }
@@ -108,9 +109,12 @@ public class CharactersViewController : MonoBehaviour
             if (player == playerTurn)
             {
                 Button characterBtn = characterVe.Q<Button>();
-                characterBtn.SetEnabled(true);
+                if(selected.GetHpNormalized() > 0)
+                    characterBtn.SetEnabled(true);
+                else
+                    characterBtn.SetEnabled(false);
 
-                Debug.Log("Character name: " + selected.CharacterName);
+                // Debug.Log("Character name: " + selected.CharacterName);
                 characterBtn.clicked += () =>  SelectCharacter(selected);
                 characterBtns.Add(characterBtn);
             }
@@ -118,7 +122,7 @@ public class CharactersViewController : MonoBehaviour
             characterVeDict.Add(characters[i], characterVe);
             // charactersContainer.Add(characterVe);
         }
-        Debug.Log("Container elements: " + characterVeDict.Keys.Count);
+        // Debug.Log("Container elements: " + characterVeDict.Keys.Count);
     }
 
     private void ClearCharacterContainers(List<VisualElement> characterVeContainers)

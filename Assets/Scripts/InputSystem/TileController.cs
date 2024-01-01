@@ -41,7 +41,8 @@ namespace Amegakure.Starkane.InputSystem
             {
                 characterSelected = (Character)dictionary["Character"];
 
-            } catch{}
+            }
+            catch { }
         }
 
         private void OnMouseOver()
@@ -58,7 +59,7 @@ namespace Amegakure.Starkane.InputSystem
                     tileRenderer.SetActiveTiles(new() { tile });
                 else
                     tileRenderer.ClearColor(new() { tile });
-            }       
+            }
         }
 
         private void OnMouseDown()
@@ -67,26 +68,36 @@ namespace Amegakure.Starkane.InputSystem
             {
                 if (tile.IsMovementTile)
                 {
-                    if(combat == null)
+                    if (combat == null)
                         combat = GameObject.FindAnyObjectByType<Combat>();
 
-                    Player player = combat.GetPlayerByID(characterSelected.GetPlayerId());
-
-                    Debug.Log("Character selected when selecting tile: " + characterSelected.CharacterName);
-                    if (combat.CanMove(characterSelected, player))
+                    if (combat != null)
                     {
-                        Dictionary<string, object> context = new(){ { "Tile", tile } };
+                        Player player = combat.GetPlayerByID(characterSelected.GetPlayerId());
+
+                        Debug.Log("Character selected when selecting tile: " + characterSelected.CharacterName);
+                        if (combat.CanMove(characterSelected, player))
+                        {
+                            Dictionary<string, object> context = new() { { "Tile", tile } };
+                            EventManager.Instance.Publish(GameEvent.TILE_SELECTED, context);
+                        }
+                    }
+                    else
+                    {
+                        Dictionary<string, object> context = new() { { "Tile", tile } };
+
                         EventManager.Instance.Publish(GameEvent.TILE_SELECTED, context);
                     }
+
                 }
-                
+
                 else
                 {
-                    Dictionary<string, object> context = new(){ { "Tile", tile } };
+                    Dictionary<string, object> context = new() { { "Tile", tile } };
 
                     EventManager.Instance.Publish(GameEvent.TILE_SELECTED, context);
                 }
-                
+
             }
         }
     }

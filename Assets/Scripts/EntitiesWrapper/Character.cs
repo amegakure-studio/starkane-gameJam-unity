@@ -99,6 +99,7 @@ namespace Amegakure.Starkane.EntitiesWrapper
             try
             {
                 Character characterDead = (Character)context["Character"];
+                Debug.Log("!-!-! Character dead: " + characterDead.CharacterName);
 
                 if (characterDead.GetInstanceID() == this.GetInstanceID())
                 {

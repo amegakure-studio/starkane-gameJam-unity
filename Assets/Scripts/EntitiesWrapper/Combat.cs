@@ -100,12 +100,22 @@ public class Combat : MonoBehaviour
 
         List<CharacterState> currentCharacterStates = characterStates[player];
         currentCharacterStates.Add(characterState);
+        characterState.OnDead += HandleOnDead;
 
         if (!character.IsAlive())
             EventManager.Instance.Publish(GameEvent.COMBAT_CHARACTER_DEAD, new() { { "Character", character } });
         // character.ResetLocation();
+    }
 
-
+    private void HandleOnDead(CharacterState state)
+    {
+        Player player = GetPlayerByID(state.Player_id);
+        if(player != null)
+        {
+            Character character = playerMatchCharacters[player].Find(pmc => pmc.CharacterState.GetInstanceID() == state.GetInstanceID());;
+            if(character != null)
+                EventManager.Instance.Publish(GameEvent.COMBAT_CHARACTER_DEAD, new() { { "Character", character } });
+        }
     }
 
     public void Move(Character character, Player player, Tile target)

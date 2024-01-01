@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 
 public class LoadingScreenController : MonoBehaviour
 {
+    [SerializeField] Sprite[] loadingBgs;
+
     private VisualElement container;
 
     private void Start()
@@ -18,22 +20,25 @@ public class LoadingScreenController : MonoBehaviour
     private void OnEnable()
     {
         EventManager.Instance.Subscribe(GameEvent.GAME_LOADING_START, HandleGameLoadingStart);
-        EventManager.Instance.Subscribe(GameEvent.GAME_LOADING_END, HandleGameLoadingEnd);
     }
 
     private void OnDisable()
     {
         EventManager.Instance.Unsubscribe(GameEvent.GAME_LOADING_START, HandleGameLoadingStart);
-        EventManager.Instance.Unsubscribe(GameEvent.GAME_LOADING_END, HandleGameLoadingEnd);
     }
 
     private void HandleGameLoadingStart(Dictionary<string, object> context)
     {
+        try
+        {
+            int bgIndex = UnityEngine.Random.Range(0, loadingBgs.Length);
+            Sprite sprite = loadingBgs[bgIndex];
+
+            container.style.backgroundImage = new StyleBackground(sprite);
+
+        } catch { }
+        
         container?.RemoveFromClassList("hidden");
     }
 
-    private void HandleGameLoadingEnd(Dictionary<string, object> context)
-    {
-        container?.AddToClassList("hidden");
-    }
 }

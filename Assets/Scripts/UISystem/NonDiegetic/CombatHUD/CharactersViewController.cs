@@ -108,7 +108,10 @@ public class CharactersViewController : MonoBehaviour
             if (player == playerTurn)
             {
                 Button characterBtn = characterVe.Q<Button>();
-                characterBtn.SetEnabled(true);
+                if(selected.GetHpNormalized() > 0)
+                    characterBtn.SetEnabled(true);
+                else
+                    characterBtn.SetEnabled(false);
 
                 Debug.Log("Character name: " + selected.CharacterName);
                 characterBtn.clicked += () =>  SelectCharacter(selected);

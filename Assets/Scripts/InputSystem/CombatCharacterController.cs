@@ -72,7 +72,7 @@ namespace Amegakure.Starkane.InputSystem
         {
             try
             {
-                if (canInteract && combat.CanMove(character, player))
+                if (canInteract && combat.CanMove(character, player) && character.IsAlive())
                 {
                     if (characterSelected.GetInstanceID() == character.GetInstanceID())
                     {
@@ -87,19 +87,20 @@ namespace Amegakure.Starkane.InputSystem
 
         private void OnMouseEnter()
         {
-            if (!clicked && canInteract && combat.CanMove(character, player))
+            if (!clicked && canInteract && combat.CanMove(character, player) && character.IsAlive())
                 CharacterHoverEnter();
         }
 
         private void OnMouseExit()
         {
-            if (!clicked && combat.CanMove(character, player))
+            if (!clicked && combat.CanMove(character, player) && character.IsAlive())
                 CharacterHoverExit();
         }
 
+
         private void OnMouseDown()
         {
-            if (canInteract && combat.CanMove(character, player))
+            if (canInteract && combat.CanMove(character, player) && character.IsAlive() )
             {
                 if (!clicked)
                 {

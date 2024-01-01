@@ -113,7 +113,7 @@ public class Combat : MonoBehaviour
     {
         Debug.Log("Move: " + player.PlayerName + "With: " + character.CharacterName
                     + "To: " + target.coordinate.ToString());
-                    
+
         string rpcUrl = "http://localhost:5050";
 
         var provider = new JsonRpcClient(rpcUrl);
@@ -238,7 +238,7 @@ public class Combat : MonoBehaviour
     public void DoSkill(Player playerFrom, Character characterFrom,
                             Skill skill, Player playerReceiver, Character characterReceiver)
     {
-        if (CanDoSkill(playerFrom, characterFrom, skill))
+        if (CanDoSkill(playerFrom, characterFrom, skill) && characterReceiver.IsAlive())
         {
             CallSkillTX(playerFrom, characterFrom, skill, playerReceiver, characterReceiver);
 
@@ -251,7 +251,11 @@ public class Combat : MonoBehaviour
                 { "PlayerReceiver", playerReceiver },
                 { "CharacterReceiver", characterReceiver }
             };
+            
             EventManager.Instance.Publish(GameEvent.COMBAT_SKILL_DONE, context);
+
+            if(!characterReceiver.IsAlive())
+                EventManager.Instance.Publish(GameEvent.COMBAT_CHARACTER_DEAD, new(){ {"Character", characterReceiver} });
         }
     }
 

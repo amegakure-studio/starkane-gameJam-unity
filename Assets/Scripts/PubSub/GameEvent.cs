@@ -19,6 +19,7 @@ namespace Amegakure.Starkane.PubSub
         INPUT_CHARACTER_UNHOVER,
         CUTSCENE_COMBAT_START,
         CUTSCENE_COMBAT_END,
-        COMBAT_VICTORY
+        COMBAT_VICTORY,
+        COMBAT_CHARACTER_DEAD
     }
 }

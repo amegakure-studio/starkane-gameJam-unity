@@ -109258,6 +109258,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: a9eba6f2b03555744b875e7c1ca86bc0, type: 2}
     - {fileID: 11400000, guid: 296becda504d16149b0ea035198671b9, type: 2}
     - {fileID: 11400000, guid: ceb528c940a305943acb89bdf5294d5b, type: 2}
+    - {fileID: 11400000, guid: 98f958c195e3d9244aea8e868ba1aa34, type: 2}
+    - {fileID: 11400000, guid: 6c24dc96aefdd6edc890476a1179615c, type: 2}
+    - {fileID: 11400000, guid: 79ff03f5f7ebda0a3bf24be477a15ac9, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -109299,6 +109302,48 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: ReceiveDamage
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8025840476279851820}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Dismiss
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8025840476279851820}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: ChallengeCombat
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8025840476279851820}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: SetTrigger
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: StopWalking
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!4 &4143786334582018390 stripped

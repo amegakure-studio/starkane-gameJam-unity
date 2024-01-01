@@ -146,15 +146,10 @@ public class LoginController : MonoBehaviour
 
     private void CallCreatePlayerTx(string playerId)
     {
-        string rpcUrl = "http://localhost:5050";
-
-        var provider = new JsonRpcClient(rpcUrl);
-        var signer = new SigningKey("0x1800000000300000180000000000030000000000003006001800006600");
-        string playerAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
-
-        var account = new Account(provider, signer, playerAddress);
-        string actionsAddress = "0x57a6556e89380b76465e525c725d8ed065a03b47fb9a4c9b676a1afea8177c5";
-
+        DojoTxConfig dojoTxConfig = GameObject.FindAnyObjectByType<DojoTxConfig>();
+        var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
+        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
+        
         var character_id = dojo.felt_from_hex_be(new CString("0x03")).ok;
         var player_id = dojo.felt_from_hex_be(new CString(playerId)).ok;
 
@@ -166,7 +161,7 @@ public class LoginController : MonoBehaviour
                         player_id,
                         dojo.felt_from_hex_be(new CString("0x01")).ok
             },
-            to = actionsAddress,
+            to = dojoTxConfig.CharacterSystemActionAddress,
             selector = "mint"
         };
 

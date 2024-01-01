@@ -10,8 +10,12 @@ namespace Dojo
     public class WorldManager : MonoBehaviour
     {
         [Header("RPC")]
-        public string toriiUrl = "http://localhost:8080";
-        public string rpcUrl = "http://localhost:5050";
+        public string toriiUrl;
+        public string rpcUrl;
+        // https://api.cartridge.gg/x/starkane/torii/grpc
+        //public string toriiUrl = "http://localhost:8080";
+        // https://api.cartridge.gg/x/starkane/katana
+        // public string rpcUrl = "http://localhost:5050";
         [Header("World")]
         public string worldAddress;
         public SynchronizationMaster synchronizationMaster;

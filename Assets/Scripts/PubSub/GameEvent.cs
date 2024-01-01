@@ -20,6 +20,8 @@ namespace Amegakure.Starkane.PubSub
         CUTSCENE_COMBAT_START,
         CUTSCENE_COMBAT_END,
         COMBAT_VICTORY,
-        COMBAT_CHARACTER_DEAD
+        COMBAT_CHARACTER_DEAD,
+        GAME_LOADING_START,
+        GAME_LOADING_END
     }
 }

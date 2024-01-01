@@ -66,6 +66,8 @@ namespace Amegakure.Starkane.UI.Spatial
         {
             try
             {
+                tileRenderer.ClearColor(gridManager.TilesInMap);
+                
                 Character character = (Character)context["Character"];
                 Frontier frontier  = character.GetMovementFrontier();
 

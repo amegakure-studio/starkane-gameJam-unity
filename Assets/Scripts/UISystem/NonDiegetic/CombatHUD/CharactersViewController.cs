@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class CharactersViewController : MonoBehaviour
 {
     [SerializeField] VisualTreeAsset characterUIAsset;
-    
+
     private readonly string characterIconsFolder = "UI/Characters/";
     private VisualElement root;
     private List<Button> characterBtns;
@@ -60,7 +60,7 @@ public class CharactersViewController : MonoBehaviour
     {
         if (player != null)
         {
-            foreach(Character character in player.Characters)
+            foreach (Character character in player.Characters)
             {
                 VisualElement characterVe = characterVeDict[character];
                 characterVe.Q<VisualElement>("Hp").Q<VisualElement>("Overlay").style.width = Length.Percent(character.GetHpNormalized() * 100);
@@ -74,11 +74,13 @@ public class CharactersViewController : MonoBehaviour
         try
         {
             Player playerTurn = (Player)context["Player"];
-            
-            if(combat == null)
-                    combat = GameObject.FindAnyObjectByType<Combat>();
+
+            if (combat == null)
+                combat = GameObject.FindAnyObjectByType<Combat>();
 
             charactersTurn = combat.GetCharacters(playerTurn);
+
+            Debug.Log("Character in battle for player: " + player.PlayerName + ", " + charactersTurn.Count);
 
             ShowCharacters(charactersTurn, playerTurn);
             SelectCharacter(charactersTurn[0]);
@@ -96,24 +98,35 @@ public class CharactersViewController : MonoBehaviour
 
         for (int i = 0; i < Math.Min(characters.Count, characterVeContainers.Count); i++)
         {
+            Character selected = characters[i];
             VisualElement characterVe = charactersContainer[i];
             characterVe.Q<VisualElement>("Icon").style.backgroundImage = FindCharacterIcon(characters[i]);
-            characterVe.Q<VisualElement>("Hp").Q<VisualElement>("Overlay").style.width = Length.Percent(characters[i].GetHpNormalized() * 100);
-            characterVe.Q<VisualElement>("Mp").Q<VisualElement>("Overlay").style.width = Length.Percent(characters[i].GetMpNormalized() * 100);
+            // characterVe.Q<VisualElement>("Hp").Q<VisualElement>("Overlay").style.width = Length.Percent(characters[i].GetHpNormalized() * 100);
+            // characterVe.Q<VisualElement>("Mp").Q<VisualElement>("Overlay").style.width = Length.Percent(characters[i].GetMpNormalized() * 100);
             characterVe.RemoveFromClassList("invisible");
 
-            if (player == playerTurn)
-            {
-                Button characterBtn = characterVe.Q<Button>();
-                characterBtn.SetEnabled(true);
-                Character selected = characters[i];
-                characterBtn.clicked += () =>  SelectCharacter(selected);
-                characterBtns.Add(characterBtn);
-            }
+            Button characterBtn = characterVe.Q<Button>();
+            characterBtn.SetEnabled(true);
+            
+            Debug.Log("Character name: " + selected.CharacterName);
+            characterBtn.clicked += () => SelectCharacter(selected);
+            characterBtns.Add(characterBtn);
+
+            // if (player == playerTurn)
+            // {
+            //     Button characterBtn = characterVe.Q<Button>();
+            //     characterBtn.SetEnabled(true);
+
+            //     Character selected = characters[i];
+            //     Debug.Log("Character name: " + selected.CharacterName);
+            //     characterBtn.clicked += () =>  SelectCharacter(selected);
+            //     characterBtns.Add(characterBtn);
+            // }
 
             characterVeDict.Add(characters[i], characterVe);
-            charactersContainer.Add(characterVe);
+            // charactersContainer.Add(characterVe);
         }
+        Debug.Log("Container elements: " + characterVeDict.Keys.Count);
     }
 
     private void ClearCharacterContainers(List<VisualElement> characterVeContainers)
@@ -122,30 +135,31 @@ public class CharactersViewController : MonoBehaviour
         characterVeContainers.ForEach(characterVe => characterVe.Q<Button>().SetEnabled(false));
     }
 
-    private StyleBackground FindCharacterIcon(Character character) 
+    private StyleBackground FindCharacterIcon(Character character)
     {
         if (!characterIconDict.ContainsKey(character.CharacterName))
-        {         
+        {
             Sprite sprite = Resources.Load<Sprite>(characterIconsFolder + character.CharacterName);
-           
-            StyleBackground styleBackground = new (sprite);
+
+            StyleBackground styleBackground = new(sprite);
             characterIconDict.Add(character.CharacterName, styleBackground);
 
             return styleBackground;
         }
-        
-        else return characterIconDict[character.CharacterName];        
+
+        else return characterIconDict[character.CharacterName];
     }
 
     private void SelectCharacter(Character character)
     {
-        
+        Debug.Log("Character Selected: " + character.CharacterName);
+
         if (combat.CanMove(character, player))
         {
             // Debug.Log("character selected: " + character.CharacterName);
             EventManager.Instance.Publish(GameEvent.INPUT_CHARACTER_SELECTED,
                     new Dictionary<string, object>() { { "Character", character } });
-        }        
+        }
     }
 
     private void UnregisterBtns(List<Button> btns)

@@ -273,7 +273,8 @@ namespace Amegakure.Starkane.CinematicSystem
             {
                 calldata = new[]
                 {
-                   dojo.felt_from_hex_be(new CString("0x02")).ok, player_id, character_id,
+                   dojo.felt_from_hex_be(new CString("0x03")).ok, player_id, character_id,
+                   player_id, dojo.felt_from_hex_be(new CString("0x03")).ok, 
                    adversary_id, adversary_character_id
                 },
                 to = actionsAddress,

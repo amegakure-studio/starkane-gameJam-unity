@@ -58,6 +58,11 @@ namespace Amegakure.Starkane.VfxSystem
         {
             try
             {
+                foreach(Character charactervfx in vfxSelectCharacterMap.Keys)
+                {
+                    RemoveVfxInteract(charactervfx);
+                }
+                
                 Character character = (Character)context["Character"];
 
                 AddVfxInteract(character);

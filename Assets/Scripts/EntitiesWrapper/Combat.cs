@@ -19,6 +19,7 @@ public class Combat : MonoBehaviour
     private Dictionary<Player, List<Character>> playerMatchCharacters = new();
     private Dictionary<Player, List<ActionState>> actionStates = new();
     private Dictionary<Player, List<CharacterState>> characterStates = new();
+    private DojoTxConfig dojoTxConfig;
 
     public MatchState MatchState
     {
@@ -40,16 +41,17 @@ public class Combat : MonoBehaviour
         playerMatchCharacters = new();
         actionStates = new();
         characterStates = new();
+        dojoTxConfig = GameObject.FindAnyObjectByType<DojoTxConfig>();
     }
 
     private void Start()
     {
         BigInteger playerId = matchState.PlayerTurnId;
-        Debug.Log("Match turn playerID:" + playerId);
-        foreach (Player player in playerMatchCharacters.Keys)
-        {
-            Debug.Log("ID in dict: " + player.Id);
-        }
+        // Debug.Log("Match turn playerID:" + playerId);
+        // foreach (Player player in playerMatchCharacters.Keys)
+        // {
+        //     Debug.Log("ID in dict: " + player.Id);
+        // }
         Player playerTurn = playerMatchCharacters.Keys.First(p => p.Id.Equals(playerId));
 
         EventManager.Instance.Publish(GameEvent.COMBAT_TURN_CHANGED, new() { { "Player", playerTurn } });
@@ -98,12 +100,22 @@ public class Combat : MonoBehaviour
 
         List<CharacterState> currentCharacterStates = characterStates[player];
         currentCharacterStates.Add(characterState);
+        characterState.OnDead += HandleOnDead;
 
         if (!character.IsAlive())
             EventManager.Instance.Publish(GameEvent.COMBAT_CHARACTER_DEAD, new() { { "Character", character } });
         // character.ResetLocation();
+    }
 
-
+    private void HandleOnDead(CharacterState state)
+    {
+        Player player = GetPlayerByID(state.Player_id);
+        if(player != null)
+        {
+            Character character = playerMatchCharacters[player].Find(pmc => pmc.CharacterState.GetInstanceID() == state.GetInstanceID());;
+            if(character != null)
+                EventManager.Instance.Publish(GameEvent.COMBAT_CHARACTER_DEAD, new() { { "Character", character } });
+        }
     }
 
     public void Move(Character character, Player player, Tile target)
@@ -117,17 +129,12 @@ public class Combat : MonoBehaviour
 
     private void CallMoveTx(Character character, Player player, Tile target)
     {
-        Debug.Log("Move: " + player.PlayerName + "With: " + character.CharacterName
-                    + "To: " + target.coordinate.ToString());
-
-        string rpcUrl = "http://localhost:5050";
-
-        var provider = new JsonRpcClient(rpcUrl);
-        var signer = new SigningKey("0x1800000000300000180000000000030000000000003006001800006600");
-        string playerAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
-
-        var account = new Account(provider, signer, playerAddress);
-        string actionsAddress = "0xf95f269a39505092b2d4eea3268e2e8da83cfd12a20b0eceb505044ecaabf2";
+        // Debug.Log("Move: " + player.PlayerName + "With: " + character.CharacterName
+        //             + "To: " + target.coordinate.ToString());
+        
+        
+        var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
+        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
 
         string match_id_string = matchState.Id.ToString("X");
         var match_id = dojo.felt_from_hex_be(new CString(match_id_string)).ok;
@@ -150,7 +157,7 @@ public class Combat : MonoBehaviour
             {
                    match_id, player_id, character_id, x, y
                 },
-            to = actionsAddress,
+            to = dojoTxConfig.MoveSystemActionAddress,
             selector = "move"
         };
 
@@ -160,14 +167,8 @@ public class Combat : MonoBehaviour
     public void CallEndTurnTX(Player player)
     {
         //TODO: check if player == playerTurn
-        string rpcUrl = "http://localhost:5050";
-
-        var provider = new JsonRpcClient(rpcUrl);
-        var signer = new SigningKey("0x1800000000300000180000000000030000000000003006001800006600");
-        string playerAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
-
-        var account = new Account(provider, signer, playerAddress);
-        string actionsAddress = "0x61231db30a04f42b3c3e57cd13b0dee6053f8ed7c350135735e67c254b60454";
+        var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
+        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
 
         List<dojo.FieldElement> calldata = new List<dojo.FieldElement>();
 
@@ -183,7 +184,7 @@ public class Combat : MonoBehaviour
             {
                    match_id, player_id
                 },
-            to = actionsAddress,
+            to = dojoTxConfig.TurnSystemActionAddress,
             selector = "end_turn"
         };
 
@@ -268,15 +269,8 @@ public class Combat : MonoBehaviour
     private void CallSkillTX(Player playerFrom, Character characterFrom,
                             Skill skill, Player playerReceiver, Character characterReceiver)
     {
-        string rpcUrl = "http://localhost:5050";
-
-        var provider = new JsonRpcClient(rpcUrl);
-        var signer = new SigningKey("0x1800000000300000180000000000030000000000003006001800006600");
-        string playerAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
-
-        var account = new Account(provider, signer, playerAddress);
-        string actionsAddress = "0x68705e426f391541eb50797796e5e71ee3033789d82a8c801830bb191aa3bf1";
-
+        var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
+        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
 
         List<dojo.FieldElement> calldata = new List<dojo.FieldElement>();
 
@@ -308,7 +302,7 @@ public class Combat : MonoBehaviour
                    match_id, player_id_from, character_id_from, skill_id, level,
                    player_id_receiver, character_id_receiver
                 },
-            to = actionsAddress,
+            to = dojoTxConfig.ActionSystemActionAddress,
             selector = "action"
         };
 
@@ -321,11 +315,15 @@ public class Combat : MonoBehaviour
 
         if (playerRegistered)
         {
+            // Debug.Log("Player name: " + player.PlayerName);
             ActionState playerActionState = GetActionState(player, character);
             CharacterState playerCharacterState = GetCharacterState(player, character);
+            // Debug.Log("Character using: " + character.CharacterName);
 
             bool skillPerformed = playerActionState.Action;
             bool enoughMana = playerCharacterState.Remain_mp >= skillSelected.Mp_cost;
+            // Debug.Log(" skillPerformed " + skillPerformed);
+            // Debug.Log("enoughMana " + enoughMana);
 
             return !skillPerformed && enoughMana;
         }

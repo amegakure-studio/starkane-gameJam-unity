@@ -69,7 +69,7 @@ namespace Amegakure.Starkane.CinematicSystem
                     playerHash.Append("enemy");
                     string adversaryId = playerHash.ToString();
                     
-                    Debug.Log("Enemy hash: "+ adversaryId);
+                    // Debug.Log("Enemy hash: "+ adversaryId);
                     int adversaryCharacterId = 4;
 
                     this.LoadOrCreateMatch(playerMatchId, playerCharacterId,
@@ -248,14 +248,9 @@ namespace Amegakure.Starkane.CinematicSystem
         private void CallCreateMatchTX(BigInteger playerId, int playerCharacterId,
                                     string adversayId, int adversayCharacterId)
         {
-            string rpcUrl = "http://localhost:5050";
-
-            var provider = new JsonRpcClient(rpcUrl);
-            var signer = new SigningKey("0x1800000000300000180000000000030000000000003006001800006600");
-            string playerAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
-
-            var account = new Account(provider, signer, playerAddress);
-            string actionsAddress = "0x2d4efd349d469a05680cb7f1186024b8d95c33bd11563de07fe687ddcbfa483";
+            DojoTxConfig dojoTxConfig = GameObject.FindAnyObjectByType<DojoTxConfig>();
+            var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
+            var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
             
             string playerIdString =  playerId.ToString("X");
             var player_id = dojo.felt_from_hex_be(new CString(playerIdString)).ok;
@@ -271,18 +266,25 @@ namespace Amegakure.Starkane.CinematicSystem
             
             dojo.Call call = new dojo.Call()
             {
+                // calldata = new[]
+                // {
+                //    dojo.felt_from_hex_be(new CString("0x03")).ok, player_id, character_id,
+                //    player_id, dojo.felt_from_hex_be(new CString("0x03")).ok, 
+                //    adversary_id, adversary_character_id
+                // },
                 calldata = new[]
                 {
-                   dojo.felt_from_hex_be(new CString("0x03")).ok, player_id, character_id,
-                   player_id, dojo.felt_from_hex_be(new CString("0x03")).ok, 
-                   adversary_id, adversary_character_id
+                   dojo.felt_from_hex_be(new CString("0x04")).ok,
+                   player_id, character_id,
+                   player_id, dojo.felt_from_hex_be(new CString("0x01")).ok, 
+                   adversary_id, adversary_character_id,
+                   adversary_id, dojo.felt_from_hex_be(new CString("0x06")).ok
                 },
-                to = actionsAddress,
+                to = dojoTxConfig.MatchSystemActionAddress,
                 selector = "init"
             };
     
             account.ExecuteRaw(new[] { call });
-            
         }
 
         public void LoadOrCreateMatch(BigInteger playerId, int playerCharacterId,

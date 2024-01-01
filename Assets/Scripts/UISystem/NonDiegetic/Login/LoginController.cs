@@ -38,39 +38,56 @@ public class LoginController : MonoBehaviour
         if (!string.IsNullOrWhiteSpace(username) &&
            !string.IsNullOrWhiteSpace(password))
         {
-            Debug.Log(username + " : " + password);
-            
+            // Debug.Log(username + " : " + password);
+
             var playerHash = new Hash128();
             playerHash.Append(username);
             playerHash.Append(password);
-            
+
             string playerId = playerHash.ToString();
-            
-            Debug.Log("HASH: " + playerId);
+
+            // Debug.Log("HASH: " + playerId);
 
             Session session = CreateSessionObj();
             Player sessionPlayer = FindSessionPlayer(username, playerId, session.gameObject);
             if (sessionPlayer != null)
             {
                 session.Player = sessionPlayer;
+                StartCoroutine(nameof(LoadAsyncScene));
             }
             else
             {
                 Player player = CreatePlayer(username, playerId, session.gameObject);
                 session.Player = player;
-                
+
                 try
                 {
-                    CallCreatePlayerTx(playerId);
+                    StartCoroutine(nameof(MintCoroutine), playerId);
                 }
                 catch (Exception e)
                 {
                     Debug.LogError("Can't log-in: " + e);
                 }
             }
-            
+
+        }
+    }
+
+    IEnumerator MintCoroutine(string playerId)
+    {
+        CallCreatePlayerTx(playerId, "0x03");
+        Debug.Log("Mint");
+
+        yield return new WaitForSeconds(2);
+        Debug.Log("2-Mint");
+        try
+        {
+            CallCreatePlayerTx(playerId, "0x01");
             StartCoroutine(nameof(LoadAsyncScene));
         }
+        catch{}
+        
+        yield return null;
     }
 
     IEnumerator LoadAsyncScene()
@@ -90,7 +107,7 @@ public class LoginController : MonoBehaviour
         var hexString = BitConverter.ToString(player_id.data.ToArray()).Replace("-", "").ToLower();
         BigInteger intID = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
 
-        Debug.Log("!!HASH BIN: " + intID);
+        // Debug.Log("!!HASH BIN: " + intID);
 
         Player player = sessionGo.AddComponent<Player>();
         player.Id = intID;
@@ -118,44 +135,61 @@ public class LoginController : MonoBehaviour
 
         var hexString = BitConverter.ToString(player_id.data.ToArray()).Replace("-", "").ToLower();
         BigInteger intID = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
-        Debug.Log("Bing Int ID: " + intID);
+        // Debug.Log("Bing Int ID: " + intID);
 
+        List<CharacterPlayerProgress> characterPlayerProgresses = GetCharacterPlayerProgressesFromPlayerId(intID);
+        if (characterPlayerProgresses.Count > 0)
+        {
+
+            CharacterPlayerProgress defaultCharacterPlayerProgress = GetDefaultCharacter(characterPlayerProgresses, CharacterType.Warrior);
+
+            if (defaultCharacterPlayerProgress == null)
+                defaultCharacterPlayerProgress = characterPlayerProgresses[0];
+
+            Player player = sessionGo.AddComponent<Player>();
+            player.Id = intID;
+            player.SetDojoId(defaultCharacterPlayerProgress.Owner);
+            player.PlayerName = sessionPlayername;
+            player.DefaultCharacter = defaultCharacterPlayerProgress.GetCharacterType();
+            Debug.Log("Session player Found!!");
+            return player;
+        }
+
+        return null;
+    }
+
+    private CharacterPlayerProgress GetDefaultCharacter(List<CharacterPlayerProgress> characterPlayerProgresses, CharacterType warrior)
+    {
+        return characterPlayerProgresses.Find(cp => cp.GetCharacterType() == warrior);
+    }
+
+    private List<CharacterPlayerProgress> GetCharacterPlayerProgressesFromPlayerId(BigInteger intID)
+    {
+        List<CharacterPlayerProgress> players = new();
         GameObject[] entities = worldManager.Entities();
-
         foreach (GameObject go in entities)
         {
             CharacterPlayerProgress characterPlayerProgress = go.GetComponent<CharacterPlayerProgress>();
             if (characterPlayerProgress != null)
             {
                 bool res = characterPlayerProgress.getPlayerID().Equals(intID);
+
                 if (res)
-                {
-                    Player player = sessionGo.AddComponent<Player>();
-                    player.Id = intID;
-                    player.SetDojoId(characterPlayerProgress.Owner);
-                    player.PlayerName = sessionPlayername;
-                    player.DefaultCharacter = characterPlayerProgress.GetCharacterType();
-                    Debug.Log("Session player Found!!");
-                    return player;
-                }
+                    players.Add(characterPlayerProgress);
             }
         }
 
-        return null;
+        return players;
+
     }
 
-    private void CallCreatePlayerTx(string playerId)
+    private void CallCreatePlayerTx(string playerId, string characterId)
     {
-        string rpcUrl = "http://localhost:5050";
+        DojoTxConfig dojoTxConfig = GameObject.FindAnyObjectByType<DojoTxConfig>();
+        var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
+        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
 
-        var provider = new JsonRpcClient(rpcUrl);
-        var signer = new SigningKey("0x1800000000300000180000000000030000000000003006001800006600");
-        string playerAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
-
-        var account = new Account(provider, signer, playerAddress);
-        string actionsAddress = "0x57a6556e89380b76465e525c725d8ed065a03b47fb9a4c9b676a1afea8177c5";
-
-        var character_id = dojo.felt_from_hex_be(new CString("0x03")).ok;
+        var character_id = dojo.felt_from_hex_be(new CString(characterId)).ok;
         var player_id = dojo.felt_from_hex_be(new CString(playerId)).ok;
 
         dojo.Call call = new dojo.Call()
@@ -166,7 +200,7 @@ public class LoginController : MonoBehaviour
                         player_id,
                         dojo.felt_from_hex_be(new CString("0x01")).ok
             },
-            to = actionsAddress,
+            to = dojoTxConfig.CharacterSystemActionAddress,
             selector = "mint"
         };
 

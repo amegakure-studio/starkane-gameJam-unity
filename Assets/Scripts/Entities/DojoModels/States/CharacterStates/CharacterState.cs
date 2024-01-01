@@ -19,10 +19,20 @@ namespace Amegakure.Starkane.Entities
         private UInt64 y;
         private BigInteger player_id;
 
+        public event Action<CharacterState> OnDead;
         public uint Match_id { get => match_id; set => match_id = value; }
         public uint Character_id { get => character_id; set => character_id = value; }
         public dojo.FieldElement Player { get => player; set => player = value; }
-        public ulong Remain_hp { get => remain_hp; set => remain_hp = value; }
+        public ulong Remain_hp
+        {
+            get => remain_hp;
+            set
+            {
+                remain_hp = value;
+                if(value <= 0)
+                    OnDead?.Invoke(this);
+            }
+        }
         public ulong Remain_mp { get => remain_mp; set => remain_mp = value; }
         public ulong X { get => x; set => x = value; }
         public ulong Y { get => y; set => y = value; }

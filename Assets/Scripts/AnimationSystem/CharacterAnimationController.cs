@@ -34,7 +34,7 @@ namespace Amegakure.Starkane.AnimationSystem
             try
             {
                 Character character = (Character)context["Character"];
-
+                Debug.Log("!-!-! Character dead: " + character.CharacterName);
 
                 if (!characterAnimatorMap.ContainsKey(character))
                     characterAnimatorMap[character] = character.GetComponent<Animator>();

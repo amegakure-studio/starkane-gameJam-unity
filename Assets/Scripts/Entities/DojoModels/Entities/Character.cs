@@ -12,7 +12,8 @@ namespace Amegakure.Starkane.Entities
         Cleric,
         Warrior,
         Goblin,
-        Peasant
+        Peasant,
+        Goblin2,
     }
 
     public class Character : ModelInstance

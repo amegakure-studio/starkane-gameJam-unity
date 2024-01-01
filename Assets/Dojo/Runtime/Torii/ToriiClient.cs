@@ -21,6 +21,8 @@ namespace Dojo.Torii
             CString ctoriiUrl = CString.FromString(toriiUrl);
             CString crpcUrl = CString.FromString(rpcUrl);
             CString cworld = CString.FromString(world);
+            Debug.Log("Entities: " + (nuint)entities.Length);
+            Debug.Log("Entities: " + ((string)ctoriiUrl));
             dojo.KeysClause* entitiesPtr;
 
             fixed (dojo.KeysClause* ptr = entities)
@@ -31,6 +33,7 @@ namespace Dojo.Torii
             var result = dojo.client_new(ctoriiUrl, crpcUrl, cworld, entitiesPtr, (nuint)entities.Length);
             if (result.tag == dojo.Result_____ToriiClient_Tag.Err_____ToriiClient)
             {
+                Debug.Log("Error!");
                 throw new Exception(result.err.message);
             }
 

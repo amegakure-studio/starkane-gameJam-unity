@@ -25,6 +25,7 @@ namespace Amegakure.Starkane.Config
             characterPrefabsDict[CharacterType.Cleric] = "Wizard";
             characterPrefabsDict[CharacterType.Warrior] = "Avelyn";
             characterPrefabsDict[CharacterType.Goblin] = "Goblin";
+            characterPrefabsDict[CharacterType.Goblin2] = "Goblin2";
         }
 
         private void Start()
@@ -77,8 +78,8 @@ namespace Amegakure.Starkane.Config
                         if(characterPlayerProgress.getPlayerID().Equals(player.Id)
                         && matchPlayerCharacterID.Contains((int)characterType))
                         {
-                            Debug.Log("ID Player" + player.Id);
-                            Debug.Log("Dojo Player" + characterPlayerProgress.getPlayerID());
+                            // Debug.Log("ID Player" + player.Id);
+                            // Debug.Log("Dojo Player" + characterPlayerProgress.getPlayerID());
 
                             CharacterState characterState = GetCharacterState(player.Id, match_id, (int)characterType );
                             ActionState actionState = GetCharacterActionState(player.Id, match_id, (int)characterType );
@@ -95,7 +96,7 @@ namespace Amegakure.Starkane.Config
                             
                             Character character = characterGo.GetComponent<Character>();
                             combat.AddCharacter(player, character, actionState, characterState);
-                            Debug.Log("Added: " + player.PlayerName + "Character: " + character.CharacterName );
+                            // Debug.Log("Added: " + player.PlayerName + "Character: " + character.CharacterName );
 
                             // characterGo.transform.parent = player.gameObject.transform;
                         }
@@ -107,7 +108,7 @@ namespace Amegakure.Starkane.Config
                             if (matchPlayers.Contains(adversaryID) && 
                                 matchAdversaryCharacterID.Contains((int)characterType))
                             {
-                                Debug.Log("ID ADV:" + adversaryID);
+                                // Debug.Log("ID ADV:" + adversaryID);
                                 CharacterState characterState = GetCharacterState(adversaryID, match_id, (int)characterType);
                                 ActionState actionState = GetCharacterActionState(adversaryID, match_id, (int)characterType);
                                 List<Skill> characterSkills = GetSkills((int)characterType);
@@ -154,6 +155,7 @@ namespace Amegakure.Starkane.Config
 
         private Entities.Character GetCharacter(int _characterId)
         {
+            // Debug.Log("Character ID: " + _characterId);
             GameObject[] entities = worldManager.Entities();
 
             foreach (GameObject go in entities)
@@ -165,6 +167,7 @@ namespace Amegakure.Starkane.Config
                     if (characterEntity != null)
                     {                    
                         int characterId = checked((int)characterEntity.Character_id);
+                        // Debug.Log("Match CharacterId: " + characterId);
 
                         if (characterId == (_characterId))
                             return characterEntity;

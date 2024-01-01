@@ -149,11 +149,13 @@ public class PlayerAIController : MonoBehaviour
 
             foreach (Character adversaryCharacter in adversaryCharacters)
             {
+                Debug.Log("Adversary character: " + adversaryCharacter.CharacterName +
+                " Health: " + adversaryCharacter.GetHpNormalized());
                 adversaryCoordinates.Add(adversaryCharacter.Location);
             }
 
             // Select nearest adversary character
-            Character nearestAdversary = FindNearestCharacter(character.Location.coordinate);
+            Character nearestAdversary = FindNearestCharacter(adversaryCharacters, character.Location.coordinate);
 
             if (nearestAdversary != null)
             {
@@ -169,9 +171,9 @@ public class PlayerAIController : MonoBehaviour
         }
     }
 
-    private Character FindNearestCharacter(Vector2 location)
+    private Character FindNearestCharacter(List<Character> adversaryCharacters, Vector2 location)
     {
-        List<Character> adversaryCharacters = combat.GetRivalCharacters(player);
+        // List<Character> adversaryCharacters = combat.GetRivalCharacters(player);
         Dictionary<Vector2, Character> adversaryCoordinates = new();
 
         if (adversaryCharacters.Count > 0)

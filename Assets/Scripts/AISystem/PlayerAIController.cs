@@ -144,7 +144,7 @@ public class PlayerAIController : MonoBehaviour
         EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
         if (combat.CanMove(character, player))
         {
-            List<Character> adversaryCharacters = combat.GetRivalCharacters(player);
+            List<Character> adversaryCharacters = combat.GetRivalCharacters(player).FindAll(rc => rc.IsAlive());
             List<Tile> adversaryCoordinates = new();
 
             foreach (Character adversaryCharacter in adversaryCharacters)

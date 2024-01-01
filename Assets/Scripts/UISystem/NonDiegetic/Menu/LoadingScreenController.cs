@@ -31,10 +31,11 @@ public class LoadingScreenController : MonoBehaviour
     {
         try
         {
+            VisualElement bgVe = container.Q<VisualElement>("LoadingContainer");
             int bgIndex = UnityEngine.Random.Range(0, loadingBgs.Length);
             Sprite sprite = loadingBgs[bgIndex];
 
-            container.style.backgroundImage = new StyleBackground(sprite);
+            bgVe.style.backgroundImage = new StyleBackground(sprite);
 
         } catch { }
         

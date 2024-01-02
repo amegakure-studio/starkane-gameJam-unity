@@ -42,6 +42,14 @@ During exploration, recruit and upgrade characters, while in battles, positionin
 | VFX | Cartoon FX | [Unity Asset Store](https://assetstore.unity.com/packages/vfx/particles/cartoon-fx-remaster-free-109565) |
 
 
+## Setup
+Unfortunately, this game is currently only available for local play. We sincerely apologize for any inconvenience caused by the issue encountered when attempting to establish communication with the server slot. Due to limitations with the Dojo Unity SDK, playing the game directly in a browser is not supported. Therefore, you will need to download the game from the following link: [Starkane - itch.io](https://dubzn.itch.io/starkane)
+
+Additionally, please download the [dojo-starkane](https://github.com/amegakure-starknet/starkane) repository 
+
+Afterwards, follow the instructions in the setup readme to initialize Katana and Torii. Once the setup is complete, you can start playing the game and enjoy the experience!
+
+
 ## Special thanks
 
 ### Creators ✨

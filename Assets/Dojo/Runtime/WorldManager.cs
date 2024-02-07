@@ -43,13 +43,11 @@ namespace Dojo
 #else
             await synchronizationMaster.SynchronizeEntities();
 #endif
-            Debug.LogWarning("World Manager CALL Coroutine");
             StartCoroutine(nameof(NotifySubscribers));
 
             // listen for entity updates
             synchronizationMaster.RegisterEntityCallbacks();
 
-            Debug.LogWarning("World Manager END AWAKE");
             DontDestroyOnLoad(transform.parent.gameObject);       
         }
 
@@ -60,17 +58,15 @@ namespace Dojo
 
         private void SceneChange(Scene current, Scene next)
         {
-            Debug.Log("VM!! Event after changing scene!!!");
             StartCoroutine(nameof(NotifySubscribers));
         }
 
         private IEnumerator NotifySubscribers()
         {
-            Debug.Log("On notify WM");
             yield return new WaitUntil(() => OnEntityFeched != null);
 
             OnEntityFeched?.Invoke(this);
-            Debug.Log("Fetched called!");
+            //Debug.Log("Fetched called!");
         }
 
         // Update is called once per frame

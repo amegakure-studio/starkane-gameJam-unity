@@ -36,7 +36,7 @@ public class CaveEntranceController : MonoBehaviour
 
         while (!asyncLoad.isDone)
         {
-            Debug.Log("Still here: " + asyncLoad.progress);
+            //Debug.Log("Still here: " + asyncLoad.progress);
             if (asyncLoad.progress >= 0.9f)
             {
                 asyncLoad.allowSceneActivation = true;

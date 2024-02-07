@@ -45,7 +45,7 @@ public class LoginController : MonoBehaviour
             var playerFieldElement = new FieldElement(playerHash.ToString()).Inner();
             string playerId = "0x" + BitConverter.ToString(playerFieldElement.data.ToArray()).Replace("-", "").ToLower();
             
-            Debug.Log("playerId: " + playerId);
+            //Debug.Log("playerId: " + playerId);
 
             Session session = CreateSessionObj();
             Player sessionPlayer = FindSessionPlayer(username, playerId, session.gameObject);
@@ -99,7 +99,7 @@ public class LoginController : MonoBehaviour
 
         while (!asyncLoad.isDone)
         {
-            Debug.Log("Still here: " + asyncLoad.progress);
+            //Debug.Log("Still here: " + asyncLoad.progress);
             if (asyncLoad.progress >= 0.9f)
             {
                 asyncLoad.allowSceneActivation = true;

@@ -15,7 +15,7 @@ namespace Amegakure.Starkane.Config
 {
     public class CombatPlayerCreator : MonoBehaviour
     {
-        [SerializeField] WorldManager worldManager;
+        private WorldManager worldManager;
         private Dictionary<CharacterType, string> characterPrefabsDict;
 
         private void Awake()
@@ -28,13 +28,9 @@ namespace Amegakure.Starkane.Config
             characterPrefabsDict[CharacterType.Goblin2] = "Goblin2";
         }
 
-        private void Start()
-        {
-            
-        }
-
         void OnEnable()
         {
+            worldManager = GameObject.FindAnyObjectByType<WorldManager>();
             worldManager.OnEntityFeched += Create;
         }
 
@@ -58,7 +54,8 @@ namespace Amegakure.Starkane.Config
 
             combat.MatchState = matchState;
 
-            List<BigInteger> matchPlayers = FindMatchPlayers(match_id);
+            List<string> matchPlayers = FindMatchPlayers(match_id);
+
             GameObject builderGo = Instantiate(new GameObject());
             CharacterBuilder builder = builderGo.AddComponent<CharacterBuilder>();
 
@@ -66,23 +63,22 @@ namespace Amegakure.Starkane.Config
             {
                 GameObject[] entities = worldManager.Entities();
 
-                foreach(GameObject go in entities)
+                foreach (GameObject go in entities)
                 {
                     CharacterPlayerProgress characterPlayerProgress = go.GetComponent<CharacterPlayerProgress>();
-                   
-                    if (characterPlayerProgress != null )
+
+                    if (characterPlayerProgress != null)
                     {
-                        List<int> matchPlayerCharacterID =  FindPlayerCharactersInAMatch(match_id, player.Id);
+                        List<int> matchPlayerCharacterID = FindPlayerCharactersInAMatch(match_id, player.DojoID.Hex());
                         CharacterType characterType = characterPlayerProgress.GetCharacterType();
 
-                        if(characterPlayerProgress.getPlayerID().Equals(player.Id)
+                        if (characterPlayerProgress.owner.Hex().Equals(player.DojoID.Hex())
                         && matchPlayerCharacterID.Contains((int)characterType))
                         {
-                            // Debug.Log("ID Player" + player.Id);
-                            // Debug.Log("Dojo Player" + characterPlayerProgress.getPlayerID());
+                            //Debug.Log("Dojo Player: " + characterPlayerProgress.owner.Hex());
 
-                            CharacterState characterState = GetCharacterState(player.Id, match_id, (int)characterType );
-                            ActionState actionState = GetCharacterActionState(player.Id, match_id, (int)characterType );
+                            CharacterState characterState = GetCharacterState(player.DojoID.Hex(), match_id, (int)characterType);
+                            ActionState actionState = GetCharacterActionState(player.DojoID.Hex(), match_id, (int)characterType);
                             List<Skill> characterSkills = GetSkills((int)characterType);
                             Amegakure.Starkane.Entities.Character characterEntity = GetCharacter((int)characterType);
 
@@ -93,43 +89,46 @@ namespace Amegakure.Starkane.Config
                                     .AddGridMovement(PathStyle.SQUARE, (int)characterEntity.movement_range)
                                     .AddCombatCharacterController(player, combat)
                                     .Build();
-                            
+
                             Character character = characterGo.GetComponent<Character>();
                             combat.AddCharacter(player, character, actionState, characterState);
-                            // Debug.Log("Added: " + player.PlayerName + "Character: " + character.CharacterName );
 
-                            // characterGo.transform.parent = player.gameObject.transform;
+                            Debug.Log("Added: " + player.PlayerName + "Character: " + character.CharacterName);
+
+                            characterGo.transform.parent = player.gameObject.transform;
                         }
-                        else 
+                        else
                         {
-                            BigInteger adversaryID = characterPlayerProgress.getPlayerID();
-                            List<int> matchAdversaryCharacterID =  FindPlayerCharactersInAMatch(match_id, adversaryID);
-
-                            if (matchPlayers.Contains(adversaryID) && 
-                                matchAdversaryCharacterID.Contains((int)characterType))
-                            {
-                                // Debug.Log("ID ADV:" + adversaryID);
-                                CharacterState characterState = GetCharacterState(adversaryID, match_id, (int)characterType);
-                                ActionState actionState = GetCharacterActionState(adversaryID, match_id, (int)characterType);
-                                List<Skill> characterSkills = GetSkills((int)characterType);
-                                Entities.Character characterEntity = GetCharacter((int)characterType);
-
-                                GameObject characterGo = builder
-                                        .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], 
-                                                            characterPlayerProgress, characterEntity)
-                                        .AddCombatElements(characterState, actionState, characterSkills)
-                                        .AddGridMovement(PathStyle.SQUARE, (int)characterEntity.movement_range)
-                                        .Build();
-
-                                if (adversary == null)
-                                    adversary = CreateAdversary(adversaryID);
+                            string adversaryID = characterPlayerProgress.owner.Hex();
+                            Debug.Log("Adversary: " + adversaryID);
                             
+                            //List<int> matchAdversaryCharacterID = FindPlayerCharactersInAMatch(match_id, adversaryID);
 
-                                Character character = characterGo.GetComponent<Character>();
-                                combat.AddCharacter(adversary, character, actionState, characterState);
+                            //if (matchPlayers.Contains(adversaryID) &&
+                            //    matchAdversaryCharacterID.Contains((int)characterType))
+                            //{
+                            //    // Debug.Log("ID ADV:" + adversaryID);
+                            //    CharacterState characterState = GetCharacterState(adversaryID, match_id, (int)characterType);
+                            //    ActionState actionState = GetCharacterActionState(adversaryID, match_id, (int)characterType);
+                            //    List<Skill> characterSkills = GetSkills((int)characterType);
+                            //    Entities.Character characterEntity = GetCharacter((int)characterType);
 
-                                characterGo.transform.parent = adversary.transform;
-                            }                       
+                            //    GameObject characterGo = builder
+                            //            .AddCharacterPrefab(characterType, characterPrefabsDict[characterType],
+                            //                                characterPlayerProgress, characterEntity)
+                            //            .AddCombatElements(characterState, actionState, characterSkills)
+                            //            .AddGridMovement(PathStyle.SQUARE, (int)characterEntity.movement_range)
+                            //            .Build();
+
+                            //    if (adversary == null)
+                            //        adversary = CreateAdversary(adversaryID);
+
+
+                            //    Character character = characterGo.GetComponent<Character>();
+                            //    combat.AddCharacter(adversary, character, actionState, characterState);
+
+                            //    characterGo.transform.parent = adversary.transform;
+                            //}
                         }
                     }
                 }
@@ -179,9 +178,9 @@ namespace Amegakure.Starkane.Config
             throw new ArgumentException("Couldn't get character entity");
         }
 
-        private List<BigInteger> FindMatchPlayers(BigInteger match_id)
+        private List<string> FindMatchPlayers(int match_id)
         {
-            List<BigInteger> matchPlayers = new();
+            List<string> matchPlayers = new();
 
             GameObject[] entities = worldManager.Entities();
 
@@ -190,10 +189,11 @@ namespace Amegakure.Starkane.Config
                 try
                 {
                     MatchPlayer matchPlayer = go.GetComponent<MatchPlayer>();
+                    
                     if (matchPlayer != null)
                     {
-                        if ((BigInteger) matchPlayer.Match_id == match_id)
-                            matchPlayers.Add(matchPlayer.PlayerId);
+                        if ((int)matchPlayer.match_id == match_id)
+                            matchPlayers.Add(matchPlayer.player.Hex());
                     }
                 }
                 catch { }
@@ -202,7 +202,7 @@ namespace Amegakure.Starkane.Config
             return matchPlayers;
         }
 
-        private List<int> FindPlayerCharactersInAMatch(int match_id, BigInteger player_id)
+        private List<int> FindPlayerCharactersInAMatch(int match_id, string player_id)
         {
             List<int> playerCharactersInMatch = new();
 
@@ -213,10 +213,11 @@ namespace Amegakure.Starkane.Config
                 try
                 {
                     MatchPlayerCharacter matchPlayerCharacter = go.GetComponent<MatchPlayerCharacter>();
+                    
                     if (matchPlayerCharacter != null)
                     {
                         if ((int) matchPlayerCharacter.Match_id == match_id
-                            && matchPlayerCharacter.PlayerId.Equals(player_id))
+                            && matchPlayerCharacter.player.Hex().Equals(player_id))
                             playerCharactersInMatch.Add((int)matchPlayerCharacter.Character_id);
                     }
                 }
@@ -252,19 +253,20 @@ namespace Amegakure.Starkane.Config
         private MatchState GetMatchState()
         {
             GameObject[] entities = worldManager.Entities();
+            
+            Player player = GameObject.FindObjectOfType<Session>().Player;
 
-            foreach(GameObject go in entities)
+            foreach (GameObject go in entities)
             {
                 try
                 {
                     MatchState matchState = go.GetComponent<MatchState>();
-                    Player player  = GameObject.FindObjectOfType<Session>().Player;
                     
                     if(matchState != null && player != null)
                     {
-                        List<BigInteger> playerIdInMatch = FindMatchPlayers((BigInteger)matchState.Id);
+                        List<string> playerIdInMatch = FindMatchPlayers((int)matchState.Id);
 
-                        if (matchState.WinnerId == 0 && playerIdInMatch.Contains(player.Id))
+                        if (matchState.WinnerId == 0 && playerIdInMatch.Contains(player.DojoID.Hex()))
                         {
                             return matchState;
                         }
@@ -276,7 +278,7 @@ namespace Amegakure.Starkane.Config
             return null;
         }
 
-        private CharacterState GetCharacterState(BigInteger playerID, int matchID, int characterID)
+        private CharacterState GetCharacterState(string playerID, int matchID, int characterID)
         {
             // Debug.Log("!!!PID: " + playerID + " \n matchID" + matchID + "\n characterID" + characterID );
             GameObject[] entities = worldManager.Entities();
@@ -290,7 +292,7 @@ namespace Amegakure.Starkane.Config
                     {
                         int match_id = checked((int)characterState.Match_id);
                         int character_id = checked((int)characterState.Character_id);
-                        BigInteger player_id = characterState.Player_id;
+                        string player_id = characterState.Player.Hex();
 
                         // Debug.Log("Component data: \n match_id" + match_id
                         //         + "\n character_id" + character_id
@@ -312,7 +314,7 @@ namespace Amegakure.Starkane.Config
             throw new ArgumentException("Couldn't get character state");
         }
 
-        private ActionState GetCharacterActionState(BigInteger playerID, int matchID, int characterID)
+        private ActionState GetCharacterActionState(string playerID, int matchID, int characterID)
         {
             GameObject[] entities = worldManager.Entities();
 
@@ -326,7 +328,7 @@ namespace Amegakure.Starkane.Config
                     {
                         int match_id = checked((int)actionState.Match_id);
                         int character_id = checked((int)actionState.Character_id);
-                        BigInteger player_id = actionState.Player_id;
+                        string player_id = actionState.player.Hex();
 
                         //         Debug.Log("Component data: \n match_id"+ match_id
                         //         + "\n character_id" + character_id

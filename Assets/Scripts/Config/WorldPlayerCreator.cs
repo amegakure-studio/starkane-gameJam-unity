@@ -27,10 +27,10 @@ namespace Amegakure.Starkane.Config
 
             try {
                 Session session = GameObject.FindObjectOfType<Session>();
-                if (session != null)
-                    Debug.Log("AWAKE: " + session.Player);
-                else
-                    Debug.Log("Null session ");
+                //if (session != null)
+                //    Debug.Log("AWAKE: " + session.Player);
+                //else
+                //    Debug.Log("Null session ");
             }
             catch { Debug.LogError("ERROR"); }
             
@@ -53,13 +53,13 @@ namespace Amegakure.Starkane.Config
             if (hasBeenCreated)
                 return;
 
-            Debug.Log("Create called!!");
+            //Debug.Log("Create called!!");
 
             Session session = GameObject.FindObjectOfType<Session>();
-            if (session != null)
-                Debug.Log("Session load? " + session.Player);
-            else
-                Debug.Log("Null session ");
+            //if (session != null)
+            //    Debug.Log("Session load? " + session.Player);
+            //else
+            //    Debug.Log("Null session ");
 
             Player player  = session.Player;
         

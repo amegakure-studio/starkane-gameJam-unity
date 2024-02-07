@@ -61,18 +61,22 @@ namespace Amegakure.Starkane.CinematicSystem
                     battleDirector.SetGenericBinding(output.sourceObject, animator);
                     
                     Player player  = GameObject.FindObjectOfType<Session>().Player;
+                    
                     BigInteger playerMatchId = player.Id;
+                    
+                    string playerId = player.DojoID.Hex();
                     int playerCharacterId = (int)player.DefaultCharacter;
                     
-                    var playerHash = new Hash128();
-                    playerHash.Append("enemy");
-                    playerHash.Append("enemy");
-                    string adversaryId = playerHash.ToString();
-                    
+                    var adversaryHash = new Hash128();
+                    adversaryHash.Append("enemy");
+                    adversaryHash.Append("enemy");
+
+                    string adversaryId = adversaryHash.ToString();
+
                     // Debug.Log("Enemy hash: "+ adversaryId);
                     int adversaryCharacterId = 4;
 
-                    this.LoadOrCreateMatch(playerMatchId, playerCharacterId,
+                    this.LoadOrCreateMatch(playerId, playerCharacterId,
                                             adversaryId, adversaryCharacterId);
                 }
             }
@@ -205,9 +209,9 @@ namespace Amegakure.Starkane.CinematicSystem
         }
 
 
-        private List<BigInteger> FindMatchPlayers(int match_id)
+        private List<string> FindMatchPlayers(int match_id)
         {
-            List<BigInteger> matchPlayers = new();
+            List<string> matchPlayers = new();
 
             GameObject[] entities = worldManager.Entities();
 
@@ -216,10 +220,11 @@ namespace Amegakure.Starkane.CinematicSystem
                 try
                 {
                     MatchPlayer matchPlayer = go.GetComponent<MatchPlayer>();
+                    
                     if (matchPlayer != null)
                     {
-                        if ((int) matchPlayer.Match_id == match_id)
-                            matchPlayers.Add(matchPlayer.PlayerId);
+                        if ((int) matchPlayer.match_id == match_id)
+                            matchPlayers.Add(matchPlayer.player.Hex());
                     }
                 }
                 catch { }
@@ -229,7 +234,7 @@ namespace Amegakure.Starkane.CinematicSystem
         }
 
 
-        private MatchState GetMatchState(BigInteger playerId, string adversaryId)
+        private MatchState GetMatchState(string playerId, string adversaryId)
         {
             if(worldManager == null)
                 worldManager = GameObject.FindAnyObjectByType<WorldManager>();
@@ -241,13 +246,15 @@ namespace Amegakure.Starkane.CinematicSystem
                 try
                 {
                     MatchState matchState = go.GetComponent<MatchState>();
+                    
                     var adversaryDojoId = new FieldElement(adversaryId).Inner();
-                    var hexString = BitConverter.ToString(adversaryDojoId.data.ToArray()).Replace("-", "").ToLower();
-                    BigInteger adversaryMatchId = BigInteger.Parse( hexString, System.Globalization.NumberStyles.AllowHexSpecifier );
+                    string adversaryMatchId = "0x"+BitConverter.ToString(adversaryDojoId.data.ToArray()).Replace("-", "").ToLower();
+
+                    Debug.Log("Adversary ID: " + adversaryMatchId);
 
                     if(matchState != null)
                     {
-                        List<BigInteger> playerIdInMatch = FindMatchPlayers((int)matchState.Id);
+                        List<string> playerIdInMatch = FindMatchPlayers((int)matchState.Id);
                         
                         bool isPlayerAdversaryMatch = playerIdInMatch.Contains(playerId)
                         && playerIdInMatch.Contains(adversaryMatchId);
@@ -264,15 +271,14 @@ namespace Amegakure.Starkane.CinematicSystem
             return null;
         }
         
-        private void CallCreateMatchTX(BigInteger playerId, int playerCharacterId,
+        private void CallCreateMatchTX(string playerId, int playerCharacterId,
                                     string adversayId, int adversayCharacterId)
         {
             DojoTxConfig dojoTxConfig = GameObject.FindAnyObjectByType<DojoTxConfig>();
             var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
             var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), new FieldElement(dojoTxConfig.KatanaAccounAddress));
             
-            string playerIdString =  playerId.ToString("X");
-            var player_id = new FieldElement(playerIdString).Inner();
+            var player_id = new FieldElement(playerId).Inner();
 
             string characterIdString =  playerCharacterId.ToString("X");
             var character_id = new FieldElement(characterIdString).Inner();
@@ -281,7 +287,6 @@ namespace Amegakure.Starkane.CinematicSystem
 
             string adversaryCharacterIdString =  adversayCharacterId.ToString("X");
             var adversary_character_id = new FieldElement(adversaryCharacterIdString).Inner();
-
             
             dojo.Call call = new ()
             {
@@ -300,14 +305,20 @@ namespace Amegakure.Starkane.CinematicSystem
             _= account.ExecuteRaw(new[] { call });
         }
 
-        public void LoadOrCreateMatch(BigInteger playerId, int playerCharacterId,
+        public void LoadOrCreateMatch(string playerId, int playerCharacterId,
                                     string adversayId, int adversayCharacterId )
         {
             MatchState matchState = this.GetMatchState(playerId, adversayId);
-            if(matchState == null)
+
+            if (matchState == null)
             {
                 CallCreateMatchTX(playerId, playerCharacterId, adversayId, adversayCharacterId);
-            }    
+                Debug.Log("New Battle created");
+            }
+            else
+            {
+                Debug.Log("Resume battle ...");
+            }
         }
 
     }

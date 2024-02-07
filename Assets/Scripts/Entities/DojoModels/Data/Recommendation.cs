@@ -1,15 +1,16 @@
 using Dojo;
+using Dojo.Starknet;
 using dojo_bindings;
 
 public class Recommendation : ModelInstance
 {
     [ModelField("from")]
-    private dojo.FieldElement from;
+    public FieldElement from;
 
     [ModelField("to")]
-    private dojo.FieldElement to;
+    public FieldElement to;
 
     [ModelField("recommended")]
-    private bool recommended;
+    public bool recommended;
 
 }

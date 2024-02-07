@@ -38,18 +38,18 @@ public class LoginController : MonoBehaviour
         if (!string.IsNullOrWhiteSpace(username) &&
            !string.IsNullOrWhiteSpace(password))
         {
-            // Debug.Log(username + " : " + password);
-
             var playerHash = new Hash128();
             playerHash.Append(username);
             playerHash.Append(password);
 
-            string playerId = playerHash.ToString();
-
-            // Debug.Log("HASH: " + playerId);
+            var playerFieldElement = new FieldElement(playerHash.ToString()).Inner();
+            string playerId = "0x" + BitConverter.ToString(playerFieldElement.data.ToArray()).Replace("-", "").ToLower();
+            
+            Debug.Log("playerId: " + playerId);
 
             Session session = CreateSessionObj();
             Player sessionPlayer = FindSessionPlayer(username, playerId, session.gameObject);
+            
             if (sessionPlayer != null)
             {
                 session.Player = sessionPlayer;
@@ -62,7 +62,7 @@ public class LoginController : MonoBehaviour
 
                 try
                 {
-                    StartCoroutine(nameof(MintCoroutine), playerId);
+                    StartCoroutine(nameof(MintCoroutine), playerHash.ToString());
                 }
                 catch (Exception e)
                 {
@@ -111,16 +111,12 @@ public class LoginController : MonoBehaviour
 
     private Player CreatePlayer(string sessionPlayername, string sessionPlayerStringId, GameObject sessionGo)
     {
-        var player_id = new FieldElement(sessionPlayerStringId).Inner();
-        var hexString = BitConverter.ToString(player_id.data.ToArray()).Replace("-", "").ToLower();
-        BigInteger intID = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
-
-        // Debug.Log("!!HASH BIN: " + intID);
-
         Player player = sessionGo.AddComponent<Player>();
-        player.Id = intID;
+
+        player.HexID = sessionPlayerStringId;
         player.PlayerName = sessionPlayername;
         player.DefaultCharacter = CharacterType.Warrior;
+        
         return player;
     }
 
@@ -139,26 +135,25 @@ public class LoginController : MonoBehaviour
 
     private Player FindSessionPlayer(string sessionPlayername, string sessionPlayerStringId, GameObject sessionGo)
     {
-        Debug.Log("Session str " + sessionPlayerStringId);
-        var player_id = new FieldElement(sessionPlayerStringId).Inner();
-
-        var hexString = "0x" + BitConverter.ToString(player_id.data.ToArray()).Replace("-", "").ToLower();
-        Debug.Log("Bing Int ID: " + hexString);
-
-        List<CharacterPlayerProgress> characterPlayerProgresses = GetCharacterPlayerProgressesFromPlayerId(hexString);
+        List<CharacterPlayerProgress> characterPlayerProgresses = GetCharacterPlayerProgressesFromPlayerId(sessionPlayerStringId);
+        
         if (characterPlayerProgresses.Count > 0)
         {
+            Debug.Log("Session player Found!!");
+
             CharacterPlayerProgress defaultCharacterPlayerProgress = GetDefaultCharacter(characterPlayerProgresses, CharacterType.Warrior);
 
             if (defaultCharacterPlayerProgress == null)
                 defaultCharacterPlayerProgress = characterPlayerProgresses[0];
 
             Player player = sessionGo.AddComponent<Player>();
-            player.Id = 0;
+            
+            // TODO: Must be the string
+            player.HexID = sessionPlayerStringId;
             player.SetDojoId(defaultCharacterPlayerProgress.Owner);
             player.PlayerName = sessionPlayername;
-            player.DefaultCharacter = defaultCharacterPlayerProgress.GetCharacterType();
-            Debug.Log("Session player Found!!");
+            player.DefaultCharacter = defaultCharacterPlayerProgress.GetCharacterType(); 
+            
             return player;
         }
 
@@ -170,9 +165,10 @@ public class LoginController : MonoBehaviour
         return characterPlayerProgresses.Find(cp => cp.GetCharacterType() == warrior);
     }
 
-    private List<CharacterPlayerProgress> GetCharacterPlayerProgressesFromPlayerId(string hexString)
+    private List<CharacterPlayerProgress> GetCharacterPlayerProgressesFromPlayerId(string playerID)
     {
         List<CharacterPlayerProgress> players = new();
+        
         GameObject[] entities = worldManager.Entities();
         foreach (GameObject go in entities)
         {
@@ -180,8 +176,9 @@ public class LoginController : MonoBehaviour
             if (characterPlayerProgress != null)
             {
                 Debug.Log("DOJO: " +  characterPlayerProgress.owner.Hex());
-                Debug.Log("given " + hexString );
-                bool res = characterPlayerProgress.owner.Hex().Equals(hexString);
+                Debug.Log("given " + playerID);
+                
+                bool res = characterPlayerProgress.owner.Hex().Equals(playerID);
 
                 if (res)
                     players.Add(characterPlayerProgress);
@@ -189,7 +186,6 @@ public class LoginController : MonoBehaviour
         }
 
         return players;
-
     }
 
     private async void CallCreatePlayerTx(string playerId, string characterId)

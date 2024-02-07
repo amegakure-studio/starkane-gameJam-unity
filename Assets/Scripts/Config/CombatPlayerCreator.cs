@@ -90,7 +90,7 @@ namespace Amegakure.Starkane.Config
                                     .AddCharacterPrefab(characterType, characterPrefabsDict[characterType],
                                                         characterPlayerProgress, characterEntity)
                                     .AddCombatElements(characterState, actionState, characterSkills)
-                                    .AddGridMovement(PathStyle.SQUARE, characterEntity.Movement_range)
+                                    .AddGridMovement(PathStyle.SQUARE, (int)characterEntity.movement_range)
                                     .AddCombatCharacterController(player, combat)
                                     .Build();
                             
@@ -118,7 +118,7 @@ namespace Amegakure.Starkane.Config
                                         .AddCharacterPrefab(characterType, characterPrefabsDict[characterType], 
                                                             characterPlayerProgress, characterEntity)
                                         .AddCombatElements(characterState, actionState, characterSkills)
-                                        .AddGridMovement(PathStyle.SQUARE, characterEntity.Movement_range)
+                                        .AddGridMovement(PathStyle.SQUARE, (int)characterEntity.movement_range)
                                         .Build();
 
                                 if (adversary == null)
@@ -166,7 +166,7 @@ namespace Amegakure.Starkane.Config
 
                     if (characterEntity != null)
                     {                    
-                        int characterId = checked((int)characterEntity.Character_id);
+                        int characterId = checked((int)characterEntity.character_id);
                         // Debug.Log("Match CharacterId: " + characterId);
 
                         if (characterId == (_characterId))

@@ -1,14 +1,12 @@
 using System;
 using Dojo;
-using Dojo.Torii;
-using dojo_bindings;
-using UnityEngine;
+using Dojo.Starknet;
 
 public class RankingCount : ModelInstance
 {
     [ModelField("id")]
-    private dojo.FieldElement id;
+    public FieldElement id;
 
     [ModelField("index")]
-    private UInt32 index;
+    public UInt32 index;
 }

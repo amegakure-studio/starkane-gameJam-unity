@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using Amegakure.Starkane.Entities;
@@ -53,11 +52,12 @@ namespace Amegakure.Starkane.Config
                     {
                         CharacterType characterType = characterPlayerProgress.GetCharacterType();
 
-                        if(characterPlayerProgress.getPlayerID() == player.Id
+                        if(characterPlayerProgress.owner.Hex().Equals(player.HexID)
                             && characterType == player.DefaultCharacter)
                         {
                             player.SetDojoId(characterPlayerProgress.Owner);
 
+                            
                             Entities.Character characterEntity = GetCharacter((int)characterType);
 
                             GameObject characterGo = builder
@@ -86,7 +86,7 @@ namespace Amegakure.Starkane.Config
 
                     if (characterEntity != null)
                     {
-                        int characterId = checked((int)characterEntity.Character_id);
+                        int characterId = checked((int)characterEntity.character_id);
 
                         if (characterId == (_characterId))
                             return characterEntity;

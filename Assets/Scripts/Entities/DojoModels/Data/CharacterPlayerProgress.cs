@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
 using Amegakure.Starkane.Entities;
+using Amegakure.Starkane.EntitiesWrapper;
 using Dojo;
 using Dojo.Starknet;
 using Dojo.Torii;
@@ -15,16 +16,16 @@ public class CharacterPlayerProgress : ModelInstance
     public FieldElement owner;
     
     [ModelField("character_id")]
-    UInt32 character_id;
+    public UInt32 character_id;
 
     [ModelField("skin_id")]
-    UInt32 skin_id;
+    public UInt32 skin_id;
 
     [ModelField("owned")]
-    bool owned;
+    public bool owned;
 
     [ModelField("level")]
-    UInt32 level;
+    public UInt32 level;
 
     private BigInteger playerID;
 
@@ -46,10 +47,16 @@ public class CharacterPlayerProgress : ModelInstance
         characterPrefabsDict[CharacterType.Goblin] = "Enemy";
     }
 
-    private void Update()
-    {
-        //Debug.Log(owner.Hex());
-    }
+    //public override void Initialize(Model model)
+    //{
+    //    base.Initialize(model);
+
+    //    Debug.Log(owner.Hex());
+    //    Debug.Log(character_id);
+    //    Debug.Log(skin_id);
+    //    Debug.Log(owned);
+    //    Debug.Log(level);
+    //}
 
     public BigInteger getPlayerID()
     {

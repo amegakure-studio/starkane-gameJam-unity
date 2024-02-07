@@ -6,8 +6,8 @@ using Dojo.Starknet;
 public class MatchCount : ModelInstance
 {
     [ModelField("index")]
-    private UInt32 index;
+    public UInt32 index;
 
     [ModelField("id")]
-    private FieldElement id;
+    public FieldElement id;
 }

@@ -1,20 +1,18 @@
 using System;
 using System.Numerics;
 using Dojo;
-using Dojo.Torii;
-using dojo_bindings;
-using UnityEngine;
+using Dojo.Starknet;
 
 public class Ranking : ModelInstance
 {
     [ModelField("id")]
-    private UInt32 id;
+    public UInt32 id;
     
     [ModelField("player")]
-    private dojo.FieldElement player;
-    
-    private BigInteger playerID;
+    public FieldElement player;
+
+    public BigInteger playerID;
     
     [ModelField("score")]
-    private UInt64 score;
+    public UInt64 score;
 }

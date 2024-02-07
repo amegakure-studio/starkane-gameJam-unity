@@ -14,28 +14,28 @@ public enum SkillType
 public class Skill : ModelInstance
 {
     [ModelField("id")]
-    private UInt32 id;
+    public UInt32 id;
 
     [ModelField("character_id")]
-    private UInt32  character_id;
+    public UInt32  character_id;
 
     [ModelField("level")]
-    private byte level;
+    public byte level;
 
     [ModelField("character_level_required")]
-    private byte character_level_required;
+    public byte character_level_required;
 
     [ModelField("skill_type")]
-    private byte skill_type;
+    public byte skill_type;
 
     [ModelField("power")]
-    private UInt64  power;
+    public UInt64  power;
 
     [ModelField("mp_cost")]
-    private UInt64 mp_cost;
+    public UInt64 mp_cost;
 
     [ModelField("range")]
-    private UInt64 range;
+    public UInt64 range;
 
   
     public uint Id { get => id; set => id = value; }

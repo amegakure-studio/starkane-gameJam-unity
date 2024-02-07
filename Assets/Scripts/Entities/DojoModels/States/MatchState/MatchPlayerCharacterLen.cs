@@ -2,20 +2,20 @@ using System;
 using System.Numerics;
 using Dojo;
 using Dojo.Torii;
-using dojo_bindings;
+using Dojo.Starknet;
 using UnityEngine;
 
 public class MatchPlayerCharacterLen : ModelInstance
 {
     [ModelField("match_id")]
-    private UInt32 match_id;
+    public UInt32 match_id;
 
     [ModelField("player")]
-    private dojo.FieldElement player;
+    public FieldElement player;
     
-    [ModelField("characters_len")] 
-    private UInt32 characters_len;
+    [ModelField("characters_len")]
+    public UInt32 characters_len;
 
-    [ModelField("remain_characters")] 
-    private UInt32 remain_characters;
+    [ModelField("remain_characters")]
+    public UInt32 remain_characters;
 }

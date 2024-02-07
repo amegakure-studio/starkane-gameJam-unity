@@ -1,6 +1,7 @@
 using System;
 using System.Numerics;
 using Dojo;
+using Dojo.Starknet;
 using Dojo.Torii;
 using dojo_bindings;
 namespace Amegakure.Starkane.Entities
@@ -8,32 +9,32 @@ namespace Amegakure.Starkane.Entities
     public class CharacterState : ModelInstance
     {
         [ModelField("match_id")]
-        private UInt32 match_id;
+        public UInt32 match_id;
 
         [ModelField("character_id")]
-        private UInt32 character_id;
+        public UInt32 character_id;
 
         [ModelField("player")]
-        dojo.FieldElement player;
+        public FieldElement player;
 
         [ModelField("remain_hp")]
-        private UInt64 remain_hp;
+        public UInt64 remain_hp;
 
         [ModelField("remain_mp")]
-        private UInt64 remain_mp;
+        public UInt64 remain_mp;
 
         [ModelField("x")]
-        private UInt64 x;
+        public UInt64 x;
 
         [ModelField("y")]
-        private UInt64 y;
+        public UInt64 y;
 
         private BigInteger player_id;
 
         public event Action<CharacterState> OnDead;
         public uint Match_id { get => match_id; set => match_id = value; }
         public uint Character_id { get => character_id; set => character_id = value; }
-        public dojo.FieldElement Player { get => player; set => player = value; }
+        public FieldElement Player { get => player; set => player = value; }
         public ulong Remain_hp
         {
             get => remain_hp;
@@ -53,8 +54,8 @@ namespace Amegakure.Starkane.Entities
         {
             base.Initialize(model);
 
-            var hexString = BitConverter.ToString(Player.data.ToArray()).Replace("-", "").ToLower();
-            player_id = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
+            //var hexString = BitConverter.ToString(Player.data.ToArray()).Replace("-", "").ToLower();
+            //player_id = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
         }
 
         public override void OnUpdate(Model model)

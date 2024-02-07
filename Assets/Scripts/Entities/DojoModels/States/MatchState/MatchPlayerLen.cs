@@ -6,8 +6,8 @@ using UnityEngine;
 public class MatchPlayerLen : ModelInstance
 {
     [ModelField("match_id")]
-    private UInt32 match_id;
+    public UInt32 match_id;
 
     [ModelField("players_len")]
-    private UInt32 players_len;
+    public UInt32 players_len;
 }

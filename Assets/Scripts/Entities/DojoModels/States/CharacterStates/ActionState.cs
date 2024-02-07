@@ -2,34 +2,35 @@ using System;
 using System.Numerics;
 using Dojo;
 using Dojo.Torii;
-using dojo_bindings;
+using Dojo.Starknet;
 using UnityEngine;
 
 public class ActionState : ModelInstance
 {
     [ModelField("match_id")]
-    private UInt32 match_id;
+    public UInt32 match_id;
 
     [ModelField("character_id")]
-    private UInt32 character_id;
+    public UInt32 character_id;
 
+    // Check this
     [ModelField("player")]
-    private dojo.FieldElement player;
+    public FieldElement player;
 
     [ModelField("action")]
-    private bool action;
+    public bool action;
 
     [ModelField("movement")]
-    private bool movement;
+    public bool movement;
 
-    private BigInteger playerId;
+    public BigInteger playerId;
 
     public uint Match_id { get => match_id; set => match_id = value; }
     public uint Character_id { get => character_id; set => character_id = value; }
     public BigInteger Player_id { get 
                                         {
-                                            var playerString = BitConverter.ToString(player.data.ToArray()).Replace("-", "").ToLower();
-                                            playerId = BigInteger.Parse(playerString, System.Globalization.NumberStyles.AllowHexSpecifier);
+                                            //var playerString = BitConverter.ToString(player.data.ToArray()).Replace("-", "").ToLower();
+                                            //playerId = BigInteger.Parse(playerString, System.Globalization.NumberStyles.AllowHexSpecifier);
                                             return playerId;
                                         }
                                     set => playerId = value;

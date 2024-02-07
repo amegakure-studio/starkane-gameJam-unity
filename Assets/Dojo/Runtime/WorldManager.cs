@@ -6,6 +6,7 @@ using System;
 using Dojo.Starknet;
 using System.Threading.Tasks;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace Dojo
 {
@@ -26,13 +27,13 @@ namespace Dojo
 
         async void Awake()
         {
+
 #if UNITY_WEBGL && !UNITY_EDITOR
             wasmClient = new ToriiWasmClient(toriiUrl, rpcUrl, relayWebrtcUrl, worldAddress);
             await wasmClient.CreateClient();
 #else
             toriiClient = new ToriiClient(toriiUrl, rpcUrl, relayUrl, worldAddress);
 #endif
-
 
             // fetch entities from the world
             // TODO: maybe do in the start function of the SynchronizationMaster?
@@ -42,18 +43,34 @@ namespace Dojo
 #else
             await synchronizationMaster.SynchronizeEntities();
 #endif
-
+            Debug.LogWarning("World Manager CALL Coroutine");
             StartCoroutine(nameof(NotifySubscribers));
 
             // listen for entity updates
             synchronizationMaster.RegisterEntityCallbacks();
+
+            Debug.LogWarning("World Manager END AWAKE");
+            DontDestroyOnLoad(transform.parent.gameObject);       
+        }
+
+        private void OnEnable()
+        {
+            SceneManager.activeSceneChanged += SceneChange;
+        }
+
+        private void SceneChange(Scene current, Scene next)
+        {
+            Debug.Log("VM!! Event after changing scene!!!");
+            StartCoroutine(nameof(NotifySubscribers));
         }
 
         private IEnumerator NotifySubscribers()
         {
+            Debug.Log("On notify WM");
             yield return new WaitUntil(() => OnEntityFeched != null);
 
             OnEntityFeched?.Invoke(this);
+            Debug.Log("Fetched called!");
         }
 
         // Update is called once per frame

@@ -5,13 +5,15 @@ using Amegakure.Starkane.EntitiesWrapper;
 using Amegakure.Starkane.GridSystem;
 using Dojo;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Amegakure.Starkane.Config
 {
     public class WorldPlayerCreator : MonoBehaviour
     {
-        [SerializeField] WorldManager worldManager;
+        private WorldManager worldManager;
         private Dictionary<CharacterType, string> characterPrefabsDict;
+        private bool hasBeenCreated = false;
 
         private void Awake()
         {
@@ -20,10 +22,24 @@ namespace Amegakure.Starkane.Config
             characterPrefabsDict[CharacterType.Cleric] = "Wizard";
             characterPrefabsDict[CharacterType.Warrior] = "Avelyn";
             characterPrefabsDict[CharacterType.Goblin] = "Goblin";
+
+            Debug.LogWarning("Load in: " + SceneManager.GetActiveScene().name);
+
+            try {
+                Session session = GameObject.FindObjectOfType<Session>();
+                if (session != null)
+                    Debug.Log("AWAKE: " + session.Player);
+                else
+                    Debug.Log("Null session ");
+            }
+            catch { Debug.LogError("ERROR"); }
+            
+
         }
 
         void OnEnable()
         {
+            worldManager = GameObject.FindAnyObjectByType<WorldManager>();
             worldManager.OnEntityFeched += Create;   
         }
 
@@ -34,7 +50,17 @@ namespace Amegakure.Starkane.Config
 
         private void Create(WorldManager worldManager)
         {
+            if (hasBeenCreated)
+                return;
+
+            Debug.Log("Create called!!");
+
             Session session = GameObject.FindObjectOfType<Session>();
+            if (session != null)
+                Debug.Log("Session load? " + session.Player);
+            else
+                Debug.Log("Null session ");
+
             Player player  = session.Player;
         
             GameObject builderGo = Instantiate(new GameObject());
@@ -65,7 +91,8 @@ namespace Amegakure.Starkane.Config
                                     .AddGridMovement(PathStyle.SQUARE, 50)
                                     .AddCharacterController()
                                     .Build();
-
+                            
+                            hasBeenCreated = true;
                             // characterGo.transform.parent = player.gameObject.transform;
                         }
                     }

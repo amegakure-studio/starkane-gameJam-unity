@@ -175,9 +175,6 @@ public class LoginController : MonoBehaviour
             CharacterPlayerProgress characterPlayerProgress = go.GetComponent<CharacterPlayerProgress>();
             if (characterPlayerProgress != null)
             {
-                Debug.Log("DOJO: " +  characterPlayerProgress.owner.Hex());
-                Debug.Log("given " + playerID);
-                
                 bool res = characterPlayerProgress.owner.Hex().Equals(playerID);
 
                 if (res)

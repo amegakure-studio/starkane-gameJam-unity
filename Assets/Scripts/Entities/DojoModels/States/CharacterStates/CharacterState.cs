@@ -1,22 +1,33 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Numerics;
 using Dojo;
 using Dojo.Torii;
 using dojo_bindings;
-using UnityEngine;
 namespace Amegakure.Starkane.Entities
 {
     public class CharacterState : ModelInstance
     {
+        [ModelField("match_id")]
         private UInt32 match_id;
+
+        [ModelField("character_id")]
         private UInt32 character_id;
+
+        [ModelField("player")]
         dojo.FieldElement player;
+
+        [ModelField("remain_hp")]
         private UInt64 remain_hp;
+
+        [ModelField("remain_mp")]
         private UInt64 remain_mp;
+
+        [ModelField("x")]
         private UInt64 x;
+
+        [ModelField("y")]
         private UInt64 y;
+
         private BigInteger player_id;
 
         public event Action<CharacterState> OnDead;
@@ -29,8 +40,8 @@ namespace Amegakure.Starkane.Entities
             set
             {
                 remain_hp = value;
-                if(value <= 0)
-                    OnDead?.Invoke(this);
+                //if(value <= 0)
+                //    OnDead?.Invoke(this);
             }
         }
         public ulong Remain_mp { get => remain_mp; set => remain_mp = value; }
@@ -40,23 +51,18 @@ namespace Amegakure.Starkane.Entities
 
         public override void Initialize(Model model)
         {
-            Match_id = model.members["match_id"].ty.ty_primitive.u32;
-            Character_id = model.members["character_id"].ty.ty_primitive.u32;
-            Player = model.members["player"].ty.ty_primitive.felt252;
-            Remain_hp = model.members["remain_hp"].ty.ty_primitive.u64;
-            Remain_mp = model.members["remain_mp"].ty.ty_primitive.u64;
-            X = model.members["x"].ty.ty_primitive.u64;
-            Y = model.members["y"].ty.ty_primitive.u64;
-            
+            base.Initialize(model);
+
             var hexString = BitConverter.ToString(Player.data.ToArray()).Replace("-", "").ToLower();
             player_id = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
-            // Debug.Log("CHARACTER STATE: \n match_id: " + Match_id + "\n"
-            //         + "character_id: " + Character_id + "\n" +
-            //         "player: "+ hexString + "\n"
-            //         + "remain_hp: " + Remain_hp + "\n" 
-            //         + "remain_mp: " + Remain_mp + "\n"
-            //         + "X:" + X + "\n"
-            //         + "Y:" + Y + "\n" );
+        }
+
+        public override void OnUpdate(Model model)
+        {
+            base.OnUpdate(model);
+
+            if (Remain_hp <= 0)
+                OnDead?.Invoke(this);
         }
     }
 

@@ -241,7 +241,7 @@ namespace Amegakure.Starkane.CinematicSystem
                 try
                 {
                     MatchState matchState = go.GetComponent<MatchState>();
-                    var adversaryDojoId = dojo.felt_from_hex_be(new CString(adversaryId)).ok;
+                    var adversaryDojoId = new FieldElement(adversaryId).Inner();
                     var hexString = BitConverter.ToString(adversaryDojoId.data.ToArray()).Replace("-", "").ToLower();
                     BigInteger adversaryMatchId = BigInteger.Parse( hexString, System.Globalization.NumberStyles.AllowHexSpecifier );
 
@@ -269,41 +269,35 @@ namespace Amegakure.Starkane.CinematicSystem
         {
             DojoTxConfig dojoTxConfig = GameObject.FindAnyObjectByType<DojoTxConfig>();
             var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
-            var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
+            var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), new FieldElement(dojoTxConfig.KatanaAccounAddress));
             
             string playerIdString =  playerId.ToString("X");
-            var player_id = dojo.felt_from_hex_be(new CString(playerIdString)).ok;
+            var player_id = new FieldElement(playerIdString).Inner();
 
             string characterIdString =  playerCharacterId.ToString("X");
-            var character_id = dojo.felt_from_hex_be(new CString(characterIdString)).ok;
+            var character_id = new FieldElement(characterIdString).Inner();
             
-            var adversary_id = dojo.felt_from_hex_be(new CString(adversayId)).ok; 
+            var adversary_id = new FieldElement(adversayId).Inner(); 
 
             string adversaryCharacterIdString =  adversayCharacterId.ToString("X");
-            var adversary_character_id = dojo.felt_from_hex_be(new CString(adversaryCharacterIdString)).ok;
+            var adversary_character_id = new FieldElement(adversaryCharacterIdString).Inner();
 
             
-            dojo.Call call = new dojo.Call()
+            dojo.Call call = new ()
             {
-                // calldata = new[]
-                // {
-                //    dojo.felt_from_hex_be(new CString("0x03")).ok, player_id, character_id,
-                //    player_id, dojo.felt_from_hex_be(new CString("0x03")).ok, 
-                //    adversary_id, adversary_character_id
-                // },
                 calldata = new[]
                 {
-                   dojo.felt_from_hex_be(new CString("0x04")).ok,
+                   new FieldElement("0x04").Inner(),
                    player_id, character_id,
-                   player_id, dojo.felt_from_hex_be(new CString("0x01")).ok, 
+                   player_id, new FieldElement("0x01").Inner(), 
                    adversary_id, adversary_character_id,
-                   adversary_id, dojo.felt_from_hex_be(new CString("0x06")).ok
+                   adversary_id, new FieldElement("0x06").Inner()
                 },
                 to = dojoTxConfig.MatchSystemActionAddress,
                 selector = "init"
             };
     
-            account.ExecuteRaw(new[] { call });
+            _= account.ExecuteRaw(new[] { call });
         }
 
         public void LoadOrCreateMatch(BigInteger playerId, int playerCharacterId,
@@ -316,10 +310,6 @@ namespace Amegakure.Starkane.CinematicSystem
             }    
         }
 
-        public void MintEnemyCharacters()
-        {
-
-        }
     }
     
 

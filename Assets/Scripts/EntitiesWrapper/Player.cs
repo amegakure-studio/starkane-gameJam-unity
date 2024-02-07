@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 using Amegakure.Starkane.Entities;
+using Dojo.Starknet;
 using dojo_bindings;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace Amegakure.Starkane.EntitiesWrapper
         [SerializeField] string playerName;
         [SerializeField] CharacterType defaultCharacter;
         
-        private dojo.FieldElement owner;
+        private FieldElement owner;
         private List<Character> characters;
 
         public BigInteger Id { get => id; set => id = value; }
@@ -25,7 +26,7 @@ namespace Amegakure.Starkane.EntitiesWrapper
             characters = new();
         }
 
-        public void SetDojoId(dojo.FieldElement id)
+        public void SetDojoId(FieldElement id)
         {
             owner = id;
         }

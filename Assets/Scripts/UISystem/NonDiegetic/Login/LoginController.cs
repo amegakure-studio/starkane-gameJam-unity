@@ -1,7 +1,6 @@
 using Amegakure.Starkane.Entities;
 using Amegakure.Starkane.EntitiesWrapper;
 using Amegakure.Starkane.PubSub;
-using bottlenoselabs.C2CS.Runtime;
 using Dojo;
 using Dojo.Starknet;
 using dojo_bindings;
@@ -112,7 +111,7 @@ public class LoginController : MonoBehaviour
 
     private Player CreatePlayer(string sessionPlayername, string sessionPlayerStringId, GameObject sessionGo)
     {
-        var player_id = dojo.felt_from_hex_be(new CString(sessionPlayerStringId)).ok;
+        var player_id = new FieldElement(sessionPlayerStringId).Inner();
         var hexString = BitConverter.ToString(player_id.data.ToArray()).Replace("-", "").ToLower();
         BigInteger intID = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
 
@@ -140,23 +139,22 @@ public class LoginController : MonoBehaviour
 
     private Player FindSessionPlayer(string sessionPlayername, string sessionPlayerStringId, GameObject sessionGo)
     {
-        var player_id = dojo.felt_from_hex_be(new CString(sessionPlayerStringId)).ok;
+        Debug.Log("Session str " + sessionPlayerStringId);
+        var player_id = new FieldElement(sessionPlayerStringId).Inner();
 
-        var hexString = BitConverter.ToString(player_id.data.ToArray()).Replace("-", "").ToLower();
-        BigInteger intID = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
-        // Debug.Log("Bing Int ID: " + intID);
+        var hexString = "0x" + BitConverter.ToString(player_id.data.ToArray()).Replace("-", "").ToLower();
+        Debug.Log("Bing Int ID: " + hexString);
 
-        List<CharacterPlayerProgress> characterPlayerProgresses = GetCharacterPlayerProgressesFromPlayerId(intID);
+        List<CharacterPlayerProgress> characterPlayerProgresses = GetCharacterPlayerProgressesFromPlayerId(hexString);
         if (characterPlayerProgresses.Count > 0)
         {
-
             CharacterPlayerProgress defaultCharacterPlayerProgress = GetDefaultCharacter(characterPlayerProgresses, CharacterType.Warrior);
 
             if (defaultCharacterPlayerProgress == null)
                 defaultCharacterPlayerProgress = characterPlayerProgresses[0];
 
             Player player = sessionGo.AddComponent<Player>();
-            player.Id = intID;
+            player.Id = 0;
             player.SetDojoId(defaultCharacterPlayerProgress.Owner);
             player.PlayerName = sessionPlayername;
             player.DefaultCharacter = defaultCharacterPlayerProgress.GetCharacterType();
@@ -172,7 +170,7 @@ public class LoginController : MonoBehaviour
         return characterPlayerProgresses.Find(cp => cp.GetCharacterType() == warrior);
     }
 
-    private List<CharacterPlayerProgress> GetCharacterPlayerProgressesFromPlayerId(BigInteger intID)
+    private List<CharacterPlayerProgress> GetCharacterPlayerProgressesFromPlayerId(string hexString)
     {
         List<CharacterPlayerProgress> players = new();
         GameObject[] entities = worldManager.Entities();
@@ -181,7 +179,9 @@ public class LoginController : MonoBehaviour
             CharacterPlayerProgress characterPlayerProgress = go.GetComponent<CharacterPlayerProgress>();
             if (characterPlayerProgress != null)
             {
-                bool res = characterPlayerProgress.getPlayerID().Equals(intID);
+                Debug.Log("DOJO: " +  characterPlayerProgress.owner.Hex());
+                Debug.Log("given " + hexString );
+                bool res = characterPlayerProgress.owner.Hex().Equals(hexString);
 
                 if (res)
                     players.Add(characterPlayerProgress);
@@ -192,14 +192,14 @@ public class LoginController : MonoBehaviour
 
     }
 
-    private void CallCreatePlayerTx(string playerId, string characterId)
+    private async void CallCreatePlayerTx(string playerId, string characterId)
     {
         DojoTxConfig dojoTxConfig = GameObject.FindAnyObjectByType<DojoTxConfig>();
         var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
-        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
+        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), new FieldElement(dojoTxConfig.KatanaAccounAddress));
 
-        var character_id = dojo.felt_from_hex_be(new CString(characterId)).ok;
-        var player_id = dojo.felt_from_hex_be(new CString(playerId)).ok;
+        var character_id = new FieldElement(characterId).Inner();
+        var player_id = new FieldElement(playerId).Inner();
 
         dojo.Call call = new dojo.Call()
         {
@@ -207,7 +207,7 @@ public class LoginController : MonoBehaviour
             {
                         character_id,
                         player_id,
-                        dojo.felt_from_hex_be(new CString("0x01")).ok
+                        new FieldElement("0x01").Inner()
             },
             to = dojoTxConfig.CharacterSystemActionAddress,
             selector = "mint"
@@ -215,15 +215,12 @@ public class LoginController : MonoBehaviour
 
         try
         {
-            account.ExecuteRaw(new[] { call });
+            await account.ExecuteRaw(new[] { call });
         }
         catch (Exception e)
         {
             Debug.Log("Cannot create new player");
             Debug.LogError(e);
         }
-
-        Debug.Log("Success!!!");
-
     }
 }

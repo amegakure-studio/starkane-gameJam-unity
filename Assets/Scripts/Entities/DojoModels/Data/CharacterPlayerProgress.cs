@@ -4,17 +4,28 @@ using System.Globalization;
 using System.Numerics;
 using Amegakure.Starkane.Entities;
 using Dojo;
+using Dojo.Starknet;
 using Dojo.Torii;
 using dojo_bindings;
 using UnityEngine;
 
 public class CharacterPlayerProgress : ModelInstance
 {
-    dojo.FieldElement owner;
+    [ModelField("owner")]
+    public FieldElement owner;
+    
+    [ModelField("character_id")]
     UInt32 character_id;
-    UInt32  skin_id;
+
+    [ModelField("skin_id")]
+    UInt32 skin_id;
+
+    [ModelField("owned")]
     bool owned;
+
+    [ModelField("level")]
     UInt32 level;
+
     private BigInteger playerID;
 
     public CharacterType GetCharacterType()
@@ -24,7 +35,7 @@ public class CharacterPlayerProgress : ModelInstance
 
     private Dictionary<CharacterType, string> characterPrefabsDict;
 
-    public dojo.FieldElement Owner { get => owner; private set => owner = value; }
+    public FieldElement Owner { get => owner; private set => owner = value; }
 
     private void Awake()
     {
@@ -35,29 +46,17 @@ public class CharacterPlayerProgress : ModelInstance
         characterPrefabsDict[CharacterType.Goblin] = "Enemy";
     }
 
-    public override void Initialize(Model model)
+    private void Update()
     {
-        owner = model.members["owner"].ty.ty_primitive.felt252;
-        character_id = model.members["character_id"].ty.ty_primitive.u32;
-        skin_id = model.members["skin_id"].ty.ty_primitive.u32;
-        owned = model.members["owned"].ty.ty_primitive.p_bool;
-        level = model.members["level"].ty.ty_primitive.u32;
-        
-        var hexString = BitConverter.ToString(owner.data.ToArray()).Replace("-", "").ToLower();
-        playerID = BigInteger.Parse( hexString, NumberStyles.AllowHexSpecifier );
-        // print();
+        //Debug.Log(owner.Hex());
     }
 
     public BigInteger getPlayerID()
     {
+        Debug.Log(owner.Hex());
+        playerID = BigInteger.Parse(owner.Hex(), NumberStyles.AllowHexSpecifier);
+
         return playerID;
     }
 
-    public void print()
-    {
-        Debug.Log(" CPP: owner: " + playerID + "\n"
-                  + "character_id: " + character_id + "\n" + "skin_id: " + skin_id + "\n" + "owned: " + owned
-                  + "\n" + "level: " + level);
-        
-    }
 }

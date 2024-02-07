@@ -134,24 +134,24 @@ public class Combat : MonoBehaviour
         
         
         var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
-        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
+        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), new FieldElement(dojoTxConfig.KatanaAccounAddress));
 
         string match_id_string = matchState.Id.ToString("X");
-        var match_id = dojo.felt_from_hex_be(new CString(match_id_string)).ok;
+        var match_id = new FieldElement(match_id_string).Inner();
 
         string player_id_string = player.Id.ToString("X");
-        var player_id = dojo.felt_from_hex_be(new CString(player_id_string)).ok;
+        var player_id = new FieldElement(player_id_string).Inner();
 
         string character_id_string = character.GetId().ToString("X");
-        var character_id = dojo.felt_from_hex_be(new CString(character_id_string)).ok;
+        var character_id = new FieldElement(character_id_string).Inner();
 
         string x_string = target.coordinate.x.ToString("X");
-        var x = dojo.felt_from_hex_be(new CString(x_string)).ok;
+        var x = new FieldElement(x_string).Inner();
 
         string y_string = target.coordinate.y.ToString("X");
-        var y = dojo.felt_from_hex_be(new CString(y_string)).ok;
+        var y = new FieldElement(y_string).Inner();
 
-        dojo.Call call = new dojo.Call()
+        dojo.Call call = new()
         {
             calldata = new[]
             {
@@ -161,24 +161,24 @@ public class Combat : MonoBehaviour
             selector = "move"
         };
 
-        account.ExecuteRaw(new[] { call });
+        _ = account.ExecuteRaw(new[] { call });
     }
 
     public void CallEndTurnTX(Player player)
     {
         //TODO: check if player == playerTurn
         var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
-        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
+        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), new FieldElement(dojoTxConfig.KatanaAccounAddress));
 
         List<dojo.FieldElement> calldata = new List<dojo.FieldElement>();
 
         string match_id_string = matchState.Id.ToString("X");
-        var match_id = dojo.felt_from_hex_be(new CString(match_id_string)).ok;
+        var match_id = new FieldElement(match_id_string).Inner();
 
         string player_id_string = player.Id.ToString("X");
-        var player_id = dojo.felt_from_hex_be(new CString(player_id_string)).ok;
+        var player_id = new FieldElement(player_id_string).Inner();
 
-        dojo.Call call = new dojo.Call()
+        dojo.Call call = new ()
         {
             calldata = new[]
             {
@@ -188,7 +188,7 @@ public class Combat : MonoBehaviour
             selector = "end_turn"
         };
 
-        account.ExecuteRaw(new[] { call });
+        _= account.ExecuteRaw(new[] { call });
     }
 
     public bool CanMove(Character character, Player player)
@@ -270,32 +270,32 @@ public class Combat : MonoBehaviour
                             Skill skill, Player playerReceiver, Character characterReceiver)
     {
         var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
-        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
+        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), new FieldElement(dojoTxConfig.KatanaAccounAddress));
 
         List<dojo.FieldElement> calldata = new List<dojo.FieldElement>();
 
         string match_id_string = matchState.Id.ToString("X");
-        var match_id = dojo.felt_from_hex_be(new CString(match_id_string)).ok;
+        var match_id = new FieldElement(match_id_string).Inner();
 
         string player_id_string = playerFrom.Id.ToString("X");
-        var player_id_from = dojo.felt_from_hex_be(new CString(player_id_string)).ok;
+        var player_id_from = new FieldElement(player_id_string).Inner();
 
         string character_id_from_string = characterFrom.GetId().ToString("X");
-        var character_id_from = dojo.felt_from_hex_be(new CString(character_id_from_string)).ok;
+        var character_id_from = new FieldElement(character_id_from_string).Inner();
 
         string skill_id_string = skill.Id.ToString("X");
-        var skill_id = dojo.felt_from_hex_be(new CString(skill_id_string)).ok;
+        var skill_id = new FieldElement(skill_id_string).Inner();
 
         string level_string = skill.Level.ToString("X");
-        var level = dojo.felt_from_hex_be(new CString(level_string)).ok;
+        var level = new FieldElement(level_string).Inner();
 
         string player_id_receiver_string = playerReceiver.Id.ToString("X");
-        var player_id_receiver = dojo.felt_from_hex_be(new CString(player_id_receiver_string)).ok;
+        var player_id_receiver = new FieldElement(player_id_receiver_string).Inner();
 
         string character_id_receiver_string = characterReceiver.GetId().ToString("X");
-        var character_id_receiver = dojo.felt_from_hex_be(new CString(character_id_receiver_string)).ok;
+        var character_id_receiver = new FieldElement(character_id_receiver_string).Inner();
 
-        dojo.Call call = new dojo.Call()
+        dojo.Call call = new()
         {
             calldata = new[]
             {
@@ -306,7 +306,7 @@ public class Combat : MonoBehaviour
             selector = "action"
         };
 
-        account.ExecuteRaw(new[] { call });
+        _= account.ExecuteRaw(new[] { call });
     }
 
     public bool CanDoSkill(Player player, Character character, Skill skillSelected)

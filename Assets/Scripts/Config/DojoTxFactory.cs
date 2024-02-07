@@ -41,7 +41,7 @@ public class DojoTxFactory : MonoBehaviour
         dojoTxConfig.RpcUrl = "http://localhost:5050";
         dojoTxConfig.ToriiUrl = "http://localhost:8080";
         dojoTxConfig.KatanaPrivateKey = "0x1800000000300000180000000000030000000000003006001800006600";
-        dojoTxConfig.KatanaAccounAddress = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973";
+        dojoTxConfig.KatanaAccounAddress = "0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03";
         dojoTxConfig.ActionSystemActionAddress = "0x68705e426f391541eb50797796e5e71ee3033789d82a8c801830bb191aa3bf1";
         dojoTxConfig.CharacterSystemActionAddress = "0x57a6556e89380b76465e525c725d8ed065a03b47fb9a4c9b676a1afea8177c5";
         dojoTxConfig.MapCCSystemActionAddress = "0x1e4dca0e18e12a6ba359a036b1eed1e0156dceab53f2f222aaaec866781131c";

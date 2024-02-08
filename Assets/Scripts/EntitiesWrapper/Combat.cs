@@ -125,11 +125,10 @@ public class Combat : MonoBehaviour
         if (CanMove(character, player))
         {
             CallMoveTx(character, player, target);
-            character.Move(target);
         }
     }
 
-    private void CallMoveTx(Character character, Player player, Tile target)
+    private async void CallMoveTx(Character character, Player player, Tile target)
     {
         // Debug.Log("Move: " + player.PlayerName + "With: " + character.CharacterName
         //             + "To: " + target.coordinate.ToString());
@@ -162,7 +161,16 @@ public class Combat : MonoBehaviour
             selector = "move"
         };
 
-        _ = account.ExecuteRaw(new[] { call });
+        try
+        {
+            await account.ExecuteRaw(new[] { call });
+            character.Move(target);
+        }
+        catch 
+        {
+            Debug.LogError("Error in move tx");
+        }
+        
     }
 
     public void CallEndTurnTX(Player player)
@@ -247,24 +255,12 @@ public class Combat : MonoBehaviour
         {
             CallSkillTX(playerFrom, characterFrom, skill, playerReceiver, characterReceiver);
 
-            // Debug.Log("Skill");
-            Dictionary<string, object> context = new()
-            {
-                { "PlayerFrom", playerFrom },
-                { "CharacterFrom", characterFrom },
-                { "Skill", skill },
-                { "PlayerReceiver", playerReceiver },
-                { "CharacterReceiver", characterReceiver }
-            };
-
-            EventManager.Instance.Publish(GameEvent.COMBAT_SKILL_DONE, context);
-
             if (!characterReceiver.IsAlive())
                 EventManager.Instance.Publish(GameEvent.COMBAT_CHARACTER_DEAD, new() { { "Character", characterReceiver } });
         }
     }
 
-    private void CallSkillTX(Player playerFrom, Character characterFrom,
+    private async void CallSkillTX(Player playerFrom, Character characterFrom,
                             Skill skill, Player playerReceiver, Character characterReceiver)
     {
         var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
@@ -302,7 +298,26 @@ public class Combat : MonoBehaviour
             selector = "action"
         };
 
-        _= account.ExecuteRaw(new[] { call });
+        try
+        {
+            await account.ExecuteRaw(new[] { call });
+
+            Dictionary<string, object> context = new()
+            {
+                { "PlayerFrom", playerFrom },
+                { "CharacterFrom", characterFrom },
+                { "Skill", skill },
+                { "PlayerReceiver", playerReceiver },
+                { "CharacterReceiver", characterReceiver }
+            };
+
+            EventManager.Instance.Publish(GameEvent.COMBAT_SKILL_DONE, context);
+        }
+        catch 
+        {
+            Debug.LogError("Error in do skill tx");
+        }
+        
     }
 
     public bool CanDoSkill(Player player, Character character, Skill skillSelected)

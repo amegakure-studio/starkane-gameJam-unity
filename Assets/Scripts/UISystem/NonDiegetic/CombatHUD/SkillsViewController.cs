@@ -4,7 +4,6 @@ using Amegakure.Starkane.PubSub;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Character = Amegakure.Starkane.EntitiesWrapper.Character;
@@ -47,9 +46,7 @@ public class SkillsViewController : MonoBehaviour
         EventManager.Instance.Subscribe(GameEvent.INPUT_CHARACTER_SELECTED, HandleCharacterSelected);
         EventManager.Instance.Subscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
         EventManager.Instance.Subscribe(GameEvent.TILE_SELECTED, HandleTileSelected);
-
-        // EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
-        // EventManager.Instance.Subscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
+        EventManager.Instance.Subscribe(GameEvent.COMBAT_SKILL_DONE, HandleSkillDone);
     }
 
     private void OnDisable()
@@ -57,14 +54,18 @@ public class SkillsViewController : MonoBehaviour
         EventManager.Instance.Unsubscribe(GameEvent.INPUT_CHARACTER_SELECTED, HandleCharacterSelected);
         EventManager.Instance.Unsubscribe(GameEvent.COMBAT_TURN_CHANGED, HandleCombatTurnChanged);
         EventManager.Instance.Unsubscribe(GameEvent.TILE_SELECTED, HandleTileSelected);
-
-        // EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_START, HandleCutsceneCombatStart);
-        // EventManager.Instance.Unsubscribe(GameEvent.CUTSCENE_COMBAT_END, HandleCutsceneCombatEnd);
+        EventManager.Instance.Unsubscribe(GameEvent.COMBAT_SKILL_DONE, HandleSkillDone);
     }
 
-    private void HandleCutsceneCombatStart(Dictionary<string, object> context) { skillContainer.style.visibility = Visibility.Hidden; }
-
-    private void HandleCutsceneCombatEnd(Dictionary<string, object> context) { skillContainer.style.visibility = Visibility.Visible; }
+    private void HandleSkillDone(Dictionary<string, object> context)
+    {
+        foreach (Skill skill in skillsDict.Keys)
+        {
+            VisualElement skillVe = skillsDict[skill];
+            skillVe.Q<VisualElement>("Icon").AddToClassList("disabled");
+            skillVe.Q<Button>().SetEnabled(false);
+        }
+    }
 
     private void HandleTileSelected(Dictionary<string, object> context)
     {
@@ -89,13 +90,6 @@ public class SkillsViewController : MonoBehaviour
 
                         List<Tile> tilesToReset = skillSelected.GetFrontier(characterSelected.Location).Tiles;
                         EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET, new() { { "Tiles", tilesToReset } });
-
-                        foreach (Skill skill in skillsDict.Keys)
-                        {
-                            VisualElement skillVe = skillsDict[skill];
-                            skillVe.Q<VisualElement>("Icon").AddToClassList("disabled");
-                            skillVe.Q<Button>().SetEnabled(false);
-                        }
                     }
                 }
             }
@@ -127,7 +121,6 @@ public class SkillsViewController : MonoBehaviour
 
     private void ShowSkills(List<Skill> skills, Character character)
     {
-        //skillContainer?.Clear();
         UnregisterBtns(skillBtns.Keys.ToList());
         skillBtns.Clear();
         skillsDict.Clear();
@@ -207,12 +200,7 @@ public class SkillsViewController : MonoBehaviour
 
     private void HandleCharacterSelected(Dictionary<string, object> context)
     {
-        //if (skillSelected)
-        //    skillSelected.CleanFrontier();
-
         characterSelected = (Character)context["Character"];
-        // Debug.Log("!!! Skill Character selected!!");
-
         ShowSkills(characterSelected.Skills, characterSelected);
     }
 

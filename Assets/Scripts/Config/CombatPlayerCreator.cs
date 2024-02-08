@@ -95,7 +95,7 @@ namespace Amegakure.Starkane.Config
 
                             Debug.Log("Added: " + player.PlayerName + "Character: " + character.CharacterName);
 
-                            characterGo.transform.parent = player.gameObject.transform;
+                            //characterGo.transform.parent = player.gameObject.transform;
                         }
                         else
                         {

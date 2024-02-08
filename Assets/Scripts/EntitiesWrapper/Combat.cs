@@ -20,6 +20,7 @@ public class Combat : MonoBehaviour
     private Dictionary<Player, List<ActionState>> actionStates = new();
     private Dictionary<Player, List<CharacterState>> characterStates = new();
     private DojoTxConfig dojoTxConfig;
+    private GridManager gridManager;
 
     public MatchState MatchState
     {
@@ -42,6 +43,7 @@ public class Combat : MonoBehaviour
         actionStates = new();
         characterStates = new();
         dojoTxConfig = GameObject.FindAnyObjectByType<DojoTxConfig>();
+        gridManager = GameObject.FindAnyObjectByType<GridManager>();
     }
 
     private void Start()
@@ -103,10 +105,38 @@ public class Combat : MonoBehaviour
         List<CharacterState> currentCharacterStates = characterStates[player];
         currentCharacterStates.Add(characterState);
         characterState.OnDead += HandleOnDead;
+        characterState.OnPositionChange += HandleOnPositionChange;
 
         if (!character.IsAlive())
             EventManager.Instance.Publish(GameEvent.COMBAT_CHARACTER_DEAD, new() { { "Character", character } });
         // character.ResetLocation();
+    }
+
+    private void HandleOnPositionChange(CharacterState state)
+    {
+        Debug.Log("Position changed x:" + (int)state.x + " y: " + (int)state.y);
+
+        Player player = GetPlayerByID(state.player.Hex());
+        if (player != null)
+        {
+            Debug.Log("Player on match");
+            Character character = playerMatchCharacters[player].Find(pmc => pmc.CharacterState.GetInstanceID() == state.GetInstanceID()); ;
+            if (character != null)
+            {
+                
+                UnityEngine.Vector2Int tilePos = new UnityEngine.Vector2Int((int)state.x, (int)state.y);
+                Debug.Log("Vecto2 :" + tilePos);
+                
+                Tile target = gridManager.WorldMap[tilePos];
+                
+                if (target != null)
+                {
+                    character.Move(target);
+                }
+                else
+                    Debug.LogError("Tile not found");
+            } 
+        }
     }
 
     private void HandleOnDead(CharacterState state)
@@ -164,8 +194,8 @@ public class Combat : MonoBehaviour
         try
         {
             await account.ExecuteRaw(new[] { call });
-            character.Move(target);
-            Debug.Log("Move ended!");
+            //character.Move(target);
+            //Debug.Log("Move ended!");
         }
         catch 
         {
@@ -174,7 +204,7 @@ public class Combat : MonoBehaviour
         
     }
 
-    public void CallEndTurnTX(Player player)
+    public async void CallEndTurnTX(Player player)
     {
         //TODO: check if player == playerTurn
         var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
@@ -197,7 +227,7 @@ public class Combat : MonoBehaviour
             selector = "end_turn"
         };
 
-        _= account.ExecuteRaw(new[] { call });
+        await account.ExecuteRaw(new[] { call });
     }
 
     public bool CanMove(Character character, Player player)

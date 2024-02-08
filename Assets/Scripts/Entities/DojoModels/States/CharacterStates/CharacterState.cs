@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Numerics;
 using Dojo;
 using Dojo.Starknet;
@@ -29,9 +30,9 @@ namespace Amegakure.Starkane.Entities
         [ModelField("y")]
         public UInt64 y;
 
-        private BigInteger player_id;
 
         public event Action<CharacterState> OnDead;
+        public event Action<CharacterState> OnPositionChange;
         public uint Match_id { get => match_id; set => match_id = value; }
         public uint Character_id { get => character_id; set => character_id = value; }
         public FieldElement Player { get => player; set => player = value; }
@@ -48,7 +49,6 @@ namespace Amegakure.Starkane.Entities
         public ulong Remain_mp { get => remain_mp; set => remain_mp = value; }
         public ulong X { get => x; set => x = value; }
         public ulong Y { get => y; set => y = value; }
-        public BigInteger Player_id{ get => player_id; set => player_id = value; }
 
         public override void Initialize(Model model)
         {
@@ -60,7 +60,20 @@ namespace Amegakure.Starkane.Entities
 
         public override void OnUpdate(Model model)
         {
+            UInt64 oldX = x;
+            UInt64 oldY = y;
+
             base.OnUpdate(model);
+
+            UnityEngine.Debug.Log("Match: " + match_id + "\n"+
+                                   "Player: " + player.Hex() + "\n" +
+                                    "OLDX: " + oldX +
+                                    "OLDX: " + oldY  + "\n" +
+                                    "x: " + x +
+                                    "y: " + y + "\n");
+
+            if (oldX != x || oldY != y)
+                OnPositionChange?.Invoke(this);
 
             if (Remain_hp <= 0)
                 OnDead?.Invoke(this);

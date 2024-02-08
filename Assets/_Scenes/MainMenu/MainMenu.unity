@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8090f47ddf591fa4391a2e16af7dd92f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLocalFactory: 1
+  isLocalFactory: 0
 --- !u!4 &57265478
 Transform:
   m_ObjectHideFlags: 0
@@ -3036,8 +3036,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bbcaeafdf5e41c6a2f48ff65820b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toriiUrl: http://localhost:8080
-  rpcUrl: http://localhost:5050
+  toriiUrl: http://181.24.198.155:9586
+  rpcUrl: http://181.24.198.155:9585
   relayUrl: /ip4/127.0.0.1/tcp/9090
   relayWebrtcUrl: 
   worldAddress: 0x1caef8b56b3f0627479ab624eefff92d7d8e1daa9d418cc76bd74935f1dc283

@@ -62,8 +62,6 @@ namespace Amegakure.Starkane.CinematicSystem
                     
                     Player player  = GameObject.FindObjectOfType<Session>().Player;
                     
-                    BigInteger playerMatchId = player.Id;
-                    
                     string playerId = player.DojoID.Hex();
                     int playerCharacterId = (int)player.DefaultCharacter;
                     
@@ -259,7 +257,7 @@ namespace Amegakure.Starkane.CinematicSystem
                         bool isPlayerAdversaryMatch = playerIdInMatch.Contains(playerId)
                         && playerIdInMatch.Contains(adversaryMatchId);
                         
-                        if (matchState.WinnerId.Equals(0) && isPlayerAdversaryMatch)
+                        if (matchState.winner.Hex().Equals("0x0000000000000000000000000000000000000000000000000000000000000000") && isPlayerAdversaryMatch)
                         {
                             return matchState;
                         }

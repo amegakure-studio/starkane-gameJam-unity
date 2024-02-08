@@ -101,34 +101,34 @@ namespace Amegakure.Starkane.Config
                         {
                             string adversaryID = characterPlayerProgress.owner.Hex();
                             Debug.Log("Adversary: " + adversaryID);
-                            
-                            //List<int> matchAdversaryCharacterID = FindPlayerCharactersInAMatch(match_id, adversaryID);
 
-                            //if (matchPlayers.Contains(adversaryID) &&
-                            //    matchAdversaryCharacterID.Contains((int)characterType))
-                            //{
-                            //    // Debug.Log("ID ADV:" + adversaryID);
-                            //    CharacterState characterState = GetCharacterState(adversaryID, match_id, (int)characterType);
-                            //    ActionState actionState = GetCharacterActionState(adversaryID, match_id, (int)characterType);
-                            //    List<Skill> characterSkills = GetSkills((int)characterType);
-                            //    Entities.Character characterEntity = GetCharacter((int)characterType);
+                            List<int> matchAdversaryCharacterID = FindPlayerCharactersInAMatch(match_id, adversaryID);
 
-                            //    GameObject characterGo = builder
-                            //            .AddCharacterPrefab(characterType, characterPrefabsDict[characterType],
-                            //                                characterPlayerProgress, characterEntity)
-                            //            .AddCombatElements(characterState, actionState, characterSkills)
-                            //            .AddGridMovement(PathStyle.SQUARE, (int)characterEntity.movement_range)
-                            //            .Build();
+                            if (matchPlayers.Contains(adversaryID) &&
+                                matchAdversaryCharacterID.Contains((int)characterType))
+                            {
+                                //Debug.Log("ID ADV:" + adversaryID);
+                                CharacterState characterState = GetCharacterState(adversaryID, match_id, (int)characterType);
+                                ActionState actionState = GetCharacterActionState(adversaryID, match_id, (int)characterType);
+                                List<Skill> characterSkills = GetSkills((int)characterType);
+                                Entities.Character characterEntity = GetCharacter((int)characterType);
 
-                            //    if (adversary == null)
-                            //        adversary = CreateAdversary(adversaryID);
+                                GameObject characterGo = builder
+                                        .AddCharacterPrefab(characterType, characterPrefabsDict[characterType],
+                                                            characterPlayerProgress, characterEntity)
+                                        .AddCombatElements(characterState, actionState, characterSkills)
+                                        .AddGridMovement(PathStyle.SQUARE, (int)characterEntity.movement_range)
+                                        .Build();
+
+                                if (adversary == null)
+                                    adversary = CreateAdversary(adversaryID);
 
 
-                            //    Character character = characterGo.GetComponent<Character>();
-                            //    combat.AddCharacter(adversary, character, actionState, characterState);
+                                Character character = characterGo.GetComponent<Character>();
+                                combat.AddCharacter(adversary, character, actionState, characterState);
 
-                            //    characterGo.transform.parent = adversary.transform;
-                            //}
+                                characterGo.transform.parent = adversary.transform;
+                            }
                         }
                     }
                 }
@@ -138,11 +138,11 @@ namespace Amegakure.Starkane.Config
             Destroy(builderGo);
         }
 
-        private Player CreateAdversary(BigInteger adversaryId)
+        private Player CreateAdversary(string adversaryId)
         {
             GameObject adversaryGo = Instantiate(new GameObject());
             Player adversary = adversaryGo.AddComponent<Player>();
-            adversary.Id = adversaryId;
+            adversary.HexID = adversaryId;
             adversary.name = "Enemy";
             adversary.PlayerName = adversary.name;
             
@@ -230,21 +230,21 @@ namespace Amegakure.Starkane.Config
         private List<Skill> GetSkills(int characterID)
         {
             List<Skill> skills = new();
-            
             GameObject[] entities = worldManager.Entities();
             foreach(GameObject go in entities)
             { 
                 try
                 {
                     Skill skill = go.GetComponent<Skill>();
-                    if(skill.Character_id == characterID)
+
+                    if ((int)skill.Character_id == characterID)
                     {
-                        // Debug.Log("Skill: " + skill.Id +
-                        // " belongs to the character: " + characterID );
+                        //Debug.Log("Skill: " + skill.Id +
+                        //        " belongs to the character: " + characterID );
                         skills.Add(skill);
                     }
                 }
-                catch{}
+                catch(Exception e) { }
             }
 
             return skills;
@@ -265,8 +265,10 @@ namespace Amegakure.Starkane.Config
                     if(matchState != null && player != null)
                     {
                         List<string> playerIdInMatch = FindMatchPlayers((int)matchState.Id);
+                        
+                        Debug.Log("Winner? " + matchState.winner.Hex());
 
-                        if (matchState.WinnerId == 0 && playerIdInMatch.Contains(player.DojoID.Hex()))
+                        if (matchState.winner.Hex().Equals("0x0000000000000000000000000000000000000000000000000000000000000000") && playerIdInMatch.Contains(player.DojoID.Hex()))
                         {
                             return matchState;
                         }

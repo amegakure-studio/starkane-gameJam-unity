@@ -46,13 +46,15 @@ public class Combat : MonoBehaviour
 
     private void Start()
     {
-        BigInteger playerId = matchState.PlayerTurnId;
+        string playerId = matchState.player_turn.Hex();
         // Debug.Log("Match turn playerID:" + playerId);
         // foreach (Player player in playerMatchCharacters.Keys)
         // {
         //     Debug.Log("ID in dict: " + player.Id);
         // }
-        Player playerTurn = playerMatchCharacters.Keys.First(p => p.Id.Equals(playerId));
+        Player playerTurn = playerMatchCharacters.Keys.First(p => p.HexID.Equals(playerId));
+        
+        Debug.Log("playerTurn:" + playerTurn.HexID);
 
         EventManager.Instance.Publish(GameEvent.COMBAT_TURN_CHANGED, new() { { "Player", playerTurn } });
     }
@@ -64,17 +66,17 @@ public class Combat : MonoBehaviour
         matchState.winnerChanged -= MatchState_winnerChanged;
     }
 
-    private void MatchState_playerTurnIdChanged(BigInteger playerId)
+    private void MatchState_playerTurnIdChanged(string playerId)
     {
-        Player playerTurn = playerMatchCharacters.Keys.First(p => p.Id == playerId);
+        Player playerTurn = playerMatchCharacters.Keys.First(p => p.HexID.Equals(playerId));
 
         EventManager.Instance.Publish(GameEvent.COMBAT_TURN_CHANGED, new() { { "Player", playerTurn } });
     }
 
 
-    private void MatchState_winnerChanged(BigInteger playerId)
+    private void MatchState_winnerChanged(string playerId)
     {
-        Player playerWinner = playerMatchCharacters.Keys.First(p => p.Id == playerId);
+        Player playerWinner = playerMatchCharacters.Keys.First(p => p.HexID.Equals(playerId));
         Debug.Log("!!!!The Winnerr ....... is: " + playerWinner.PlayerName);
 
         EventManager.Instance.Publish(GameEvent.COMBAT_VICTORY, new() { { "Player", playerWinner } });
@@ -109,7 +111,7 @@ public class Combat : MonoBehaviour
 
     private void HandleOnDead(CharacterState state)
     {
-        Player player = GetPlayerByID(state.Player_id);
+        Player player = GetPlayerByID(state.player.Hex());
         if(player != null)
         {
             Character character = playerMatchCharacters[player].Find(pmc => pmc.CharacterState.GetInstanceID() == state.GetInstanceID());;
@@ -139,8 +141,7 @@ public class Combat : MonoBehaviour
         string match_id_string = matchState.Id.ToString("X");
         var match_id = new FieldElement(match_id_string).Inner();
 
-        string player_id_string = player.Id.ToString("X");
-        var player_id = new FieldElement(player_id_string).Inner();
+        var player_id = new FieldElement(player.HexID).Inner();
 
         string character_id_string = character.GetId().ToString("X");
         var character_id = new FieldElement(character_id_string).Inner();
@@ -175,8 +176,7 @@ public class Combat : MonoBehaviour
         string match_id_string = matchState.Id.ToString("X");
         var match_id = new FieldElement(match_id_string).Inner();
 
-        string player_id_string = player.Id.ToString("X");
-        var player_id = new FieldElement(player_id_string).Inner();
+        var player_id = new FieldElement(player.HexID).Inner();
 
         dojo.Call call = new ()
         {
@@ -198,7 +198,7 @@ public class Combat : MonoBehaviour
         if (playerRegistered)
         {
             bool characterMoved = GetActionState(player, character).Movement;
-            return matchState.PlayerTurnId == player.Id && !characterMoved;
+            return matchState.player_turn.Hex() == player.HexID && !characterMoved;
         }
 
         return false;
@@ -216,10 +216,9 @@ public class Combat : MonoBehaviour
 
     public Player GetActualTurnPlayer()
     {
-        BigInteger playerID = matchState.PlayerTurnId;
         foreach (Player player in playerMatchCharacters.Keys)
         {
-            if (player.Id.Equals(playerID))
+            if (player.HexID.Equals(matchState.player_turn.Hex()))
             {
                 return player;
             }
@@ -228,12 +227,11 @@ public class Combat : MonoBehaviour
         return null;
     }
 
-    public Player GetPlayerByID(BigInteger id)
+    public Player GetPlayerByID(string id)
     {
-        BigInteger playerID = matchState.PlayerTurnId;
         foreach (Player player in playerMatchCharacters.Keys)
         {
-            if (player.Id.Equals(id))
+            if (player.HexID.Equals(id))
             {
                 return player;
             }
@@ -277,8 +275,7 @@ public class Combat : MonoBehaviour
         string match_id_string = matchState.Id.ToString("X");
         var match_id = new FieldElement(match_id_string).Inner();
 
-        string player_id_string = playerFrom.Id.ToString("X");
-        var player_id_from = new FieldElement(player_id_string).Inner();
+        var player_id_from = new FieldElement(playerFrom.HexID).Inner();
 
         string character_id_from_string = characterFrom.GetId().ToString("X");
         var character_id_from = new FieldElement(character_id_from_string).Inner();
@@ -289,8 +286,7 @@ public class Combat : MonoBehaviour
         string level_string = skill.Level.ToString("X");
         var level = new FieldElement(level_string).Inner();
 
-        string player_id_receiver_string = playerReceiver.Id.ToString("X");
-        var player_id_receiver = new FieldElement(player_id_receiver_string).Inner();
+        var player_id_receiver = new FieldElement(playerReceiver.HexID).Inner();
 
         string character_id_receiver_string = characterReceiver.GetId().ToString("X");
         var character_id_receiver = new FieldElement(character_id_receiver_string).Inner();

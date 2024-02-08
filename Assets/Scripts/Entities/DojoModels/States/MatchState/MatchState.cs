@@ -22,46 +22,42 @@ public class MatchState : ModelInstance
     [ModelField("winner")]
     public FieldElement winner;
 
-    private BigInteger winnerId;
-    private BigInteger playerTurnId;
-
-
-    public event Action<BigInteger> playerTurnIdChanged;
-    public event Action<BigInteger> winnerChanged;
+    public event Action<string> playerTurnIdChanged;
+    public event Action<string> winnerChanged;
 
     public uint Id { get => id; set => id = value; }
-    public uint Turn { get => turn; set => turn = value; }
-    public BigInteger PlayerTurnId
+
+
+    //public override void Initialize(Model model)
+    //{
+    //    base.Initialize(model);
+
+    //    //var player_turn_string = BitConverter.ToString(player_turn.data.ToArray()).Replace("-", "").ToLower();
+    //    //PlayerTurnId = BigInteger.Parse( player_turn_string, NumberStyles.AllowHexSpecifier );
+
+    //    //var winner_id_string = BitConverter.ToString(winner.data.ToArray()).Replace("-", "").ToLower();
+    //    //WinnerId = BigInteger.Parse( winner_id_string, NumberStyles.AllowHexSpecifier );
+    //}
+
+    public override void OnUpdate(Model model)
     {
-        get => playerTurnId;
-        set 
+        FieldElement oldPlayerTurn = player_turn;
+        FieldElement oldWinnerID = winner;
+
+        base.OnUpdate(model);
+
+        FieldElement newPlayerTurn = player_turn;
+        FieldElement newWinnerID = winner;
+
+        if (oldPlayerTurn != null && !oldPlayerTurn.Hex().Equals(newPlayerTurn.Hex()) )
         {
-            playerTurnId = value;
-            playerTurnIdChanged?.Invoke(playerTurnId);
-        } 
-    }
-    public uint Map_id { get => map_id; set => map_id = value; }
-    public BigInteger WinnerId
-    { 
-        get => winnerId;
-        set
-        {
-            if(!winnerId.Equals(value))
-            {
-                winnerId = value; 
-                winnerChanged?.Invoke(winnerId);
-            }
+            playerTurnIdChanged?.Invoke(player_turn.Hex());
         }
-    }
 
-    public override void Initialize(Model model)
-    {
-        base.Initialize(model);
+        if (oldWinnerID != null && !oldWinnerID.Hex().Equals(newWinnerID.Hex()))
+        {
+            winnerChanged?.Invoke(winner.Hex());
+        }
 
-        //var player_turn_string = BitConverter.ToString(player_turn.data.ToArray()).Replace("-", "").ToLower();
-        //PlayerTurnId = BigInteger.Parse( player_turn_string, NumberStyles.AllowHexSpecifier );
-
-        //var winner_id_string = BitConverter.ToString(winner.data.ToArray()).Replace("-", "").ToLower();
-        //WinnerId = BigInteger.Parse( winner_id_string, NumberStyles.AllowHexSpecifier );
     }
 }

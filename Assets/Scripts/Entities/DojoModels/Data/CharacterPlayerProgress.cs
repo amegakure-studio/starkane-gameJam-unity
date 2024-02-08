@@ -58,12 +58,12 @@ public class CharacterPlayerProgress : ModelInstance
     //    Debug.Log(level);
     //}
 
-    public BigInteger getPlayerID()
-    {
-        Debug.Log(owner.Hex());
-        playerID = BigInteger.Parse(owner.Hex(), NumberStyles.AllowHexSpecifier);
+    //public BigInteger getPlayerID()
+    //{
+    //    Debug.Log(owner.Hex());
+    //    playerID = BigInteger.Parse(owner.Hex(), NumberStyles.AllowHexSpecifier);
 
-        return playerID;
-    }
+    //    return playerID;
+    //}
 
 }

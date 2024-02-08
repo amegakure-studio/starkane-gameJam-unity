@@ -20,8 +20,8 @@ public class DojoTxFactory : MonoBehaviour
 
     private void createSlotDojoConfig(DojoTxConfig dojoTxConfig)
     {
-        dojoTxConfig.RpcUrl = "81.24.172.149:9585";
-        dojoTxConfig.ToriiUrl = "81.24.172.149:9586";
+        dojoTxConfig.RpcUrl = "http://181.24.172.149:9585";
+        dojoTxConfig.ToriiUrl = "http://181.24.172.149:9586";
         dojoTxConfig.KatanaPrivateKey = "0x1800000000300000180000000000030000000000003006001800006600";
         dojoTxConfig.KatanaAccounAddress = "0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03";
         dojoTxConfig.ActionSystemActionAddress = "0x68705e426f391541eb50797796e5e71ee3033789d82a8c801830bb191aa3bf1";

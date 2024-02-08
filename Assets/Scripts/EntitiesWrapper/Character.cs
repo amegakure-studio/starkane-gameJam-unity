@@ -164,9 +164,9 @@ namespace Amegakure.Starkane.EntitiesWrapper
             return (float)GetMp() / (float)characterEntity.mp;
         }
 
-        public System.Numerics.BigInteger GetPlayerId()
+        public string GetPlayerId()
         {
-            return this.CharacterPlayerProgress.getPlayerID();
+            return this.CharacterPlayerProgress.owner.Hex();
         }
 
         public bool IsAlive()

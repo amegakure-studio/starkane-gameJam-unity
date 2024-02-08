@@ -81,7 +81,7 @@ public class SkillsViewController : MonoBehaviour
                     Character characterReceiver = occupyingObjectGo.GetComponent<Character>();
                     if (characterReceiver != null)
                     {
-                        BigInteger playerIdReceiver = characterReceiver.GetPlayerId();
+                        string playerIdReceiver = characterReceiver.GetPlayerId();
                         combat = GetCombat();
 
                         Player playerReceiver = combat.GetPlayerByID(playerIdReceiver);

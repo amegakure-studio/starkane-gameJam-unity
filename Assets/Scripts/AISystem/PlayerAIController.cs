@@ -56,7 +56,7 @@ public class PlayerAIController : MonoBehaviour
         try
         {
             Player turn = (Player)context["Player"];
-            if (turn.Id == player.Id)
+            if (turn.HexID.Equals(player.HexID))
             {
                 if(!isCoroutineRunning)
                 {

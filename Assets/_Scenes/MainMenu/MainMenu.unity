@@ -2635,7 +2635,6 @@ GameObject:
   - component: {fileID: 358382581}
   - component: {fileID: 358382580}
   - component: {fileID: 358382579}
-  - component: {fileID: 358382578}
   - component: {fileID: 358382577}
   - component: {fileID: 358382576}
   - component: {fileID: 358382575}
@@ -2649,6 +2648,7 @@ GameObject:
   - component: {fileID: 358382567}
   - component: {fileID: 358382566}
   - component: {fileID: 358382565}
+  - component: {fileID: 358382584}
   m_Layer: 0
   m_Name: WorldManager
   m_TagString: Untagged
@@ -2938,29 +2938,6 @@ MonoBehaviour:
   map_id: 0
   winner:
     hex: 0x0000000000000000000000000000000000000000000000000000000000000000
---- !u!114 &358382578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358382563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34de953fafc0322ae8f32ce39d1caaca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnUpdated:
-    m_PersistentCalls:
-      m_Calls: []
-  id: 0
-  character_id: 0
-  level: 0
-  character_level_required: 0
-  skill_type: 0
-  power: 0
-  mp_cost: 0
-  range: 0
 --- !u!114 &358382579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3040,7 +3017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldManager: {fileID: 358382583}
-  limit: 10000
+  limit: 1000
   OnSynchronized:
     m_PersistentCalls:
       m_Calls: []
@@ -3065,6 +3042,29 @@ MonoBehaviour:
   relayWebrtcUrl: 
   worldAddress: 0x1caef8b56b3f0627479ab624eefff92d7d8e1daa9d418cc76bd74935f1dc283
   synchronizationMaster: {fileID: 358382582}
+--- !u!114 &358382584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358382563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34de953fafc0322ae8f32ce39d1caaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  id: 0
+  character_id: 0
+  level: 0
+  character_level_required: 0
+  skill_type: 0
+  power: 0
+  mp_cost: 0
+  range: 0
 --- !u!1 &371980933
 GameObject:
   m_ObjectHideFlags: 0
@@ -3626,22 +3626,22 @@ PrefabInstance:
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.81396323
+      value: 0.8140051
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.044336807
+      value: -0.044339087
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5783646
+      value: 0.57830584
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.03150368
+      value: 0.03150048
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
@@ -3696,17 +3696,17 @@ PrefabInstance:
     - target: {fileID: 6064559288942863956, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.000000007450581
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6064559288942863956, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000029802322
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6064559288942863956, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000018626451
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7444946745008193917, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}

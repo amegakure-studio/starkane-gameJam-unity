@@ -165,6 +165,7 @@ public class Combat : MonoBehaviour
         {
             await account.ExecuteRaw(new[] { call });
             character.Move(target);
+            Debug.Log("Move ended!");
         }
         catch 
         {

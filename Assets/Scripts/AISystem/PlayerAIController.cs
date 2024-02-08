@@ -89,6 +89,7 @@ public class PlayerAIController : MonoBehaviour
             TryMove(character);
 
             while (character.IsMoving) yield return null;
+            Debug.Log("End movement");
             EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
 
             TryDoSkill(character);

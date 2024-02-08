@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "unity-Starkane.sln"
+    "dotnet.defaultSolution": "starkane-unity.sln"
 }

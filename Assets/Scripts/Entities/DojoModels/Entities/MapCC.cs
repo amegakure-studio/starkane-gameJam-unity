@@ -44,14 +44,14 @@ public class MapCC : ModelInstance
     {   
         base.Initialize(model);
 
-        //var obstacles_1String = BitConverter.ToString(obstacles_1.data.ToArray()).Replace("-", "").ToLower();
-        //obstacles_1Int = BigInteger.Parse( obstacles_1String, NumberStyles.AllowHexSpecifier );
+        var obstacles_1String = BitConverter.ToString(obstacles_1.Inner().data.ToArray()).Replace("-", "").ToLower();
+        obstacles_1Int = BigInteger.Parse( obstacles_1String, NumberStyles.AllowHexSpecifier );
 
-        //var obstacles_2String = BitConverter.ToString(obstacles_2.data.ToArray()).Replace("-", "").ToLower();
-        //obstacles_2Int = BigInteger.Parse( obstacles_2String, NumberStyles.AllowHexSpecifier );
+        var obstacles_2String = BitConverter.ToString(obstacles_2.Inner().data.ToArray()).Replace("-", "").ToLower();
+        obstacles_2Int = BigInteger.Parse( obstacles_2String, NumberStyles.AllowHexSpecifier );
         
-        //var obstacles_3String = BitConverter.ToString(obstacles_3.data.ToArray()).Replace("-", "").ToLower();
-        //obstacles_3Int = BigInteger.Parse( obstacles_3String, NumberStyles.AllowHexSpecifier );
+        var obstacles_3String = BitConverter.ToString(obstacles_3.Inner().data.ToArray()).Replace("-", "").ToLower();
+        obstacles_3Int = BigInteger.Parse( obstacles_3String, NumberStyles.AllowHexSpecifier );
     }
    
     public bool IsWalkable(UnityEngine.Vector2 position)

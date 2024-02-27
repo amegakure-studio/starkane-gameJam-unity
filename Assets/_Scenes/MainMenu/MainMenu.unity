@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657832, g: 0.4964146, b: 0.57481873, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657803, g: 0.4964139, b: 0.574818, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3036,8 +3036,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85bbcaeafdf5e41c6a2f48ff65820b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toriiUrl: http://181.24.198.155:9586
-  rpcUrl: http://181.24.198.155:9585
+  toriiUrl: https://api.cartridge.gg/x/1starkane/torii
+  rpcUrl: https://api.cartridge.gg/x/1starkane/katana
   relayUrl: /ip4/127.0.0.1/tcp/9090
   relayWebrtcUrl: 
   worldAddress: 0x1caef8b56b3f0627479ab624eefff92d7d8e1daa9d418cc76bd74935f1dc283
@@ -3626,22 +3626,22 @@ PrefabInstance:
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8140051
+      value: 0.79014915
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.044339087
+      value: -0.043039624
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.57830584
+      value: 0.61049664
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.03150048
+      value: 0.03325391
       objectReference: {fileID: 0}
     - target: {fileID: 3383154118042701281, guid: f0ccce4882e1c3b4e9768baa8462132a,
         type: 3}

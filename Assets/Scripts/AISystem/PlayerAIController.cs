@@ -56,7 +56,7 @@ public class PlayerAIController : MonoBehaviour
         try
         {
             Player turn = (Player)context["Player"];
-            if (turn.Id == player.Id)
+            if (turn.HexID.Equals(player.HexID))
             {
                 if(!isCoroutineRunning)
                 {
@@ -82,19 +82,30 @@ public class PlayerAIController : MonoBehaviour
         {
             // Debug.Log("!!!!-- Character AI: " + character.name);
             TryDoSkill(character);
+            
+            yield return new WaitForSeconds(1f);
             while (isCutSceneRunning) yield return null;
+            
             yield return new WaitForSeconds(2f);
             EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
             //Move
+            
             TryMove(character);
-
+            
+            yield return new WaitForSeconds(2f);
             while (character.IsMoving) yield return null;
+            
             EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
 
             TryDoSkill(character);
+
             yield return new WaitForSeconds(1f);
             EventManager.Instance.Publish(GameEvent.PATH_FRONTIERS_RESET);
+            
+            yield return new WaitForSeconds(1f);
             while (isCutSceneRunning) yield return null;
+            
+            yield return new WaitForSeconds(1f);
         }
 
         combat.CallEndTurnTX(player);
@@ -167,7 +178,8 @@ public class PlayerAIController : MonoBehaviour
 
                 Tile nearestTileToAdversary = FindNearestTile(movementTiles, nearestAdversary.Location.coordinate);
                 
-                combat.Move(character, player, nearestTileToAdversary);
+                if (nearestTileToAdversary != null)
+                    combat.Move(character, player, nearestTileToAdversary);
             }
         }
     }
@@ -200,11 +212,18 @@ public class PlayerAIController : MonoBehaviour
 
         foreach (Tile tile in locations)
         {
-            tileCoordinates.Add(tile.coordinate, tile);
+            if (!tile.Occupied())
+                tileCoordinates.Add(tile.coordinate, tile);
         }
 
-        // Use LINQ to find the location with the minimum distance
-        Vector2 nearestLocation = tileCoordinates.Keys.Aggregate((min, loc) => Vector2.Distance(adversarylocation, loc) < Vector2.Distance(adversarylocation, min) ? loc : min);
-        return tileCoordinates[nearestLocation];
+        if (tileCoordinates.Count > 0)
+        {
+            // Use LINQ to find the location with the minimum distance
+            Vector2 nearestLocation = tileCoordinates.Keys.Aggregate((min, loc) => Vector2.Distance(adversarylocation, loc) < Vector2.Distance(adversarylocation, min) ? loc : min);
+            
+            return tileCoordinates[nearestLocation];
+        }
+
+        return null;
     }
 }

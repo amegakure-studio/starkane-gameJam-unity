@@ -119,7 +119,7 @@ public class HUDCombatController : MonoBehaviour
         try
         {
             Player playerTurn = (Player)context["Player"];
-            bool isAdversary = !(playerTurn.Id == player.Id);
+            bool isAdversary = !(playerTurn.HexID.Equals(player.HexID));
 
             playerTurnLbl.text = playerTurn.PlayerName;
             StyleEnum<Visibility> visibility = endTurnBtn.style.visibility;

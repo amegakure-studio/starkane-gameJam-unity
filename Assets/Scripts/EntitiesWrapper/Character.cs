@@ -151,22 +151,22 @@ namespace Amegakure.Starkane.EntitiesWrapper
 
         public int GetMovementRange()
         {
-            return characterEntity.Movement_range;
+            return (int)characterEntity.movement_range;
         }
 
         public float GetHpNormalized()
         {
-            return (float)GetHp() / (float)characterEntity.Hp;
+            return (float)GetHp() / (float)characterEntity.hp;
         }
 
         public float GetMpNormalized()
         {
-            return (float)GetMp() / (float)characterEntity.Mp;
+            return (float)GetMp() / (float)characterEntity.mp;
         }
 
-        public System.Numerics.BigInteger GetPlayerId()
+        public string GetPlayerId()
         {
-            return this.CharacterPlayerProgress.getPlayerID();
+            return this.CharacterPlayerProgress.owner.Hex();
         }
 
         public bool IsAlive()

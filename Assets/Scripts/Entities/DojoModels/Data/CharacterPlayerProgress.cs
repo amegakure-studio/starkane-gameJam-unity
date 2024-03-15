@@ -3,18 +3,30 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
 using Amegakure.Starkane.Entities;
+using Amegakure.Starkane.EntitiesWrapper;
 using Dojo;
+using Dojo.Starknet;
 using Dojo.Torii;
 using dojo_bindings;
 using UnityEngine;
 
 public class CharacterPlayerProgress : ModelInstance
 {
-    dojo.FieldElement owner;
-    UInt32 character_id;
-    UInt32  skin_id;
-    bool owned;
-    UInt32 level;
+    [ModelField("owner")]
+    public FieldElement owner;
+    
+    [ModelField("character_id")]
+    public UInt32 character_id;
+
+    [ModelField("skin_id")]
+    public UInt32 skin_id;
+
+    [ModelField("owned")]
+    public bool owned;
+
+    [ModelField("level")]
+    public UInt32 level;
+
     private BigInteger playerID;
 
     public CharacterType GetCharacterType()
@@ -24,7 +36,7 @@ public class CharacterPlayerProgress : ModelInstance
 
     private Dictionary<CharacterType, string> characterPrefabsDict;
 
-    public dojo.FieldElement Owner { get => owner; private set => owner = value; }
+    public FieldElement Owner { get => owner; private set => owner = value; }
 
     private void Awake()
     {
@@ -35,29 +47,23 @@ public class CharacterPlayerProgress : ModelInstance
         characterPrefabsDict[CharacterType.Goblin] = "Enemy";
     }
 
-    public override void Initialize(Model model)
-    {
-        owner = model.members["owner"].ty.ty_primitive.felt252;
-        character_id = model.members["character_id"].ty.ty_primitive.u32;
-        skin_id = model.members["skin_id"].ty.ty_primitive.u32;
-        owned = model.members["owned"].ty.ty_primitive.p_bool;
-        level = model.members["level"].ty.ty_primitive.u32;
-        
-        var hexString = BitConverter.ToString(owner.data.ToArray()).Replace("-", "").ToLower();
-        playerID = BigInteger.Parse( hexString, NumberStyles.AllowHexSpecifier );
-        // print();
-    }
+    //public override void Initialize(Model model)
+    //{
+    //    base.Initialize(model);
 
-    public BigInteger getPlayerID()
-    {
-        return playerID;
-    }
+    //    Debug.Log(owner.Hex());
+    //    Debug.Log(character_id);
+    //    Debug.Log(skin_id);
+    //    Debug.Log(owned);
+    //    Debug.Log(level);
+    //}
 
-    public void print()
-    {
-        Debug.Log(" CPP: owner: " + playerID + "\n"
-                  + "character_id: " + character_id + "\n" + "skin_id: " + skin_id + "\n" + "owned: " + owned
-                  + "\n" + "level: " + level);
-        
-    }
+    //public BigInteger getPlayerID()
+    //{
+    //    Debug.Log(owner.Hex());
+    //    playerID = BigInteger.Parse(owner.Hex(), NumberStyles.AllowHexSpecifier);
+
+    //    return playerID;
+    //}
+
 }

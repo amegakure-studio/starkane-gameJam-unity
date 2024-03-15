@@ -9,8 +9,9 @@ namespace Amegakure.Starkane.GridSystem
 {
     public class GridManager : MonoBehaviour
     {
-        [SerializeField] WorldManager worldManager;
         [SerializeField] GameObject obstaclePrefab;
+
+        private WorldManager worldManager;
         private Dictionary<Vector2, Tile> worldMap;
         private List<Tile> tilesInMap;
         public Dictionary<Vector2, Tile> WorldMap { get => worldMap; private set => worldMap = value; }
@@ -19,6 +20,7 @@ namespace Amegakure.Starkane.GridSystem
         void Awake()
         {
             Tile[] tiles = GetComponentsInChildren<Tile>();
+            
             tilesInMap = new();
             worldMap = new();
             
@@ -31,7 +33,9 @@ namespace Amegakure.Starkane.GridSystem
 
         private void OnEnable()
         {
-            if(worldManager != null)
+            worldManager = GameObject.FindAnyObjectByType<WorldManager>();
+
+            if (worldManager != null)
                 worldManager.OnEntityFeched += WorldManager_OnEntityFeched;
         }
 
@@ -50,6 +54,9 @@ namespace Amegakure.Starkane.GridSystem
             {
                 try
                 {
+                    if (obstaclePrefab == null)
+                        return;
+
                     MapCC mapCC = go.GetComponent<MapCC>();
 
                     if (mapCC != null )

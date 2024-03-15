@@ -20,6 +20,7 @@ public class Combat : MonoBehaviour
     private Dictionary<Player, List<ActionState>> actionStates = new();
     private Dictionary<Player, List<CharacterState>> characterStates = new();
     private DojoTxConfig dojoTxConfig;
+    private GridManager gridManager;
 
     public MatchState MatchState
     {
@@ -42,17 +43,20 @@ public class Combat : MonoBehaviour
         actionStates = new();
         characterStates = new();
         dojoTxConfig = GameObject.FindAnyObjectByType<DojoTxConfig>();
+        gridManager = GameObject.FindAnyObjectByType<GridManager>();
     }
 
     private void Start()
     {
-        BigInteger playerId = matchState.PlayerTurnId;
+        string playerId = matchState.player_turn.Hex();
         // Debug.Log("Match turn playerID:" + playerId);
         // foreach (Player player in playerMatchCharacters.Keys)
         // {
         //     Debug.Log("ID in dict: " + player.Id);
         // }
-        Player playerTurn = playerMatchCharacters.Keys.First(p => p.Id.Equals(playerId));
+        Player playerTurn = playerMatchCharacters.Keys.First(p => p.HexID.Equals(playerId));
+        
+        Debug.Log("playerTurn:" + playerTurn.HexID);
 
         EventManager.Instance.Publish(GameEvent.COMBAT_TURN_CHANGED, new() { { "Player", playerTurn } });
     }
@@ -64,17 +68,17 @@ public class Combat : MonoBehaviour
         matchState.winnerChanged -= MatchState_winnerChanged;
     }
 
-    private void MatchState_playerTurnIdChanged(BigInteger playerId)
+    private void MatchState_playerTurnIdChanged(string playerId)
     {
-        Player playerTurn = playerMatchCharacters.Keys.First(p => p.Id == playerId);
+        Player playerTurn = playerMatchCharacters.Keys.First(p => p.HexID.Equals(playerId));
 
         EventManager.Instance.Publish(GameEvent.COMBAT_TURN_CHANGED, new() { { "Player", playerTurn } });
     }
 
 
-    private void MatchState_winnerChanged(BigInteger playerId)
+    private void MatchState_winnerChanged(string playerId)
     {
-        Player playerWinner = playerMatchCharacters.Keys.First(p => p.Id == playerId);
+        Player playerWinner = playerMatchCharacters.Keys.First(p => p.HexID.Equals(playerId));
         Debug.Log("!!!!The Winnerr ....... is: " + playerWinner.PlayerName);
 
         EventManager.Instance.Publish(GameEvent.COMBAT_VICTORY, new() { { "Player", playerWinner } });
@@ -101,15 +105,43 @@ public class Combat : MonoBehaviour
         List<CharacterState> currentCharacterStates = characterStates[player];
         currentCharacterStates.Add(characterState);
         characterState.OnDead += HandleOnDead;
+        characterState.OnPositionChange += HandleOnPositionChange;
 
         if (!character.IsAlive())
             EventManager.Instance.Publish(GameEvent.COMBAT_CHARACTER_DEAD, new() { { "Character", character } });
         // character.ResetLocation();
     }
 
+    private void HandleOnPositionChange(CharacterState state)
+    {
+        Debug.Log("Position changed x:" + (int)state.x + " y: " + (int)state.y);
+
+        Player player = GetPlayerByID(state.player.Hex());
+        if (player != null)
+        {
+            Debug.Log("Player on match");
+            Character character = playerMatchCharacters[player].Find(pmc => pmc.CharacterState.GetInstanceID() == state.GetInstanceID()); ;
+            if (character != null)
+            {
+                
+                UnityEngine.Vector2Int tilePos = new UnityEngine.Vector2Int((int)state.x, (int)state.y);
+                Debug.Log("Vecto2 :" + tilePos);
+                
+                Tile target = gridManager.WorldMap[tilePos];
+                
+                if (target != null)
+                {
+                    character.Move(target);
+                }
+                else
+                    Debug.LogError("Tile not found");
+            } 
+        }
+    }
+
     private void HandleOnDead(CharacterState state)
     {
-        Player player = GetPlayerByID(state.Player_id);
+        Player player = GetPlayerByID(state.player.Hex());
         if(player != null)
         {
             Character character = playerMatchCharacters[player].Find(pmc => pmc.CharacterState.GetInstanceID() == state.GetInstanceID());;
@@ -123,35 +155,33 @@ public class Combat : MonoBehaviour
         if (CanMove(character, player))
         {
             CallMoveTx(character, player, target);
-            character.Move(target);
         }
     }
 
-    private void CallMoveTx(Character character, Player player, Tile target)
+    private async void CallMoveTx(Character character, Player player, Tile target)
     {
         // Debug.Log("Move: " + player.PlayerName + "With: " + character.CharacterName
         //             + "To: " + target.coordinate.ToString());
         
         
         var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
-        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
+        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), new FieldElement(dojoTxConfig.KatanaAccounAddress));
 
         string match_id_string = matchState.Id.ToString("X");
-        var match_id = dojo.felt_from_hex_be(new CString(match_id_string)).ok;
+        var match_id = new FieldElement(match_id_string).Inner();
 
-        string player_id_string = player.Id.ToString("X");
-        var player_id = dojo.felt_from_hex_be(new CString(player_id_string)).ok;
+        var player_id = new FieldElement(player.HexID).Inner();
 
         string character_id_string = character.GetId().ToString("X");
-        var character_id = dojo.felt_from_hex_be(new CString(character_id_string)).ok;
+        var character_id = new FieldElement(character_id_string).Inner();
 
         string x_string = target.coordinate.x.ToString("X");
-        var x = dojo.felt_from_hex_be(new CString(x_string)).ok;
+        var x = new FieldElement(x_string).Inner();
 
         string y_string = target.coordinate.y.ToString("X");
-        var y = dojo.felt_from_hex_be(new CString(y_string)).ok;
+        var y = new FieldElement(y_string).Inner();
 
-        dojo.Call call = new dojo.Call()
+        dojo.Call call = new()
         {
             calldata = new[]
             {
@@ -161,24 +191,33 @@ public class Combat : MonoBehaviour
             selector = "move"
         };
 
-        account.ExecuteRaw(new[] { call });
+        try
+        {
+            await account.ExecuteRaw(new[] { call });
+            //character.Move(target);
+            //Debug.Log("Move ended!");
+        }
+        catch 
+        {
+            Debug.LogError("Error in move tx");
+        }
+        
     }
 
-    public void CallEndTurnTX(Player player)
+    public async void CallEndTurnTX(Player player)
     {
         //TODO: check if player == playerTurn
         var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
-        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
+        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), new FieldElement(dojoTxConfig.KatanaAccounAddress));
 
         List<dojo.FieldElement> calldata = new List<dojo.FieldElement>();
 
         string match_id_string = matchState.Id.ToString("X");
-        var match_id = dojo.felt_from_hex_be(new CString(match_id_string)).ok;
+        var match_id = new FieldElement(match_id_string).Inner();
 
-        string player_id_string = player.Id.ToString("X");
-        var player_id = dojo.felt_from_hex_be(new CString(player_id_string)).ok;
+        var player_id = new FieldElement(player.HexID).Inner();
 
-        dojo.Call call = new dojo.Call()
+        dojo.Call call = new ()
         {
             calldata = new[]
             {
@@ -188,7 +227,7 @@ public class Combat : MonoBehaviour
             selector = "end_turn"
         };
 
-        account.ExecuteRaw(new[] { call });
+        await account.ExecuteRaw(new[] { call });
     }
 
     public bool CanMove(Character character, Player player)
@@ -198,7 +237,7 @@ public class Combat : MonoBehaviour
         if (playerRegistered)
         {
             bool characterMoved = GetActionState(player, character).Movement;
-            return matchState.PlayerTurnId == player.Id && !characterMoved;
+            return matchState.player_turn.Hex() == player.HexID && !characterMoved;
         }
 
         return false;
@@ -216,10 +255,9 @@ public class Combat : MonoBehaviour
 
     public Player GetActualTurnPlayer()
     {
-        BigInteger playerID = matchState.PlayerTurnId;
         foreach (Player player in playerMatchCharacters.Keys)
         {
-            if (player.Id.Equals(playerID))
+            if (player.HexID.Equals(matchState.player_turn.Hex()))
             {
                 return player;
             }
@@ -228,12 +266,11 @@ public class Combat : MonoBehaviour
         return null;
     }
 
-    public Player GetPlayerByID(BigInteger id)
+    public Player GetPlayerByID(string id)
     {
-        BigInteger playerID = matchState.PlayerTurnId;
         foreach (Player player in playerMatchCharacters.Keys)
         {
-            if (player.Id.Equals(id))
+            if (player.HexID.Equals(id))
             {
                 return player;
             }
@@ -249,53 +286,39 @@ public class Combat : MonoBehaviour
         {
             CallSkillTX(playerFrom, characterFrom, skill, playerReceiver, characterReceiver);
 
-            // Debug.Log("Skill");
-            Dictionary<string, object> context = new()
-            {
-                { "PlayerFrom", playerFrom },
-                { "CharacterFrom", characterFrom },
-                { "Skill", skill },
-                { "PlayerReceiver", playerReceiver },
-                { "CharacterReceiver", characterReceiver }
-            };
-
-            EventManager.Instance.Publish(GameEvent.COMBAT_SKILL_DONE, context);
-
             if (!characterReceiver.IsAlive())
                 EventManager.Instance.Publish(GameEvent.COMBAT_CHARACTER_DEAD, new() { { "Character", characterReceiver } });
         }
     }
 
-    private void CallSkillTX(Player playerFrom, Character characterFrom,
+    private async void CallSkillTX(Player playerFrom, Character characterFrom,
                             Skill skill, Player playerReceiver, Character characterReceiver)
     {
         var provider = new JsonRpcClient(dojoTxConfig.RpcUrl);
-        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), dojoTxConfig.KatanaAccounAddress);
+        var account = new Account(provider, dojoTxConfig.GetKatanaPrivateKey(), new FieldElement(dojoTxConfig.KatanaAccounAddress));
 
         List<dojo.FieldElement> calldata = new List<dojo.FieldElement>();
 
         string match_id_string = matchState.Id.ToString("X");
-        var match_id = dojo.felt_from_hex_be(new CString(match_id_string)).ok;
+        var match_id = new FieldElement(match_id_string).Inner();
 
-        string player_id_string = playerFrom.Id.ToString("X");
-        var player_id_from = dojo.felt_from_hex_be(new CString(player_id_string)).ok;
+        var player_id_from = new FieldElement(playerFrom.HexID).Inner();
 
         string character_id_from_string = characterFrom.GetId().ToString("X");
-        var character_id_from = dojo.felt_from_hex_be(new CString(character_id_from_string)).ok;
+        var character_id_from = new FieldElement(character_id_from_string).Inner();
 
         string skill_id_string = skill.Id.ToString("X");
-        var skill_id = dojo.felt_from_hex_be(new CString(skill_id_string)).ok;
+        var skill_id = new FieldElement(skill_id_string).Inner();
 
         string level_string = skill.Level.ToString("X");
-        var level = dojo.felt_from_hex_be(new CString(level_string)).ok;
+        var level = new FieldElement(level_string).Inner();
 
-        string player_id_receiver_string = playerReceiver.Id.ToString("X");
-        var player_id_receiver = dojo.felt_from_hex_be(new CString(player_id_receiver_string)).ok;
+        var player_id_receiver = new FieldElement(playerReceiver.HexID).Inner();
 
         string character_id_receiver_string = characterReceiver.GetId().ToString("X");
-        var character_id_receiver = dojo.felt_from_hex_be(new CString(character_id_receiver_string)).ok;
+        var character_id_receiver = new FieldElement(character_id_receiver_string).Inner();
 
-        dojo.Call call = new dojo.Call()
+        dojo.Call call = new()
         {
             calldata = new[]
             {
@@ -306,7 +329,26 @@ public class Combat : MonoBehaviour
             selector = "action"
         };
 
-        account.ExecuteRaw(new[] { call });
+        try
+        {
+            await account.ExecuteRaw(new[] { call });
+
+            Dictionary<string, object> context = new()
+            {
+                { "PlayerFrom", playerFrom },
+                { "CharacterFrom", characterFrom },
+                { "Skill", skill },
+                { "PlayerReceiver", playerReceiver },
+                { "CharacterReceiver", characterReceiver }
+            };
+
+            EventManager.Instance.Publish(GameEvent.COMBAT_SKILL_DONE, context);
+        }
+        catch 
+        {
+            Debug.LogError("Error in do skill tx");
+        }
+        
     }
 
     public bool CanDoSkill(Player player, Character character, Skill skillSelected)

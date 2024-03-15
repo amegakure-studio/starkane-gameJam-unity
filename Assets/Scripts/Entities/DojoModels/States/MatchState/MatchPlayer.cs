@@ -2,28 +2,22 @@ using System;
 using System.Numerics;
 using Dojo;
 using Dojo.Torii;
-using dojo_bindings;
+using Dojo.Starknet;
 using UnityEngine;
 
 public class MatchPlayer : ModelInstance
 {
-    private UInt32 match_id;
-    private UInt32 id;
-    private dojo.FieldElement player;
-    private BigInteger playerId;
+    [ModelField("match_id")]
+    public UInt32 match_id;
+
+    [ModelField("id")]
+    public UInt32 id;
+
+    [ModelField("player")]
+    public FieldElement player;
+
 
     public uint Match_id { get => match_id; private set => match_id = value; }
-    public BigInteger PlayerId { get => playerId; private set => playerId = value; }
 
-    public override void Initialize(Model model)
-    {
-        match_id = model.members["match_id"].ty.ty_primitive.u32;
-        id = model.members["id"].ty.ty_primitive.u32;
-        player = model.members["player"].ty.ty_primitive.felt252;
 
-        var playerString = BitConverter.ToString(player.data.ToArray()).Replace("-", "").ToLower();
-        playerId = BigInteger.Parse(playerString, System.Globalization.NumberStyles.AllowHexSpecifier);
-
-        // Debug.Log("MatchPlayer: \n match_id: " + match_id + "\n id: " + id + "\n playerId: " + playerId + "\n");
-    }
 }

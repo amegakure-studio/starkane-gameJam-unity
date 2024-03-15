@@ -1,62 +1,82 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Numerics;
 using Dojo;
+using Dojo.Starknet;
 using Dojo.Torii;
 using dojo_bindings;
-using UnityEngine;
 namespace Amegakure.Starkane.Entities
 {
     public class CharacterState : ModelInstance
     {
-        private UInt32 match_id;
-        private UInt32 character_id;
-        dojo.FieldElement player;
-        private UInt64 remain_hp;
-        private UInt64 remain_mp;
-        private UInt64 x;
-        private UInt64 y;
-        private BigInteger player_id;
+        [ModelField("match_id")]
+        public UInt32 match_id;
+
+        [ModelField("character_id")]
+        public UInt32 character_id;
+
+        [ModelField("player")]
+        public FieldElement player;
+
+        [ModelField("remain_hp")]
+        public UInt64 remain_hp;
+
+        [ModelField("remain_mp")]
+        public UInt64 remain_mp;
+
+        [ModelField("x")]
+        public UInt64 x;
+
+        [ModelField("y")]
+        public UInt64 y;
+
 
         public event Action<CharacterState> OnDead;
+        public event Action<CharacterState> OnPositionChange;
         public uint Match_id { get => match_id; set => match_id = value; }
         public uint Character_id { get => character_id; set => character_id = value; }
-        public dojo.FieldElement Player { get => player; set => player = value; }
+        public FieldElement Player { get => player; set => player = value; }
         public ulong Remain_hp
         {
             get => remain_hp;
             set
             {
                 remain_hp = value;
-                if(value <= 0)
-                    OnDead?.Invoke(this);
+                //if(value <= 0)
+                //    OnDead?.Invoke(this);
             }
         }
         public ulong Remain_mp { get => remain_mp; set => remain_mp = value; }
         public ulong X { get => x; set => x = value; }
         public ulong Y { get => y; set => y = value; }
-        public BigInteger Player_id{ get => player_id; set => player_id = value; }
 
         public override void Initialize(Model model)
         {
-            Match_id = model.members["match_id"].ty.ty_primitive.u32;
-            Character_id = model.members["character_id"].ty.ty_primitive.u32;
-            Player = model.members["player"].ty.ty_primitive.felt252;
-            Remain_hp = model.members["remain_hp"].ty.ty_primitive.u64;
-            Remain_mp = model.members["remain_mp"].ty.ty_primitive.u64;
-            X = model.members["x"].ty.ty_primitive.u64;
-            Y = model.members["y"].ty.ty_primitive.u64;
-            
-            var hexString = BitConverter.ToString(Player.data.ToArray()).Replace("-", "").ToLower();
-            player_id = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
-            // Debug.Log("CHARACTER STATE: \n match_id: " + Match_id + "\n"
-            //         + "character_id: " + Character_id + "\n" +
-            //         "player: "+ hexString + "\n"
-            //         + "remain_hp: " + Remain_hp + "\n" 
-            //         + "remain_mp: " + Remain_mp + "\n"
-            //         + "X:" + X + "\n"
-            //         + "Y:" + Y + "\n" );
+            base.Initialize(model);
+
+            //var hexString = BitConverter.ToString(Player.data.ToArray()).Replace("-", "").ToLower();
+            //player_id = BigInteger.Parse(hexString, System.Globalization.NumberStyles.AllowHexSpecifier);
+        }
+
+        public override void OnUpdate(Model model)
+        {
+            UInt64 oldX = x;
+            UInt64 oldY = y;
+
+            base.OnUpdate(model);
+
+            UnityEngine.Debug.Log("Match: " + match_id + "\n"+
+                                   "Player: " + player.Hex() + "\n" +
+                                    "OLDX: " + oldX +
+                                    "OLDX: " + oldY  + "\n" +
+                                    "x: " + x +
+                                    "y: " + y + "\n");
+
+            if (oldX != x || oldY != y)
+                OnPositionChange?.Invoke(this);
+
+            if (Remain_hp <= 0)
+                OnDead?.Invoke(this);
         }
     }
 
